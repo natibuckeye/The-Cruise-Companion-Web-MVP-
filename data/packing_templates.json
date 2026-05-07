@@ -1,0 +1,31 @@
+[
+{
+"id": "PACK-CARIB-7",
+"title": "Caribbean (7 Nights)",
+"description": "Warm weather, pool days, and easy port outfits.",
+"categories": [
+{
+"name": "Clothing",
+"items": [
+{"name": "Swimsuit", "quantity": 2},
+{"name": "Tops", "quantity": 5},
+{"name": "Formal night outfit", "quantity": 1}
+]
+},
+{
+"name": "Toiletries",
+"items": [
+{"name": "Sunscreen", "quantity": 1},
+{"name": "Toothbrush/toothpaste", "quantity": 1}
+]
+},
+{
+"name": "Documents",
+"items": [
+{"name": "Passport/ID", "quantity": 1},
+{"name": "Boarding documents", "quantity": 1}
+]
+}
+]
+}
+]
