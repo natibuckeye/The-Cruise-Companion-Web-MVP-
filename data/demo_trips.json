@@ -1,0 +1,47 @@
+[
+{
+"trip": {
+"name": "Caribbean Quick Escape",
+"cruiseLine": "",
+"ship": "",
+"sailDateStart": "2026-07-12",
+"sailDateEnd": "2026-07-16",
+"notes": "We’re keeping this trip light, breezy, and easy to enjoy."
+},
+"portPlans": [
+{
+"portName": "Nassau, Bahamas",
+"arrivalTime": "2026-07-13T08:00:00",
+"departureTime": "2026-07-13T17:00:00",
+"walkTimeNotes": "Add a buffer so we’re never stressed.",
+"safetyNotes": "Stay aware in busy areas.",
+"items": [
+{"text": "Breakfast + water bottles", "isDone": false, "timeNote": "8:15 AM"},
+{"text": "Sunscreen", "isDone": false, "timeNote": "9:00 AM"}
+]
+}
+],
+"packingLists": [
+{
+"title": "Carry-On Essentials (Demo)",
+"categories": [
+{
+"name": "Documents",
+"items": [
+{"name": "ID/Passport", "quantity": 1},
+{"name": "Boarding documents", "quantity": 1}
+]
+}
+]
+}
+],
+"messages": [
+{
+"subject": "Dining question",
+"body": "What’s the best strategy for booking specialty dining?",
+"status": "toAskLater",
+"tags": ["dining"]
+}
+]
+}
+]
