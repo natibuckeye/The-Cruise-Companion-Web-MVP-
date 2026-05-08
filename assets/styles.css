@@ -190,4 +190,156 @@ label {
   .tab {
     flex: 1 1 50%;
   }
+   /* ================================
+   MODULE HEADERS
+==================================*/
+.module-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  border-left: 5px solid var(--gold);
+  padding-left: 12px;
+  margin-bottom: 20px;
 }
+
+/* ================================
+   GENERIC CARD FOR MODULE CONTENT
+==================================*/
+.module-card {
+  background: var(--white);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   TRIPS MODULE
+==================================*/
+.trip-item {
+  padding: 15px;
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--white);
+  transition: 0.2s ease;
+}
+
+.trip-item:hover {
+  border-color: var(--gold);
+  background: #fff9e6;
+}
+
+.trip-item h4 {
+  margin: 0 0 6px 0;
+  color: var(--navy);
+  font-size: 1.1rem;
+}
+
+/* ================================
+   MATCHMAKER MODULE
+==================================*/
+.matchmaker-question {
+  margin-bottom: 20px;
+}
+
+.matchmaker-question label {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.matchmaker-result {
+  background: var(--white);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid var(--gold);
+  margin-top: 20px;
+}
+
+/* ================================
+   PORTS MODULE
+==================================*/
+.port-card {
+  background: var(--white);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.port-card h4 {
+  margin: 0 0 8px 0;
+  color: var(--navy);
+}
+
+.port-card p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ================================
+   PACKING LIST MODULE
+==================================*/
+.packing-section {
+  margin-bottom: 25px;
+}
+
+.packing-section h4 {
+  margin: 0 0 10px 0;
+  color: var(--navy);
+  border-left: 4px solid var(--gold);
+  padding-left: 10px;
+}
+
+.packing-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.packing-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* ================================
+   TIPS MODULE
+==================================*/
+.tip-card {
+  background: var(--white);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid var(--gold);
+  margin-bottom: 15px;
+}
+
+.tip-card h4 {
+  margin: 0 0 6px 0;
+  color: var(--navy);
+}
+
+/* ================================
+   CONCIERGE MODULE
+==================================*/
+.concierge-box {
+  background: var(--white);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.concierge-box textarea {
+  height: 120px;
+}
+
+.concierge-response {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff9e6;
+  border-left: 5px solid var(--gold);
+  border-radius: 10px;
+}
+
+}
+
