@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -10,7 +12,6 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 
-
 <body>
 
   <!-- HEADER -->
@@ -26,47 +27,18 @@
     </div>
   </header>
 
- <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>The Cruise Companion — Web MVP</title>
+  <!-- NAVIGATION TABS -->
+  <nav class="tabs">
+    <button class="tab" data-tab="trips">Trips</button>
+    <button class="tab" data-tab="matchmaker">Matchmaker</button>
+    <button class="tab" data-tab="ports">Ports</button>
+    <button class="tab" data-tab="lists">Lists</button>
+    <button class="tab" data-tab="tips">Tips</button>
+    <button class="tab" data-tab="concierge">Concierge</button>
+  </nav>
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
-</head>
-
-
-<body>
-
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand__title">The Cruise Companion</div>
-      <div class="brand__sub">Offline Web MVP</div>
-    </div>
-
-    <div class="trip">
-      <label for="tripSelect">Current trip</label>
-      <select id="tripSelect"></select>
-    </div>
-  </header>
-
-<!-- NAVIGATION TABS -->
-<nav class="tabs">
-  <button class="tab" data-tab="trips">Trips</button>
-  <button class="tab" data-tab="matchmaker">Matchmaker</button>
-  <button class="tab" data-tab="ports">Ports</button>
-  <button class="tab" data-tab="lists">Lists</button>
-  <button class="tab" data-tab="tips">Tips</button>
-  <button class="tab" data-tab="concierge">Concierge</button>
-</nav>
-
-<!-- MAIN CONTENT RENDER TARGET -->
-<div id="content"></div>
-
+  <!-- MAIN CONTENT RENDER TARGET -->
+  <div id="content"></div>
 
   <!-- MODAL -->
   <dialog id="modal" class="modal">
@@ -82,30 +54,6 @@
   </dialog>
 
   <script type="module" src="app.js"></script>
-
-
-</body>
-</html>
-
-
-  <!-- MAIN APP ROOT -->
-  <main id="app" class="app"></main>
-
-  <!-- MODAL -->
-  <dialog id="modal" class="modal">
-    <form method="dialog" class="modal__card">
-      <div class="modal__header">
-        <h3 id="modalTitle">Modal</h3>
-        <button value="cancel" class="icon-btn" aria-label="Close"></button>
-      </div>
-
-      <div id="modalBody" class="modal__body"></div>
-      <div id="modalFooter" class="modal__footer"></div>
-    </form>
-  </dialog>
-
-  <script type="module" src="app.js"></script>
-
 
 </body>
 </html>
