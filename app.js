@@ -56,7 +56,7 @@ function loadModule(moduleName) {
     loadTrips();
 }
 
-  }
+
 }
 
 // ===============================
