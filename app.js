@@ -6,6 +6,7 @@ import { loadMatchmaker } from "./modules/matchmaker.js";
 import { loadPorts } from "./modules/ports.js";
 import { loadPacking } from "./modules/packing.js";
 import { loadTips } from "./modules/tips.js";
+import { loadConcierge } from "./modules/concierge.js";
 
 // ===============================
 // TAB HANDLING
