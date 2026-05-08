@@ -1,0 +1,193 @@
+/* ================================
+   BRAND COLORS & GLOBAL SETTINGS
+==================================*/
+:root {
+  --navy: #0a1a2f;
+  --gold: #d4a017;
+  --light: #f7f9fc;
+  --gray: #e5e7eb;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--light);
+  color: var(--navy);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* ================================
+   TOP BAR (HEADER)
+==================================*/
+.topbar {
+  background: var(--navy);
+  color: var(--white);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.brand__sub {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.trip label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.trip select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+  margin-left: 8px;
+}
+
+/* ================================
+   NAVIGATION TABS
+==================================*/
+.tabs {
+  display: flex;
+  background: var(--white);
+  border-bottom: 2px solid var(--gray);
+  overflow-x: auto;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--white);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  transition: 0.2s ease;
+}
+
+.tab:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.tab.active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+/* ================================
+   MAIN APP AREA
+==================================*/
+.app {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ================================
+   MODAL
+==================================*/
+.modal {
+  border: none;
+  padding: 0;
+}
+
+.modal__card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--gray);
+  padding-bottom: 10px;
+}
+
+.modal__header h3 {
+  margin: 0;
+  color: var(--navy);
+}
+
+.modal__body {
+  padding: 15px 0;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ================================
+   BUTTONS
+==================================*/
+button,
+.icon-btn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+
+button:hover,
+.icon-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ================================
+   INPUTS
+==================================*/
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ================================
+   RESPONSIVE
+==================================*/
+@media (max-width: 600px) {
+  .topbar {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    flex: 1 1 50%;
+  }
+}
