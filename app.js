@@ -22,33 +22,40 @@ function loadModule(moduleName) {
   clearActiveTabs();
 
   switch (moduleName) {
-    case "trips":
-      document.querySelector('[data-tab="trips"]').classList.add("active");
-      loadTrips();
-      break;
+  case "trips":
+    document.querySelector('[data-tab="trips"]').classList.add("active");
+    loadTrips();
+    break;
 
-    case "matchmaker":
-      document.querySelector('[data-tab="matchmaker"]').classList.add("active");
-      loadMatchmaker();
-      break;
+  case "matchmaker":
+    document.querySelector('[data-tab="matchmaker"]').classList.add("active");
+    loadMatchmaker();
+    break;
 
-    case "ports":
-      document.querySelector('[data-tab="ports"]').classList.add("active");
-      loadPorts();
-      break;
+  case "ports":
+    document.querySelector('[data-tab="ports"]').classList.add("active");
+    loadPorts();
+    break;
 
-    case "packing":
-      document.querySelector('[data-tab="packing"]').classList.add("active");
-      loadPacking();
-      break;
+  case "packing":
+    document.querySelector('[data-tab="packing"]').classList.add("active");
+    loadPacking();
+    break;
 
-    case "tips":
-      document.querySelector('[data-tab="tips"]').classList.add("active");
-      loadTips();
-      break;
+  case "tips":
+    document.querySelector('[data-tab="tips"]').classList.add("active");
+    loadTips();
+    break;
 
-    default:
-      loadTrips();
+  case "concierge":
+    document.querySelector('[data-tab="concierge"]').classList.add("active");
+    loadConcierge();
+    break;
+
+  default:
+    loadTrips();
+}
+
   }
 }
 
