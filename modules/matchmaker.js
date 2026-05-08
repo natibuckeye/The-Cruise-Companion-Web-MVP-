@@ -210,7 +210,7 @@ export function loadMatchmaker() {
     // Save to localStorage
     localStorage.setItem("matchmakerResult", JSON.stringify(r));
 
-    // Fill result box
+    // Fill result box + Retake button
     const resultBox = document.getElementById("matchResult");
     resultBox.classList.remove("hidden");
     resultBox.innerHTML = `
@@ -221,10 +221,21 @@ export function loadMatchmaker() {
       <ul>
         ${r.itineraries.map(i => `<li>${i}</li>`).join("")}
       </ul>
+
+      <button id="retakeQuiz" class="retake-btn">Retake Quiz</button>
     `;
 
     // Set progress bar to 100%
     const bar = document.getElementById("progressBar");
     if (bar) bar.style.width = "100%";
+
+    // Retake Quiz logic
+    document.getElementById("retakeQuiz").addEventListener("click", () => {
+      step = 0;
+      answers = [];
+      resultBox.classList.add("hidden");
+      if (bar) bar.style.width = "0%";
+      renderStep();
+    });
   }
 }
