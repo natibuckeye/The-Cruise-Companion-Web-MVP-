@@ -1,0 +1,68 @@
+const rec = {
+  royal: { 
+    line: "Royal Caribbean",
+    desc: "Perfect for adventure, entertainment, and families.",
+    logo: "https://i.imgur.com/6p7Q2mM.png",
+    image: "https://i.imgur.com/1fXQZyG.jpeg",
+    itineraries: [
+      "Icon of the Seas — Caribbean",
+      "Wonder of the Seas — Bahamas",
+      "Quantum Class — Alaska"
+    ]
+  },
+  celebrity: {
+    line: "Celebrity Cruises",
+    desc: "Ideal for luxury, food lovers, and longer itineraries.",
+    logo: "https://i.imgur.com/4zYy8pH.png",
+    image: "https://i.imgur.com/8dJxk2V.jpeg",
+    itineraries: [
+      "Celebrity Beyond — Mediterranean",
+      "Celebrity Ascent — Caribbean",
+      "Celebrity Edge — Europe"
+    ]
+  },
+  virgin: {
+    line: "Virgin Voyages",
+    desc: "Adults‑only, modern, short‑to‑medium cruises.",
+    logo: "https://i.imgur.com/3xk0p0E.png",
+    image: "https://i.imgur.com/6p8zJ8D.jpeg",
+    itineraries: [
+      "Scarlet Lady — Caribbean",
+      "Valiant Lady — Mexico",
+      "Resilient Lady — Europe"
+    ]
+  },
+  disney: {
+    line: "Disney Cruise Line",
+    desc: "Perfect for families, kids, and magical experiences.",
+    logo: "https://i.imgur.com/8X8xJtE.png",
+    image: "https://i.imgur.com/4tYxQ2E.jpeg",
+    itineraries: [
+      "Disney Wish — Bahamas",
+      "Disney Fantasy — Caribbean",
+      "Disney Wonder — Alaska"
+    ]
+  },
+  norwegian: {
+    line: "Norwegian Cruise Line",
+    desc: "Great entertainment, freestyle dining, and nightlife.",
+    logo: "https://i.imgur.com/0x0x0x0.png",
+    image: "https://i.imgur.com/1y8bYpD.jpeg",
+    itineraries: [
+      "Norwegian Prima — Caribbean",
+      "Norwegian Encore — Alaska",
+      "Norwegian Viva — Europe"
+    ]
+  },
+  msc: {
+    line: "MSC Cruises",
+    desc: "Affordable, international, and destination‑focused.",
+    logo: "https://i.imgur.com/2Z2Z2Z2.png",
+    image: "https://i.imgur.com/0z8Q3mP.jpeg",
+    itineraries: [
+      "MSC Seascape — Caribbean",
+      "MSC Euribia — Northern Europe",
+      "MSC World Europa — Mediterranean"
+    ]
+  }
+};
