@@ -55,7 +55,6 @@ function loadModule(moduleName) {
   default:
     loadTrips();
 }
-
 // ===============================
 // TAB CLICK EVENTS
 // ===============================
