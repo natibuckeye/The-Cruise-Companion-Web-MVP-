@@ -65,13 +65,5 @@ tabs.forEach(tab => {
     const moduleName = tab.dataset.tab;
     loadModule(moduleName);
   });
-});
-
-// ===============================
-// INITIAL LOAD
-// ===============================
-window.addEventListener("DOMContentLoaded", () => {
-  loadModule("trips"); // default module
-});
 
 
