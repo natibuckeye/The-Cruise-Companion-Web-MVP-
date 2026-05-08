@@ -73,5 +73,3 @@ tabs.forEach(tab => {
 window.addEventListener("DOMContentLoaded", () => {
   loadModule("trips"); // default module
 });
-
-
