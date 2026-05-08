@@ -21,7 +21,7 @@ function clearActiveTabs() {
 function loadModule(moduleName) {
   clearActiveTabs();
 
-  switch (moduleName) {
+ switch (moduleName) {
   case "trips":
     document.querySelector('[data-tab="trips"]').classList.add("active");
     loadTrips();
@@ -56,8 +56,6 @@ function loadModule(moduleName) {
     loadTrips();
 }
 
-
-}
 
 // ===============================
 // TAB CLICK EVENTS
