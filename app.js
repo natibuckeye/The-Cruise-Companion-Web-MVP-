@@ -1,12 +1,17 @@
-import { store } from './modules/store.js';
-import { clear } from './modules/ui.js';
-import { tabFromHash, setHashTab, onHashChange } from './modules/router.js';
-import { renderTrips } from './modules/trips.js';
-import { renderMatchmaker } from './modules/matchmaker.js';
-import { renderPorts } from './modules/ports.js';
-import { renderLists } from './modules/lists.js';
-import { renderTips } from './modules/tips.js';
-import { renderConcierge } from './modules/concierge.js';
+import { loadTrips } from "./modules/trips.js";
+import { loadMatchmaker } from "./modules/matchmaker.js";
+import { loadPorts } from "./modules/ports.js";
+import { loadPacking } from "./modules/packing.js";
+import { loadTips } from "./modules/tips.js";
+
+window.onload = () => {
+  loadTrips();
+  loadMatchmaker();
+  loadPorts();
+  loadPacking();
+  loadTips();
+};
+
 const tabs = {
 trips: renderTrips,
 matchmaker: renderMatchmaker,
