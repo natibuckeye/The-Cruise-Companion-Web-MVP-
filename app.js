@@ -52,10 +52,10 @@ function loadModule(moduleName) {
       loadConcierge();
       break;
 
-    default:
+        default:
       loadTrips();
   }
-}   // ✅ THIS closes loadModule() — you were missing this
+} // <-- This closes loadModule() properly
 
 // ===============================
 // TAB CLICK EVENTS
@@ -65,5 +65,13 @@ tabs.forEach(tab => {
     const moduleName = tab.dataset.tab;
     loadModule(moduleName);
   });
+});
+
+// ===============================
+// INITIAL LOAD
+// ===============================
+window.addEventListener("DOMContentLoaded", () => {
+  loadModule("trips"); // default module
+});
 
 
