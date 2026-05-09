@@ -1,3 +1,6 @@
+// ===============================
+// IMPORT MODULES
+// ===============================
 import { loadTrips } from "./modules/trips.js";
 import { loadMatchmaker } from "./modules/matchmaker.js";
 import { loadPorts } from "./modules/ports.js";
@@ -5,50 +8,67 @@ import { loadPacking } from "./modules/packing.js";
 import { loadTips } from "./modules/tips.js";
 import { loadConcierge } from "./modules/concierge.js";
 
-function setActive(link) {
-  document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
-  link.classList.add("active");
+// ===============================
+// TAB HANDLING
+// ===============================
+const tabs = document.querySelectorAll(".tab");
+
+function clearActiveTabs() {
+  tabs.forEach(tab => tab.classList.remove("active"));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function loadModule(moduleName) {
+  clearActiveTabs();
 
-  // Default page
-  loadTrips();
+  switch (moduleName) {
+    case "trips":
+      document.querySelector('[data-tab="trips"]').classList.add("active");
+      loadTrips();
+      break;
 
-  document.getElementById("nav-trips").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadTrips();
+    case "matchmaker":
+      document.querySelector('[data-tab="matchmaker"]').classList.add("active");
+      loadMatchmaker();
+      break;
+
+    case "ports":
+      document.querySelector('[data-tab="ports"]').classList.add("active");
+      loadPorts();
+      break;
+
+    case "packing":
+      document.querySelector('[data-tab="packing"]').classList.add("active");
+      loadPacking();
+      break;
+
+    case "tips":
+      document.querySelector('[data-tab="tips"]').classList.add("active");
+      loadTips();
+      break;
+
+    case "concierge":
+      document.querySelector('[data-tab="concierge"]').classList.add("active");
+      loadConcierge();
+      break;
+
+    default:
+      loadTrips();
+  }
+}
+
+// ===============================
+// TAB CLICK EVENTS
+// ===============================
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const moduleName = tab.dataset.tab;
+    loadModule(moduleName);
   });
+});
 
-  document.getElementById("nav-matchmaker").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadMatchmaker();
-  });
-
-  document.getElementById("nav-ports").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadPorts();
-  });
-
-  document.getElementById("nav-packing").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadPacking();
-  });
-
-  document.getElementById("nav-tips").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadTips();
-  });
-
-  document.getElementById("nav-concierge").addEventListener("click", (e) => {
-    e.preventDefault();
-    setActive(e.target);
-    loadConcierge();
-  });
-
+// ===============================
+// INITIAL LOAD
+// ===============================
+window.addEventListener("DOMContentLoaded", () => {
+  loadModule("trips"); // default module
 });
