@@ -5,8 +5,8 @@ export function loadMatchmaker() {
   const saved = JSON.parse(localStorage.getItem("matchmakerResult"));
 
   content.innerHTML = `
-    <h2>Cruise Matchmaker</h2>
-    <p>Find your perfect cruise in under 30 seconds.</p>
+    <h2 class="mm-title">Cruise Matchmaker</h2>
+    <p class="mm-subtitle">Find your perfect cruise in under 30 seconds.</p>
 
     <div id="quizContainer" class="quiz-container">
 
@@ -15,13 +15,13 @@ export function loadMatchmaker() {
         <div id="progressBar" class="progress-bar"></div>
       </div>
 
-      <div id="quizStep" class="quiz-step"></div>
+      <div id="quizStep" class="quiz-step fade-in"></div>
     </div>
 
     <div id="matchResult" class="match-result hidden"></div>
 
     ${saved ? `
-      <div class="previous-result">
+      <div class="previous-result fade-in">
         <h3>Your Last Match</h3>
         <p>${saved.line}</p>
         <img src="${saved.image}" class="result-img" />
@@ -76,25 +76,30 @@ export function loadMatchmaker() {
     const q = questions[step];
     const quizStep = document.getElementById("quizStep");
 
+    quizStep.classList.remove("fade-in");
     quizStep.classList.add("fade-out");
 
     setTimeout(() => {
       quizStep.innerHTML = `
-        <h3>Step ${step + 1} of ${questions.length}</h3>
-        <p>${q.text}</p>
+        <h3 class="step-title">Step ${step + 1} of ${questions.length}</h3>
+        <p class="step-question">${q.text}</p>
         <div class="options">
-          ${q.options.map(o => `
+          ${q.options
+            .map(
+              (o) => `
             <button class="option-btn" data-value="${o.value}">
               ${o.label}
             </button>
-          `).join("")}
+          `
+            )
+            .join("")}
         </div>
       `;
 
       quizStep.classList.remove("fade-out");
       quizStep.classList.add("fade-in");
 
-      document.querySelectorAll(".option-btn").forEach(btn => {
+      document.querySelectorAll(".option-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           answers.push(btn.dataset.value);
           step++;
@@ -105,7 +110,7 @@ export function loadMatchmaker() {
           }
         });
       });
-    }, 200);
+    }, 250);
   }
 
   renderStep();
@@ -219,9 +224,10 @@ export function loadMatchmaker() {
     // Fill result box with NEW CARD UI
     const resultBox = document.getElementById("matchResult");
     resultBox.classList.remove("hidden");
+    resultBox.classList.add("fade-in");
 
     resultBox.innerHTML = `
-      <div class="result-card">
+      <div class="result-card fade-in">
         <h3 class="result-title">Your Perfect Match: ${r.line}</h3>
 
         <img src="${r.logo}" class="result-logo" alt="${r.line} logo">
@@ -230,7 +236,7 @@ export function loadMatchmaker() {
 
         <h4 class="result-subtitle">Top Itineraries</h4>
         <ul class="result-itineraries">
-          ${r.itineraries.map(i => `<li>${i}</li>`).join("")}
+          ${r.itineraries.map((i) => `<li>${i}</li>`).join("")}
         </ul>
 
         <button id="retakeQuiz" class="retake-btn">Retake Quiz</button>
