@@ -1,1 +1,10 @@
-https://www.virginvoyages.com/etc.clientlibs/virginvoyages/clientlibs/clientlib-site/resources/images/logos/vv-logo.svg
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="white"/>
+  <!-- Shield -->
+  <path d="M64 40 L192 40 L208 96 L128 216 L48 96 Z"
+        fill="#C8102E"/>
+  <!-- V -->
+  <path d="M96 80 L120 160 L136 160 L160 80 L144 80 L128 132 L112 80 Z"
+        fill="white"/>
+</svg>
