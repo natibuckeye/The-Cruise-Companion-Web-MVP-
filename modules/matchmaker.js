@@ -203,18 +203,19 @@ const rec = {
       "Norwegian Viva — Europe"
     ]
   },
-  msc: {
-    line: "MSC Cruises",
-    desc: "Affordable, international, and destination‑focused.",
-    logo: "assets/logos/msc.png",
+  carnival: {
+    line: "Carnival Cruise Line",
+    desc: "Fun, affordable, and family‑friendly.",
+    logo: "assets/logos/carnival.png",
     image: "https://i.imgur.com/0z8Q3mP.jpeg",
     itineraries: [
-      "MSC Seascape — Caribbean",
-      "MSC Euribia — Northern Europe",
-      "MSC World Europa — Mediterranean"
+      "Carnival Mardi Gras — Caribbean",
+      "Carnival Celebration — Bahamas",
+      "Carnival Panorama — Mexico"
     ]
   }
 };
+
 
     const r = rec[best];
 
