@@ -190,7 +190,9 @@ label {
   .tab {
     flex: 1 1 50%;
   }
-   /* ================================
+}
+
+/* ================================
    MODULE HEADERS
 ==================================*/
 .module-title {
@@ -257,248 +259,8 @@ label {
 }
 
 /* ================================
-   PORTS MODULE
+   MATCHMAKER RESULT CARD (NEW)
 ==================================*/
-.port-card {
-  background: var(--white);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
-
-.port-card h4 {
-  margin: 0 0 8px 0;
-  color: var(--navy);
-}
-
-.port-card p {
-  margin: 0;
-  opacity: 0.85;
-}
-
-/* ================================
-   PACKING LIST MODULE
-==================================*/
-.packing-section {
-  margin-bottom: 25px;
-}
-
-.packing-section h4 {
-  margin: 0 0 10px 0;
-  color: var(--navy);
-  border-left: 4px solid var(--gold);
-  padding-left: 10px;
-}
-
-.packing-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-}
-
-.packing-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-}
-
-/* ================================
-   TIPS MODULE
-==================================*/
-.tip-card {
-  background: var(--white);
-  padding: 15px;
-  border-radius: 10px;
-  border-left: 5px solid var(--gold);
-  margin-bottom: 15px;
-}
-
-.tip-card h4 {
-  margin: 0 0 6px 0;
-  color: var(--navy);
-}
-
-/* ================================
-   CONCIERGE MODULE
-==================================*/
-.concierge-box {
-  background: var(--white);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.concierge-box textarea {
-  height: 120px;
-}
-
-.concierge-response {
-  margin-top: 20px;
-  padding: 15px;
-  background: #fff9e6;
-  border-left: 5px solid var(--gold);
-  border-radius: 10px;
-}
-.trip-cards {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.trip-card {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.primary-btn {
-  background: #0a1a2f;
-  color: #d4a017;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.secondary-btn {
-  background: #ccc;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 300px;
-}
-.match-form {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.match-result {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-.quiz-container {
-  margin-top: 1rem;
-}
-
-.quiz-step {
-  transition: opacity 0.3s ease;
-}
-
-.fade-out {
-  opacity: 0;
-}
-
-.fade-in {
-  opacity: 1;
-}
-
-.options {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.option-btn {
-  padding: 0.8rem;
-  background: #0a1a2f;
-  color: #d4a017;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.option-btn:hover {
-  background: #112a4a;
-}
-
-.match-result {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.result-img {
-  width: 100%;
-  border-radius: 10px;
-  margin: 1rem 0;
-}
-
-.previous-result {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #eef3ff;
-  border-radius: 10px;
-}
-   .retake-btn {
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.2rem;
-  background: #0a1a2f;
-  color: #d4a017;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-}
-
-.retake-btn:hover {
-  background: #112a4a;
-}
-/* ================================
-   UNIVERSAL SVG LOGO SIZING
-   For all cruise line logos
-   ================================ */
-
-/* ================================
-   UNIVERSAL SVG LOGO SIZING
-   ================================ */
-
-.result-logo {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 16px;
-  padding: 8px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
-  border: 2px solid #C9A44C;
-}
-
-/* Result Card Styling */
 .result-card {
   text-align: center;
   padding: 20px;
@@ -535,4 +297,18 @@ label {
   margin: 6px 0;
 }
 
-
+/* ================================
+   UNIVERSAL SVG LOGO SIZING
+==================================*/
+.result-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 16px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
+  border: 2px solid #C9A44C;
+}
