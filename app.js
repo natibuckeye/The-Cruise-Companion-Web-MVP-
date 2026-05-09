@@ -1,8 +1,8 @@
-import { loadHome } from "./module/home.js";
-import { loadDestinations } from "./module/destinations.js";
-import { loadMatchmaker } from "./module/matchmaker.js";
-import { loadDeals } from "./module/deals.js";
-import { loadTips } from "./module/tips.js";
+import { loadHome } from "./modules/home.js";
+import { loadDestinations } from "./modules/destinations.js";
+import { loadMatchmaker } from "./modules/matchmaker.js";
+import { loadDeals } from "./modules/deals.js";
+import { loadTips } from "./modules/tips.js";
 
 
 function setActive(link) {
