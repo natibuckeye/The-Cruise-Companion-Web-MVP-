@@ -239,3 +239,17 @@ export function loadMatchmaker() {
     });
   }
 }
+resultBox.innerHTML = `
+  <div class="result-card">
+    <h3 class="result-title">Your Perfect Match: ${r.line}</h3>
+
+    <img src="${r.logo}" class="result-logo" alt="${r.line} logo">
+
+    <p class="result-desc">${r.desc}</p>
+
+    <h4 class="result-subtitle">Top Itineraries</h4>
+    <ul class="result-itineraries">
+      ${r.itineraries.map(i => `<li>${i}</li>`).join("")}
+    </ul>
+  </div>
+`;
