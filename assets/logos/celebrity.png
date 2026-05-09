@@ -1,1 +1,7 @@
-https://www.celebritycruises.com/content/dam/celebrity/logos/celebrity-logo.svg
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="white"/>
+  <!-- X -->
+  <polygon points="70,60 120,128 70,196 96,216 128,170 160,216 186,196 136,128 186,60 160,40 128,86 96,40"
+           fill="#002B49"/>
+</svg>
