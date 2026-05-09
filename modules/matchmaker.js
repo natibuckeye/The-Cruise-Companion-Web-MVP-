@@ -147,74 +147,75 @@ export function loadMatchmaker() {
       score[a] > score[b] ? a : b
     );
 
-    const rec = {
-      royal: {
-        line: "Royal Caribbean",
-        desc: "Perfect for adventure, entertainment, and families.",
-        logo: "assets/logos/royal_caribbean.svg",
-        image: "https://i.imgur.com/1fXQZyG.jpeg",
-        itineraries: [
-          "Icon of the Seas — Caribbean",
-          "Wonder of the Seas — Bahamas",
-          "Quantum Class — Alaska"
-        ]
-      },
-      celebrity: {
-        line: "Celebrity Cruises",
-        desc: "Ideal for luxury, food lovers, and longer itineraries.",
-        logo: "assets/logos/celebrity.svg",
-        image: "https://i.imgur.com/8dJxk2V.jpeg",
-        itineraries: [
-          "Celebrity Beyond — Mediterranean",
-          "Celebrity Ascent — Caribbean",
-          "Celebrity Edge — Europe"
-        ]
-      },
-      virgin: {
-        line: "Virgin Voyages",
-        desc: "Adults‑only, modern, short‑to‑medium cruises.",
-        logo: "assets/logos/virgin_voyages.svg",
-        image: "https://i.imgur.com/6p8zJ8D.jpeg",
-        itineraries: [
-          "Scarlet Lady — Caribbean",
-          "Valiant Lady — Mexico",
-          "Resilient Lady — Europe"
-        ]
-      },
-      disney: {
-        line: "Disney Cruise Line",
-        desc: "Perfect for families, kids, and magical experiences.",
-        logo: "assets/logos/disney.svg",
-        image: "https://i.imgur.com/4tYxQ2E.jpeg",
-        itineraries: [
-          "Disney Wish — Bahamas",
-          "Disney Fantasy — Caribbean",
-          "Disney Wonder — Alaska"
-        ]
-      },
-      norwegian: {
-        line: "Norwegian Cruise Line",
-        desc: "Great entertainment, freestyle dining, and nightlife.",
-        logo: "assets/logos/ncl.svg",
-        image: "https://i.imgur.com/1y8bYpD.jpeg",
-        itineraries: [
-          "Norwegian Prima — Caribbean",
-          "Norwegian Encore — Alaska",
-          "Norwegian Viva — Europe"
-        ]
-      },
-      msc: {
-        line: "MSC Cruises",
-        desc: "Affordable, international, and destination‑focused.",
-        logo: "assets/logos/msc.svg",
-        image: "https://i.imgur.com/0z8Q3mP.jpeg",
-        itineraries: [
-          "MSC Seascape — Caribbean",
-          "MSC Euribia — Northern Europe",
-          "MSC World Europa — Mediterranean"
-        ]
-      }
-    };
+const rec = {
+  royal: {
+    line: "Royal Caribbean",
+    desc: "Perfect for adventure, entertainment, and families.",
+    logo: "assets/logos/RoyalCi-logo.png",
+    image: "https://i.imgur.com/1fXQZyG.jpeg",
+    itineraries: [
+      "Icon of the Seas — Caribbean",
+      "Wonder of the Seas — Bahamas",
+      "Quantum Class — Alaska"
+    ]
+  },
+  celebrity: {
+    line: "Celebrity Cruises",
+    desc: "Ideal for luxury, food lovers, and longer itineraries.",
+    logo: "assets/logos/celebrity_blue logo.png",
+    image: "https://i.imgur.com/8dJxk2V.jpeg",
+    itineraries: [
+      "Celebrity Beyond — Mediterranean",
+      "Celebrity Ascent — Caribbean",
+      "Celebrity Edge — Europe"
+    ]
+  },
+  virgin: {
+    line: "Virgin Voyages",
+    desc: "Adults‑only, modern, short‑to‑medium cruises.",
+    logo: "assets/logos/VV logo.png",
+    image: "https://i.imgur.com/6p8zJ8D.jpeg",
+    itineraries: [
+      "Scarlet Lady — Caribbean",
+      "Valiant Lady — Mexico",
+      "Resilient Lady — Europe"
+    ]
+  },
+  disney: {
+    line: "Disney Cruise Line",
+    desc: "Perfect for families, kids, and magical experiences.",
+    logo: "assets/logos/disneycl-logo.png",
+    image: "https://i.imgur.com/4tYxQ2E.jpeg",
+    itineraries: [
+      "Disney Wish — Bahamas",
+      "Disney Fantasy — Caribbean",
+      "Disney Wonder — Alaska"
+    ]
+  },
+  norwegian: {
+    line: "Norwegian Cruise Line",
+    desc: "Great entertainment, freestyle dining, and nightlife.",
+    logo: "assets/logos/NCL logo.png",
+    image: "https://i.imgur.com/1y8bYpD.jpeg",
+    itineraries: [
+      "Norwegian Prima — Caribbean",
+      "Norwegian Encore — Alaska",
+      "Norwegian Viva — Europe"
+    ]
+  },
+  msc: {
+    line: "MSC Cruises",
+    desc: "Affordable, international, and destination‑focused.",
+    logo: "assets/logos/msc.png",
+    image: "https://i.imgur.com/0z8Q3mP.jpeg",
+    itineraries: [
+      "MSC Seascape — Caribbean",
+      "MSC Euribia — Northern Europe",
+      "MSC World Europa — Mediterranean"
+    ]
+  }
+};
+
 
     const r = rec[best];
 
