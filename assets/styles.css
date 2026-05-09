@@ -476,4 +476,25 @@ label {
 .retake-btn:hover {
   background: #112a4a;
 }
+/* ================================
+   UNIVERSAL SVG LOGO SIZING
+   For all cruise line logos
+   ================================ */
+
+.result-logo {
+  width: 140px;          /* consistent visual size */
+  height: 140px;         /* square bounding box */
+  object-fit: contain;   /* keeps SVG proportions */
+  display: block;
+  margin: 0 auto 16px;   /* center + spacing */
+  padding: 8px;
+  background: #ffffff;   /* clean background */
+  border-radius: 12px;   /* premium rounded look */
+}
+
+/* Optional: premium navy-gold glow */
+.result-logo {
+  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
+  border: 2px solid #C9A44C; /* gold accent */
+}
 
