@@ -53,6 +53,12 @@ function loadModule(moduleName) {
       document.querySelector('[data-tab="concierge"]').classList.add("active");
       loadConcierge();
       break;
+      
+      case "lists":
+  document.querySelector('[data-tab="lists"]').classList.add("active");
+  loadLists();
+  break;
+
 
     default:
       loadTrips();
