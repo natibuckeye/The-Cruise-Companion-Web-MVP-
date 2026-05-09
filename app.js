@@ -1,75 +1,47 @@
-// ===============================
-// IMPORT MODULES
-// ===============================
-import { loadTrips } from "./modules/trips.js";
-import { loadMatchmaker } from "./modules/matchmaker.js";
-import { loadPorts } from "./modules/ports.js";
-import { loadPacking } from "./modules/packing.js";
+import { loadHome } from "./modules/home.js";
+import { loadDestinations } from "./modules/destinations.js";
+import { loadMatchmaker } from "./modules/matchmaker.js";  // UPDATED + CORRECT
+import { loadDeals } from "./modules/deals.js";
 import { loadTips } from "./modules/tips.js";
-import { loadConcierge } from "./modules/concierge.js";
 
-// ===============================
-// TAB HANDLING
-// ===============================
-const tabs = document.querySelectorAll(".tab");
-const app = document.getElementById("app");
-
-function clearActiveTabs() {
-  tabs.forEach(tab => tab.classList.remove("active"));
+function setActive(link) {
+  document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+  link.classList.add("active");
 }
 
-function loadModule(moduleName) {
-  clearActiveTabs();
+document.addEventListener("DOMContentLoaded", () => {
+  const content = document.getElementById("content");
 
-    switch (moduleName) {
-    case "trips":
-      document.querySelector('[data-tab="trips"]').classList.add("active");
-      loadTrips();
-      break;
+  // Default page
+  loadHome();
 
-    case "matchmaker":
-      document.querySelector('[data-tab="matchmaker"]').classList.add("active");
-      loadMatchmaker();
-      break;
-
-    case "ports":
-      document.querySelector('[data-tab="ports"]').classList.add("active");
-      loadPorts();
-      break;
-
-    case "packing":
-      document.querySelector('[data-tab="packing"]').classList.add("active");
-      loadPacking();
-      break;
-
-    case "tips":
-      document.querySelector('[data-tab="tips"]').classList.add("active");
-      loadTips();
-      break;
-
-    case "concierge":
-      document.querySelector('[data-tab="concierge"]').classList.add("active");
-      loadConcierge();
-      break;
-
-        default:
-      loadTrips();
-  }
-} // <-- This closes loadModule() properly
-
-// ===============================
-// TAB CLICK EVENTS
-// ===============================
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    const moduleName = tab.dataset.tab;
-    loadModule(moduleName);
+  document.getElementById("nav-home").addEventListener("click", (e) => {
+    e.preventDefault();
+    setActive(e.target);
+    loadHome();
   });
-});
 
-// ===============================
-// INITIAL LOAD
-// ===============================
-window.addEventListener("DOMContentLoaded", () => {
-  loadModule("trips"); // default module
+  document.getElementById("nav-destinations").addEventListener("click", (e) => {
+    e.preventDefault();
+    setActive(e.target);
+    loadDestinations();
+  });
+
+  document.getElementById("nav-matchmaker").addEventListener("click", (e) => {
+    e.preventDefault();
+    setActive(e.target);
+    loadMatchmaker();   // ENSURES PNG LOGOS LOAD
+  });
+
+  document.getElementById("nav-deals").addEventListener("click", (e) => {
+    e.preventDefault();
+    setActive(e.target);
+    loadDeals();
+  });
+
+  document.getElementById("nav-tips").addEventListener("click", (e) => {
+    e.preventDefault();
+    setActive(e.target);
+    loadTips();
+  });
 });
