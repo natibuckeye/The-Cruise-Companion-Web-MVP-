@@ -5,6 +5,7 @@ import { loadDeals } from "./modules/deals.js";
 import { loadTips } from "./modules/tips.js";
 
 
+
 function setActive(link) {
   document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
   link.classList.add("active");
