@@ -481,20 +481,58 @@ label {
    For all cruise line logos
    ================================ */
 
+/* ================================
+   UNIVERSAL SVG LOGO SIZING
+   ================================ */
+
 .result-logo {
-  width: 140px;          /* consistent visual size */
-  height: 140px;         /* square bounding box */
-  object-fit: contain;   /* keeps SVG proportions */
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
   display: block;
-  margin: 0 auto 16px;   /* center + spacing */
+  margin: 0 auto 16px;
   padding: 8px;
-  background: #ffffff;   /* clean background */
-  border-radius: 12px;   /* premium rounded look */
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
+  border: 2px solid #C9A44C;
 }
 
-/* Optional: premium navy-gold glow */
-.result-logo {
-  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
-  border: 2px solid #C9A44C; /* gold accent */
+/* Result Card Styling */
+.result-card {
+  text-align: center;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-top: 20px;
 }
+
+.result-title {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: #002B49;
+}
+
+.result-desc {
+  font-size: 1rem;
+  margin: 12px 0 20px;
+}
+
+.result-subtitle {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  color: #003B71;
+}
+
+.result-itineraries {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-itineraries li {
+  margin: 6px 0;
+}
+
 
