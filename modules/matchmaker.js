@@ -111,4 +111,145 @@ export function loadMatchmaker() {
   renderStep();
 
   // SHOW RESULT
-  function show
+  function showResult() {
+    const [q1, q2, q3] = answers;
+
+    let score = {
+      royal: 0,
+      celebrity: 0,
+      virgin: 0,
+      disney: 0,
+      norwegian: 0,
+      msc: 0
+    };
+
+    // SCORING
+    if (q1 === "relax") score.celebrity += 2;
+    if (q1 === "adventure") score.royal += 3;
+    if (q1 === "luxury") score.celebrity += 3;
+    if (q1 === "family") score.disney += 3;
+
+    if (q2 === "short") score.virgin += 2;
+    if (q2 === "medium") score.royal += 2;
+    if (q2 === "long") score.msc += 2;
+
+    if (q3 === "food") score.celebrity += 2;
+    if (q3 === "entertainment") score.norwegian += 2;
+    if (q3 === "ports") score.virgin += 2;
+    if (q3 === "budget") score.msc += 2;
+
+    const best = Object.keys(score).reduce((a, b) =>
+      score[a] > score[b] ? a : b
+    );
+
+    const rec = {
+      royal: {
+        line: "Royal Caribbean",
+        desc: "Perfect for adventure, entertainment, and families.",
+        logo: "assets/logos/royal_caribbean.svg",
+        image: "https://i.imgur.com/1fXQZyG.jpeg",
+        itineraries: [
+          "Icon of the Seas — Caribbean",
+          "Wonder of the Seas — Bahamas",
+          "Quantum Class — Alaska"
+        ]
+      },
+      celebrity: {
+        line: "Celebrity Cruises",
+        desc: "Ideal for luxury, food lovers, and longer itineraries.",
+        logo: "assets/logos/celebrity.svg",
+        image: "https://i.imgur.com/8dJxk2V.jpeg",
+        itineraries: [
+          "Celebrity Beyond — Mediterranean",
+          "Celebrity Ascent — Caribbean",
+          "Celebrity Edge — Europe"
+        ]
+      },
+      virgin: {
+        line: "Virgin Voyages",
+        desc: "Adults‑only, modern, short‑to‑medium cruises.",
+        logo: "assets/logos/virgin_voyages.svg",
+        image: "https://i.imgur.com/6p8zJ8D.jpeg",
+        itineraries: [
+          "Scarlet Lady — Caribbean",
+          "Valiant Lady — Mexico",
+          "Resilient Lady — Europe"
+        ]
+      },
+      disney: {
+        line: "Disney Cruise Line",
+        desc: "Perfect for families, kids, and magical experiences.",
+        logo: "assets/logos/disney.svg",
+        image: "https://i.imgur.com/4tYxQ2E.jpeg",
+        itineraries: [
+          "Disney Wish — Bahamas",
+          "Disney Fantasy — Caribbean",
+          "Disney Wonder — Alaska"
+        ]
+      },
+      norwegian: {
+        line: "Norwegian Cruise Line",
+        desc: "Great entertainment, freestyle dining, and nightlife.",
+        logo: "assets/logos/ncl.svg",
+        image: "https://i.imgur.com/1y8bYpD.jpeg",
+        itineraries: [
+          "Norwegian Prima — Caribbean",
+          "Norwegian Encore — Alaska",
+          "Norwegian Viva — Europe"
+        ]
+      },
+      msc: {
+        line: "MSC Cruises",
+        desc: "Affordable, international, and destination‑focused.",
+        logo: "assets/logos/msc.svg",
+        image: "https://i.imgur.com/0z8Q3mP.jpeg",
+        itineraries: [
+          "MSC Seascape — Caribbean",
+          "MSC Euribia — Northern Europe",
+          "MSC World Europa — Mediterranean"
+        ]
+      }
+    };
+
+    const r = rec[best];
+
+    // Save to localStorage
+    localStorage.setItem("matchmakerResult", JSON.stringify(r));
+
+    // Fill result box with NEW CARD UI
+    const resultBox = document.getElementById("matchResult");
+    resultBox.classList.remove("hidden");
+
+    resultBox.innerHTML = `
+      <div class="result-card">
+        <h3 class="result-title">Your Perfect Match: ${r.line}</h3>
+
+        <img src="${r.logo}" class="result-logo" alt="${r.line} logo">
+
+        <p class="result-desc">${r.desc}</p>
+
+        <h4 class="result-subtitle">Top Itineraries</h4>
+        <ul class="result-itineraries">
+          ${r.itineraries.map(i => `<li>${i}</li>`).join("")}
+        </ul>
+
+        <button id="retakeQuiz" class="retake-btn">Retake Quiz</button>
+      </div>
+    `;
+
+    // Set progress bar to 100%
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.width = "100%";
+
+    // Retake Quiz logic
+    document.getElementById("retakeQuiz").addEventListener("click", () => {
+      step = 0;
+      answers = [];
+      resultBox.classList.add("hidden");
+      resultBox.innerHTML = "";
+      if (bar) bar.style.width = "0%";
+      renderStep();
+    });
+  } // closes showResult()
+
+} // closes loadMatchmaker()
