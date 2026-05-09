@@ -152,7 +152,6 @@ const rec = {
     line: "Royal Caribbean",
     desc: "Perfect for adventure, entertainment, and families.",
     logo: "assets/logos/royalcaribbean.png",
-    image: "https://i.imgur.com/1fXQZyG.jpeg",
     itineraries: [
       "Icon of the Seas — Caribbean",
       "Wonder of the Seas — Bahamas",
@@ -163,7 +162,6 @@ const rec = {
     line: "Celebrity Cruises",
     desc: "Ideal for luxury, food lovers, and longer itineraries.",
     logo: "assets/logos/celebrity.png",
-    image: "https://i.imgur.com/8dJxk2V.jpeg",
     itineraries: [
       "Celebrity Beyond — Mediterranean",
       "Celebrity Ascent — Caribbean",
@@ -174,7 +172,6 @@ const rec = {
     line: "Virgin Voyages",
     desc: "Adults‑only, modern, short‑to‑medium cruises.",
     logo: "assets/logos/virgin.png",
-    image: "https://i.imgur.com/6p8zJ8D.jpeg",
     itineraries: [
       "Scarlet Lady — Caribbean",
       "Valiant Lady — Mexico",
@@ -185,7 +182,6 @@ const rec = {
     line: "Disney Cruise Line",
     desc: "Perfect for families, kids, and magical experiences.",
     logo: "assets/logos/disney.png",
-    image: "https://i.imgur.com/4tYxQ2E.jpeg",
     itineraries: [
       "Disney Wish — Bahamas",
       "Disney Fantasy — Caribbean",
@@ -196,18 +192,26 @@ const rec = {
     line: "Norwegian Cruise Line",
     desc: "Great entertainment, freestyle dining, and nightlife.",
     logo: "assets/logos/ncl.png",
-    image: "https://i.imgur.com/1y8bYpD.jpeg",
     itineraries: [
       "Norwegian Prima — Caribbean",
       "Norwegian Encore — Alaska",
       "Norwegian Viva — Europe"
     ]
   },
+  msc: {
+    line: "MSC Cruises",
+    desc: "Affordable, international, and destination‑focused.",
+    logo: "assets/logos/msc.png",
+    itineraries: [
+      "MSC Seascape — Caribbean",
+      "MSC Euribia — Northern Europe",
+      "MSC World Europa — Mediterranean"
+    ]
+  },
   carnival: {
     line: "Carnival Cruise Line",
     desc: "Fun, affordable, and family‑friendly.",
     logo: "assets/logos/carnival.png",
-    image: "https://i.imgur.com/0z8Q3mP.jpeg",
     itineraries: [
       "Carnival Mardi Gras — Caribbean",
       "Carnival Celebration — Bahamas",
@@ -215,6 +219,7 @@ const rec = {
     ]
   }
 };
+
 
 
     const r = rec[best];
