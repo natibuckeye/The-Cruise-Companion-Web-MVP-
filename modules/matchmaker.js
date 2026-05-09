@@ -151,7 +151,7 @@ const rec = {
   royal: {
     line: "Royal Caribbean",
     desc: "Perfect for adventure, entertainment, and families.",
-    logo: "assets/logos/RoyalCi-logo.png",
+    logo: "assets/logos/royalcaribbean.png",
     image: "https://i.imgur.com/1fXQZyG.jpeg",
     itineraries: [
       "Icon of the Seas — Caribbean",
@@ -162,7 +162,7 @@ const rec = {
   celebrity: {
     line: "Celebrity Cruises",
     desc: "Ideal for luxury, food lovers, and longer itineraries.",
-    logo: "assets/logos/celebrity_blue logo.png",
+    logo: "assets/logos/celebrity.png",
     image: "https://i.imgur.com/8dJxk2V.jpeg",
     itineraries: [
       "Celebrity Beyond — Mediterranean",
@@ -173,7 +173,7 @@ const rec = {
   virgin: {
     line: "Virgin Voyages",
     desc: "Adults‑only, modern, short‑to‑medium cruises.",
-    logo: "assets/logos/VV logo.png",
+    logo: "assets/logos/virgin.png",
     image: "https://i.imgur.com/6p8zJ8D.jpeg",
     itineraries: [
       "Scarlet Lady — Caribbean",
@@ -184,7 +184,7 @@ const rec = {
   disney: {
     line: "Disney Cruise Line",
     desc: "Perfect for families, kids, and magical experiences.",
-    logo: "assets/logos/disneycl-logo.png",
+    logo: "assets/logos/disney.png",
     image: "https://i.imgur.com/4tYxQ2E.jpeg",
     itineraries: [
       "Disney Wish — Bahamas",
@@ -195,7 +195,7 @@ const rec = {
   norwegian: {
     line: "Norwegian Cruise Line",
     desc: "Great entertainment, freestyle dining, and nightlife.",
-    logo: "assets/logos/NCL logo.png",
+    logo: "assets/logos/ncl.png",
     image: "https://i.imgur.com/1y8bYpD.jpeg",
     itineraries: [
       "Norwegian Prima — Caribbean",
