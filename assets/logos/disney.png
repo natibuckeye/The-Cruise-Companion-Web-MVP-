@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="white"/>
+  <!-- Wave -->
+  <path d="M20 150 C70 130 120 170 170 150 C205 136 230 136 256 150 L256 200 L20 200 Z"
+        fill="#003B71"/>
+  <!-- Star trail -->
+  <circle cx="70" cy="90" r="4" fill="#FDB913"/>
+  <circle cx="110" cy="70" r="5" fill="#FDB913"/>
+  <circle cx="150" cy="80" r="4" fill="#FDB913"/>
+  <circle cx="190" cy="100" r="3" fill="#FDB913"/>
+  <path d="M60 100 Q110 60 190 90" fill="none" stroke="#FDB913" stroke-width="3" stroke-linecap="round"/>
+</svg>
+
