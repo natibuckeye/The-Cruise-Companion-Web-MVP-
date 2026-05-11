@@ -1,17 +1,40 @@
-const allowedTabs = new Set(['trips','matchmaker','ports','lists','tips','concierge']);
-export function tabFromHash(){
-const h = (location.hash || '').replace('#','').trim();
-if(allowedTabs.has(h)) return h;
-return null;
+// ===============================
+// ROUTER — Modern ES Module
+// ===============================
+
+// Allowed tabs in your app
+const allowedTabs = new Set([
+  "trips",
+  "matchmaker",
+  "ports",
+  "lists",
+  "tips",
+  "concierge"
+]);
+
+// ===============================
+// Get current tab from URL hash
+// ===============================
+export function getTabFromHash() {
+  const hash = location.hash.replace("#", "").trim();
+  return allowedTabs.has(hash) ? hash : "trips";
 }
-export function setHashTab(tab){
-if(!allowedTabs.has(tab)) return;
-if(location.hash.replace('#','') === tab) return;
-history.replaceState(null, '', '#' + tab);
+
+// ===============================
+// Update URL hash when user clicks a tab
+// ===============================
+export function setHash(tab) {
+  if (allowedTabs.has(tab)) {
+    location.hash = tab;
+  }
 }
-export function onHashChange(handler){
-window.addEventListener('hashchange', () => {
-const t = tabFromHash();
-if(t) handler(t);
-});
+
+// ===============================
+// Listen for browser back/forward navigation
+// ===============================
+export function onHashChange(callback) {
+  window.addEventListener("hashchange", () => {
+    const tab = getTabFromHash();
+    callback(tab);
+  });
 }
