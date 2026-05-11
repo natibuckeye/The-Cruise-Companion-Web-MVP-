@@ -9,7 +9,7 @@ import { loadTips } from "./modules/tips.js";
 import { loadConcierge } from "./modules/concierge.js";
 import { loadLists } from "./modules/lists.js";
 
-
+import { getTabFromHash, setHash, onHashChange } from "./modules/router.js";
 
 // ===============================
 // TAB HANDLING
@@ -20,45 +20,42 @@ function clearActiveTabs() {
   tabs.forEach(tab => tab.classList.remove("active"));
 }
 
-function loadModule(moduleName) {
-  clearActiveTabs();
+function activateTab(tabName) {
+  const tab = document.querySelector(`[data-tab="${tabName}"]`);
+  if (tab) tab.classList.add("active");
+}
 
-  switch (moduleName) {
+// ===============================
+// MODULE LOADER
+// ===============================
+function loadModule(name) {
+  clearActiveTabs();
+  activateTab(name);
+
+  switch (name) {
     case "trips":
-      document.querySelector('[data-tab="trips"]').classList.add("active");
       loadTrips();
       break;
 
     case "matchmaker":
-      document.querySelector('[data-tab="matchmaker"]').classList.add("active");
       loadMatchmaker();
       break;
 
     case "ports":
-      document.querySelector('[data-tab="ports"]').classList.add("active");
       loadPorts();
       break;
 
-    case "packing":
-      document.querySelector('[data-tab="packing"]').classList.add("active");
-      loadPacking();
+    case "lists":
+      loadLists();
       break;
 
     case "tips":
-      document.querySelector('[data-tab="tips"]').classList.add("active");
       loadTips();
       break;
 
     case "concierge":
-      document.querySelector('[data-tab="concierge"]').classList.add("active");
       loadConcierge();
       break;
-      
-      case "lists":
-  document.querySelector('[data-tab="lists"]').classList.add("active");
-  loadLists();
-  break;
-
 
     default:
       loadTrips();
@@ -71,13 +68,22 @@ function loadModule(moduleName) {
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
     const moduleName = tab.dataset.tab;
-    loadModule(moduleName);
+    setHash(moduleName);     // update URL
+    loadModule(moduleName);  // load page
   });
+});
+
+// ===============================
+// HASH CHANGE (Back/Forward Support)
+// ===============================
+onHashChange((tab) => {
+  loadModule(tab);
 });
 
 // ===============================
 // INITIAL LOAD
 // ===============================
 window.addEventListener("DOMContentLoaded", () => {
-  loadModule("trips"); // default module
+  const initial = getTabFromHash();
+  loadModule(initial);
 });
