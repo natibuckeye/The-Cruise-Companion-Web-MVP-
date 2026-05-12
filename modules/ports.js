@@ -4,26 +4,6 @@
 
 import { el } from "./ui.js";
 
-export function loadPorts() {
-  const root = document.getElementById("content");
-  root.innerHTML = "";
-
-  root.appendChild(
-    el("h2", { class: "module-title" }, ["Port Explorer"])
-  );
-
-  root.appendChild(
-    el("div", { class: "module-card" }, [
-      el("p", {}, ["Explore ports, excursions, and local tips."])
-    ])
-  );
-}
-// ===============================
-// PORTS MODULE — Modern ES Version
-// ===============================
-
-import { el } from "./ui.js";
-
 const PORT_DATA = [
   {
     id: "cococay",
@@ -31,14 +11,34 @@ const PORT_DATA = [
     country: "Bahamas",
     highlights: [
       "Thrill Waterpark",
-      "Up, Up & Away Helium Balloon",
+      "Up, Up & Away Balloon",
       "Oasis Lagoon Swim‑Up Bar",
       "Chill Island Beach"
     ],
     tips: [
-      "Arrive early if you want a beach chair near the water.",
-      "Thrill Waterpark sells out — book ahead if possible.",
-      "The island is cashless — your SeaPass covers everything."
+      "Arrive early for the best beach chairs.",
+      "Thrill Waterpark sells out — book ahead.",
+      "The island is cashless — SeaPass only."
+    ],
+    excursions: [
+      {
+        title: "Thrill Waterpark Pass",
+        duration: "All Day",
+        price: "$89–$149",
+        desc: "Access to all slides, wave pool, and the tallest waterslide in North America."
+      },
+      {
+        title: "Up, Up & Away Balloon Ride",
+        duration: "10 minutes",
+        price: "$39–$79",
+        desc: "Soar 450 feet above the island for panoramic views of CocoCay."
+      },
+      {
+        title: "Chill Island Cabana",
+        duration: "All Day",
+        price: "$499–$899",
+        desc: "Private cabana with shade, loungers, and dedicated service."
+      }
     ]
   },
   {
@@ -52,9 +52,29 @@ const PORT_DATA = [
       "Downtown Shopping"
     ],
     tips: [
-      "Taxi prices are fixed — check the posted rate board.",
+      "Taxi prices are fixed — check the rate board.",
       "Bring water shoes for rocky beach entries.",
-      "Local vendors expect polite bargaining."
+      "Vendors expect polite bargaining."
+    ],
+    excursions: [
+      {
+        title: "Mr. Sanchos All‑Inclusive Day Pass",
+        duration: "6 hours",
+        price: "$68–$75",
+        desc: "Unlimited food, drinks, beach access, and pools."
+      },
+      {
+        title: "Cozumel Reef Snorkel",
+        duration: "2.5 hours",
+        price: "$45–$65",
+        desc: "Guided snorkel tour of Cozumel’s famous coral reefs."
+      },
+      {
+        title: "Chankanaab Park Experience",
+        duration: "4 hours",
+        price: "$25–$35",
+        desc: "Beach, snorkeling, botanical gardens, and sea lion show."
+      }
     ]
   },
   {
@@ -68,9 +88,29 @@ const PORT_DATA = [
       "Charlotte Amalie Shopping"
     ],
     tips: [
-      "Magens Bay gets crowded — go early or late.",
+      "Magens Bay gets crowded — go early.",
       "Paradise Point is best at sunset.",
-      "USVI uses USD — no currency exchange needed."
+      "USVI uses USD — no exchange needed."
+    ],
+    excursions: [
+      {
+        title: "Magens Bay Beach Transfer",
+        duration: "3 hours",
+        price: "$29–$39",
+        desc: "Round‑trip transport to one of the world’s most beautiful beaches."
+      },
+      {
+        title: "Skyride to Paradise Point",
+        duration: "1 hour",
+        price: "$24–$32",
+        desc: "Ride 700 feet above sea level for incredible harbor views."
+      },
+      {
+        title: "Coki Beach Snorkel",
+        duration: "2 hours",
+        price: "$45–$60",
+        desc: "Crystal‑clear water and vibrant marine life — perfect for beginners."
+      }
     ]
   }
 ];
@@ -85,7 +125,7 @@ export function loadPorts() {
 
   root.appendChild(
     el("p", { class: "muted fade-in" }, [
-      "Browse popular cruise ports and discover excursions, beaches, food, and insider tips."
+      "Browse ports, excursions, beaches, and insider tips."
     ])
   );
 
@@ -108,6 +148,20 @@ export function loadPorts() {
         "ul",
         { class: "port-list" },
         port.tips.map((t) => el("li", {}, [t]))
+      ),
+
+      el("h4", { style: "margin-top: 16px;" }, ["Excursions"]),
+      el(
+        "div",
+        { class: "excursion-grid" },
+        port.excursions.map((ex) =>
+          el("div", { class: "excursion-card slide-up" }, [
+            el("h4", {}, [ex.title]),
+            el("p", { class: "muted" }, [`Duration: ${ex.duration}`]),
+            el("p", { class: "muted" }, [`Price: ${ex.price}`]),
+            el("p", {}, [ex.desc])
+          ])
+        )
       )
     ]);
 
