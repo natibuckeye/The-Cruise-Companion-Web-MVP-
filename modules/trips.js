@@ -1,82 +1,110 @@
+// ===============================
+// TRIPS MODULE — Modern ES Version
+// ===============================
+
+import { store, state } from "./store.js";
+import { el, openModal, closeModal } from "./ui.js";
+
 export function loadTrips() {
-  const content = document.getElementById("content");
+  const root = document.getElementById("content");
+  root.innerHTML = "";
 
-  // Load saved trips from localStorage
-  const savedTrips = JSON.parse(localStorage.getItem("trips")) || [];
+  const trips = state.trips;
 
-  content.innerHTML = `
-    <h2>Your Trips</h2>
+  // Header
+  root.appendChild(
+    el("div", { class: "row" }, [
+      el("h2", {}, ["Your Trips"]),
+      el("button", { class: "primary-btn", onclick: openAddTripModal }, [
+        "+ Add Trip"
+      ])
+    ])
+  );
 
-    <button id="addTripBtn" class="primary-btn">+ Add Trip</button>
+  // Trip cards
+  const container = el("div", { class: "trip-cards" });
 
-    <div id="tripsContainer" class="trip-cards">
-      ${savedTrips.length === 0 ? `
-        <p class="empty">No trips added yet.</p>
-      ` : savedTrips.map((trip, index) => `
-        <div class="trip-card">
-          <h3>${trip.ship}</h3>
-          <p><strong>Destination:</strong> ${trip.destination}</p>
-          <p><strong>Dates:</strong> ${trip.dates}</p>
-          <button class="deleteTripBtn" data-index="${index}">Delete</button>
-        </div>
-      `).join("")}
-    </div>
-
-    <div id="tripModal" class="modal hidden">
-      <div class="modal-content">
-        <h3>Add a Trip</h3>
-
-        <label>Ship Name</label>
-        <input id="tripShip" type="text" placeholder="Icon of the Seas">
-
-        <label>Destination</label>
-        <input id="tripDestination" type="text" placeholder="Caribbean">
-
-        <label>Dates</label>
-        <input id="tripDates" type="text" placeholder="June 12–19, 2026">
-
-        <button id="saveTripBtn" class="primary-btn">Save Trip</button>
-        <button id="closeTripModal" class="secondary-btn">Cancel</button>
-      </div>
-    </div>
-  `;
-
-  // Add Trip button
-  document.getElementById("addTripBtn").addEventListener("click", () => {
-    document.getElementById("tripModal").classList.remove("hidden");
-  });
-
-  // Close modal
-  document.getElementById("closeTripModal").addEventListener("click", () => {
-    document.getElementById("tripModal").classList.add("hidden");
-  });
-
-  // Save trip
-  document.getElementById("saveTripBtn").addEventListener("click", () => {
-    const ship = document.getElementById("tripShip").value.trim();
-    const destination = document.getElementById("tripDestination").value.trim();
-    const dates = document.getElementById("tripDates").value.trim();
-
-    if (!ship || !destination || !dates) {
-      alert("Please fill out all fields.");
-      return;
-    }
-
-    const newTrip = { ship, destination, dates };
-    savedTrips.push(newTrip);
-
-    localStorage.setItem("trips", JSON.stringify(savedTrips));
-
-    loadTrips(); // reload UI
-  });
-
-  // Delete trip
-  document.querySelectorAll(".deleteTripBtn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const index = btn.dataset.index;
-      savedTrips.splice(index, 1);
-      localStorage.setItem("trips", JSON.stringify(savedTrips));
-      loadTrips();
+  if (trips.length === 0) {
+    container.appendChild(el("p", { class: "empty" }, ["No trips added yet."]));
+  } else {
+    trips.forEach((trip) => {
+      container.appendChild(
+        el("div", { class: "trip-card" }, [
+          el("h3", {}, [trip.ship]),
+          el("p", {}, [`Destination: ${trip.destination}`]),
+          el("p", {}, [`Dates: ${trip.dates}`]),
+          el(
+            "button",
+            {
+              class: "deleteTripBtn",
+              onclick: () => deleteTrip(trip.id)
+            },
+            ["Delete"]
+          )
+        ])
+      );
     });
+  }
+
+  root.appendChild(container);
+}
+
+// ===============================
+// HELPERS
+// ===============================
+
+function openAddTripModal() {
+  const modalContent = el("div", { class: "modal-content" }, [
+    el("h3", {}, ["Add a Trip"]),
+
+    el("label", {}, ["Ship Name"]),
+    el("input", { id: "tripShip", type: "text", placeholder: "Icon of the Seas" }),
+
+    el("label", {}, ["Destination"]),
+    el("input", { id: "tripDestination", type: "text", placeholder: "Caribbean" }),
+
+    el("label", {}, ["Dates"]),
+    el("input", { id: "tripDates", type: "text", placeholder: "June 12–19, 2026" }),
+
+    el(
+      "button",
+      { class: "primary-btn", onclick: saveTrip },
+      ["Save Trip"]
+    ),
+    el(
+      "button",
+      { class: "secondary-btn", onclick: closeModal },
+      ["Cancel"]
+    )
+  ]);
+
+  openModal(modalContent);
+}
+
+function saveTrip() {
+  const ship = document.getElementById("tripShip").value.trim();
+  const destination = document.getElementById("tripDestination").value.trim();
+  const dates = document.getElementById("tripDates").value.trim();
+
+  if (!ship || !destination || !dates) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  store.addTrip({
+    id: crypto.randomUUID(),
+    ship,
+    destination,
+    dates
   });
+
+  closeModal();
+  loadTrips();
+}
+
+function deleteTrip(id) {
+  store.updateTrip(id, { deleted: true });
+  state.trips = state.trips.filter((t) => !t.deleted);
+  store.save();
+  loadTrips();
 }
