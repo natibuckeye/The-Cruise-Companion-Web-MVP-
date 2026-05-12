@@ -172,7 +172,30 @@ export function loadPorts() {
       )
     ])
   )
-)
+) import { store } from "./store.js";
+import { openModal, el, closeModal } from "./ui.js";
+
+function saveExcursionToTrips(port, ex) {
+  const trip = {
+    id: crypto.randomUUID(),
+    ship: port.name,              // Port becomes “ship” label
+    destination: ex.title,        // Excursion becomes destination
+    dates: ex.duration            // Duration becomes dates
+  };
+
+  store.addTrip(trip);
+
+  openModal(
+    el("div", { class: "modal-content" }, [
+      el("h3", {}, ["Excursion Saved!"]),
+      el("p", {}, [
+        `${ex.title} has been added to your Trips under ${port.name}.`
+      ]),
+      el("button", { class: "primary-btn", onclick: closeModal }, ["Close"])
+    ])
+  );
+}
+
 
   root.appendChild(grid);
 }
