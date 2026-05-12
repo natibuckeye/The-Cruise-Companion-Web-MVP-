@@ -152,21 +152,27 @@ export function loadPorts() {
 
       el("h4", { style: "margin-top: 16px;" }, ["Excursions"]),
       el(
-        "div",
-        { class: "excursion-grid" },
-        port.excursions.map((ex) =>
-          el("div", { class: "excursion-card slide-up" }, [
-            el("h4", {}, [ex.title]),
-            el("p", { class: "muted" }, [`Duration: ${ex.duration}`]),
-            el("p", { class: "muted" }, [`Price: ${ex.price}`]),
-            el("p", {}, [ex.desc])
-          ])
-        )
-      )
-    ]);
+  "div",
+  { class: "excursion-grid" },
+  port.excursions.map((ex) =>
+    el("div", { class: "excursion-card slide-up" }, [
+      el("h4", {}, [ex.title]),
+      el("p", { class: "muted" }, [`Duration: ${ex.duration}`]),
+      el("p", { class: "muted" }, [`Price: ${ex.price}`]),
+      el("p", {}, [ex.desc]),
 
-    grid.appendChild(card);
-  });
+      el(
+        "button",
+        {
+          class: "primary-btn",
+          style: "margin-top: 10px; width: 100%;",
+          onclick: () => saveExcursionToTrips(port, ex)
+        },
+        ["Add to My Trips"]
+      )
+    ])
+  )
+)
 
   root.appendChild(grid);
 }
