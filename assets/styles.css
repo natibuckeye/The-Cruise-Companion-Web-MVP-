@@ -1,14 +1,32 @@
 /* ================================
-   BRAND COLORS & GLOBAL SETTINGS
+   DESIGN TOKENS
 ==================================*/
 :root {
+  /* Brand Colors */
   --navy: #0a1a2f;
+  --navy-dark: #002B49;
+  --navy-mid: #003B71;
   --gold: #d4a017;
   --light: #f7f9fc;
   --gray: #e5e7eb;
   --white: #ffffff;
+
+  /* UI Tokens */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+
+  --transition: 0.2s ease;
 }
 
+/* ================================
+   GLOBAL
+==================================*/
 body {
   font-family: 'Inter', sans-serif;
   background: var(--light);
@@ -18,8 +36,13 @@ body {
   line-height: 1.6;
 }
 
+h2, h3, h4 {
+  margin: 0;
+  color: var(--navy);
+}
+
 /* ================================
-   TOP BAR (HEADER)
+   TOP BAR
 ==================================*/
 .topbar {
   background: var(--navy);
@@ -38,18 +61,6 @@ body {
 .brand__sub {
   font-size: 0.9rem;
   opacity: 0.8;
-}
-
-.trip label {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.trip select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--gray);
-  margin-left: 8px;
 }
 
 /* ================================
@@ -72,7 +83,7 @@ body {
   font-size: 1rem;
   font-weight: 600;
   color: var(--navy);
-  transition: 0.2s ease;
+  transition: var(--transition);
 }
 
 .tab:hover {
@@ -95,62 +106,36 @@ body {
 }
 
 /* ================================
-   MODAL
-==================================*/
-.modal {
-  border: none;
-  padding: 0;
-}
-
-.modal__card {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-.modal__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid var(--gray);
-  padding-bottom: 10px;
-}
-
-.modal__header h3 {
-  margin: 0;
-  color: var(--navy);
-}
-
-.modal__body {
-  padding: 15px 0;
-}
-
-.modal__footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-/* ================================
    BUTTONS
 ==================================*/
 button,
-.icon-btn {
+.icon-btn,
+.primary-btn,
+.secondary-btn {
   background: var(--navy);
   color: var(--white);
   border: none;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-size: 0.95rem;
-  transition: 0.2s ease;
+  transition: var(--transition);
 }
 
 button:hover,
-.icon-btn:hover {
+.icon-btn:hover,
+.primary-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.secondary-btn {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid var(--gray);
+}
+
+.secondary-btn:hover {
   background: var(--gold);
   color: var(--navy);
 }
@@ -162,15 +147,122 @@ input, select, textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--gray);
-  border-radius: 8px;
-  margin-top: 8px;
-  margin-bottom: 15px;
+  border-radius: var(--radius-md);
+  margin: 8px 0 15px;
   font-size: 1rem;
 }
 
 label {
   font-weight: 600;
   color: var(--navy);
+}
+
+/* ================================
+   CARDS (Universal)
+==================================*/
+.card,
+.module-card,
+.trip-item,
+.quiz-card,
+.result-card,
+.itinerary-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+/* ================================
+   MODULE HEADERS
+==================================*/
+.module-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-left: 5px solid var(--gold);
+  padding-left: 12px;
+  margin-bottom: 20px;
+}
+
+/* ================================
+   TRIPS MODULE
+==================================*/
+.trip-item {
+  border: 1px solid var(--gray);
+  transition: var(--transition);
+}
+
+.trip-item:hover {
+  border-color: var(--gold);
+  background: #fff9e6;
+}
+
+/* ================================
+   MATCHMAKER MODULE
+==================================*/
+.quiz-btn {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: #f3f6fa;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quiz-btn:hover {
+  background: #e7edf5;
+}
+
+.itinerary-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.itinerary-card {
+  box-shadow: var(--shadow-sm);
+}
+
+/* ================================
+   MATCHMAKER RESULT LOGO
+==================================*/
+.result-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 16px;
+  padding: 8px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
+  border: 2px solid #C9A44C;
+}
+
+/* ================================
+   ANIMATIONS
+==================================*/
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ================================
@@ -190,125 +282,4 @@ label {
   .tab {
     flex: 1 1 50%;
   }
-}
-
-/* ================================
-   MODULE HEADERS
-==================================*/
-.module-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--navy);
-  border-left: 5px solid var(--gold);
-  padding-left: 12px;
-  margin-bottom: 20px;
-}
-
-/* ================================
-   GENERIC CARD FOR MODULE CONTENT
-==================================*/
-.module-card {
-  background: var(--white);
-  padding: 18px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
-
-/* ================================
-   TRIPS MODULE
-==================================*/
-.trip-item {
-  padding: 15px;
-  border: 1px solid var(--gray);
-  border-radius: 10px;
-  margin-bottom: 12px;
-  background: var(--white);
-  transition: 0.2s ease;
-}
-
-.trip-item:hover {
-  border-color: var(--gold);
-  background: #fff9e6;
-}
-
-.trip-item h4 {
-  margin: 0 0 6px 0;
-  color: var(--navy);
-  font-size: 1.1rem;
-}
-
-/* ================================
-   MATCHMAKER MODULE
-==================================*/
-.matchmaker-question {
-  margin-bottom: 20px;
-}
-
-.matchmaker-question label {
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.matchmaker-result {
-  background: var(--white);
-  padding: 15px;
-  border-radius: 10px;
-  border-left: 5px solid var(--gold);
-  margin-top: 20px;
-}
-
-/* ================================
-   MATCHMAKER RESULT CARD (NEW)
-==================================*/
-.result-card {
-  text-align: center;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  margin-top: 20px;
-}
-
-.result-title {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  color: #002B49;
-}
-
-.result-desc {
-  font-size: 1rem;
-  margin: 12px 0 20px;
-}
-
-.result-subtitle {
-  font-size: 1.1rem;
-  margin-top: 20px;
-  color: #003B71;
-}
-
-.result-itineraries {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.result-itineraries li {
-  margin: 6px 0;
-}
-
-/* ================================
-   UNIVERSAL SVG LOGO SIZING
-==================================*/
-.result-logo {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 16px;
-  padding: 8px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 48, 90, 0.25);
-  border: 2px solid #C9A44C;
 }
