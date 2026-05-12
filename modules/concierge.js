@@ -1,33 +1,49 @@
+// ===============================
+// CONCIERGE MODULE — Modern ES Version
+// ===============================
+
+import { el } from "./ui.js";
+
 export function loadConcierge() {
-  document.getElementById("app").innerHTML = `
-    <h2 class="module-title">Concierge Assistant</h2>
+  const root = document.getElementById("content");
+  root.innerHTML = "";
 
-    <div class="concierge-box">
-      <label for="conciergeInput">How can I help with your cruise?</label>
-      <textarea id="conciergeInput" placeholder="Ask anything about your cruise..."></textarea>
+  root.appendChild(
+    el("h2", { class: "module-title" }, ["Concierge Assistant"])
+  );
 
-      <button id="conciergeSubmit">Ask Concierge</button>
+  const box = el("div", { class: "concierge-box" }, [
+    el("label", { for: "conciergeInput" }, ["How can I help with your cruise?"]),
+    el("textarea", {
+      id: "conciergeInput",
+      placeholder: "Ask anything about your cruise..."
+    }),
+    el("button", { id: "conciergeSubmit", onclick: handleSubmit }, [
+      "Ask Concierge"
+    ]),
+    el("div", {
+      id: "conciergeResponse",
+      class: "concierge-response",
+      style: "display:none;"
+    })
+  ]);
 
-      <div id="conciergeResponse" class="concierge-response" style="display:none;">
-      </div>
-    </div>
-  `;
+  root.appendChild(box);
+}
 
-  // Simple placeholder response logic
-  document.getElementById("conciergeSubmit").addEventListener("click", () => {
-    const input = document.getElementById("conciergeInput").value.trim();
-    const responseBox = document.getElementById("conciergeResponse");
+function handleSubmit() {
+  const input = document.getElementById("conciergeInput").value.trim();
+  const responseBox = document.getElementById("conciergeResponse");
 
-    if (!input) {
-      responseBox.style.display = "block";
-      responseBox.innerHTML = "Please enter a question so I can help.";
-      return;
-    }
-
+  if (!input) {
     responseBox.style.display = "block";
-    responseBox.innerHTML = `
-      <strong>Concierge Response:</strong><br>
-      Thanks for your question! A more advanced concierge system will be added soon.
-    `;
-  });
+    responseBox.innerHTML = "Please enter a question so I can help.";
+    return;
+  }
+
+  responseBox.style.display = "block";
+  responseBox.innerHTML = `
+    <strong>Concierge Response:</strong><br>
+    Thanks for your question! A more advanced concierge system will be added soon.
+  `;
 }
