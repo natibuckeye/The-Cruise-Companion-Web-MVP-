@@ -1,8 +1,20 @@
+// ===============================
+// PORTS MODULE — Modern ES Version
+// ===============================
+
+import { el } from "./ui.js";
+
 export function loadPorts() {
-  document.getElementById("app").innerHTML = `
-    <h2 class="module-title">Port Explorer</h2>
-    <div class="module-card">
-      <p>Explore ports, excursions, and local tips.</p>
-    </div>
-  `;
+  const root = document.getElementById("content");
+  root.innerHTML = "";
+
+  root.appendChild(
+    el("h2", { class: "module-title" }, ["Port Explorer"])
+  );
+
+  root.appendChild(
+    el("div", { class: "module-card" }, [
+      el("p", {}, ["Explore ports, excursions, and local tips."])
+    ])
+  );
 }
