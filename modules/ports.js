@@ -2,13 +2,16 @@
 // PORTS MODULE — Modern ES Version
 // ===============================
 
-import { el } from "./ui.js";
+import { el, openModal, closeModal } from "./ui.js";
+import { store } from "./store.js";
 
 const PORT_DATA = [
   {
     id: "cococay",
     name: "Perfect Day at CocoCay",
     country: "Bahamas",
+    description:
+      "Royal Caribbean’s private island paradise featuring beaches, waterparks, cabanas, and stunning views.",
     highlights: [
       "Thrill Waterpark",
       "Up, Up & Away Balloon",
@@ -41,10 +44,13 @@ const PORT_DATA = [
       }
     ]
   },
+
   {
     id: "cozumel",
     name: "Cozumel",
     country: "Mexico",
+    description:
+      "A vibrant island known for reefs, beaches, food, and some of the best snorkeling in the Caribbean.",
     highlights: [
       "Chankanaab Park",
       "Mr. Sanchos All‑Inclusive",
@@ -77,10 +83,13 @@ const PORT_DATA = [
       }
     ]
   },
+
   {
     id: "stthomas",
     name: "St. Thomas",
     country: "U.S. Virgin Islands",
+    description:
+      "A stunning island with beaches, shopping, scenic views, and some of the Caribbean’s best snorkeling.",
     highlights: [
       "Magens Bay Beach",
       "Skyride to Paradise Point",
@@ -115,14 +124,21 @@ const PORT_DATA = [
   }
 ];
 
+// ===============================
+// MAIN ENTRY
+// ===============================
 export function loadPorts() {
+  renderPortList();
+}
+
+// ===============================
+// PORT LIST VIEW
+// ===============================
+function renderPortList() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  root.appendChild(
-    el("h2", { class: "module-title fade-in" }, ["Port Explorer"])
-  );
-
+  root.appendChild(el("h2", { class: "module-title fade-in" }, ["Port Explorer"]));
   root.appendChild(
     el("p", { class: "muted fade-in" }, [
       "Browse ports, excursions, beaches, and insider tips."
@@ -132,55 +148,111 @@ export function loadPorts() {
   const grid = el("div", { class: "port-grid fade-in" });
 
   PORT_DATA.forEach((port) => {
-    const card = el("div", { class: "port-card slide-up" }, [
-      el("h3", {}, [port.name]),
-      el("p", { class: "muted" }, [port.country]),
+    const card = el(
+      "div",
+      {
+        class: "port-card slide-up",
+        onclick: () => renderPortDetail(port.id),
+        style: "cursor:pointer;"
+      },
+      [
+        el("h3", {}, [port.name]),
+        el("p", { class: "muted" }, [port.country]),
+        el("p", {}, [port.description])
+      ]
+    );
 
-      el("h4", {}, ["Top Highlights"]),
-      el(
-        "ul",
-        { class: "port-list" },
-        port.highlights.map((h) => el("li", {}, [h]))
-      ),
+    grid.appendChild(card);
+  });
 
-      el("h4", {}, ["Local Tips"]),
-      el(
-        "ul",
-        { class: "port-list" },
-        port.tips.map((t) => el("li", {}, [t]))
-      ),
+  root.appendChild(grid);
+}
 
-      el("h4", { style: "margin-top: 16px;" }, ["Excursions"]),
-      el(
-  "div",
-  { class: "excursion-grid" },
-  port.excursions.map((ex) =>
-    el("div", { class: "excursion-card slide-up" }, [
-      el("h4", {}, [ex.title]),
-      el("p", { class: "muted" }, [`Duration: ${ex.duration}`]),
-      el("p", { class: "muted" }, [`Price: ${ex.price}`]),
-      el("p", {}, [ex.desc]),
+// ===============================
+// PORT DETAIL VIEW
+// ===============================
+function renderPortDetail(portId) {
+  const port = PORT_DATA.find((p) => p.id === portId);
+  const root = document.getElementById("content");
+  root.innerHTML = "";
 
-      el(
-        "button",
-        {
-          class: "primary-btn",
-          style: "margin-top: 10px; width: 100%;",
-          onclick: () => saveExcursionToTrips(port, ex)
-        },
-        ["Add to My Trips"]
-      )
+  // Back button
+  root.appendChild(
+    el(
+      "button",
+      { class: "secondary-btn fade-in", onclick: renderPortList },
+      ["← Back to Ports"]
+    )
+  );
+
+  // Header
+  root.appendChild(
+    el("h2", { class: "module-title fade-in", style: "margin-top: 16px;" }, [
+      port.name
     ])
-  )
-) import { store } from "./store.js";
-import { openModal, el, closeModal } from "./ui.js";
+  );
 
+  root.appendChild(el("p", { class: "muted fade-in" }, [port.country]));
+  root.appendChild(el("p", { class: "fade-in" }, [port.description]));
+
+  // Highlights
+  root.appendChild(el("h3", { class: "fade-in", style: "margin-top:20px;" }, ["Top Highlights"]));
+  root.appendChild(
+    el(
+      "ul",
+      { class: "port-list fade-in" },
+      port.highlights.map((h) => el("li", {}, [h]))
+    )
+  );
+
+  // Tips
+  root.appendChild(el("h3", { class: "fade-in", style: "margin-top:20px;" }, ["Local Tips"]));
+  root.appendChild(
+    el(
+      "ul",
+      { class: "port-list fade-in" },
+      port.tips.map((t) => el("li", {}, [t]))
+    )
+  );
+
+  // Excursions
+  root.appendChild(el("h3", { class: "fade-in", style: "margin-top:20px;" }, ["Excursions"]));
+
+  const exGrid = el("div", { class: "excursion-grid fade-in" });
+
+  port.excursions.forEach((ex) => {
+    exGrid.appendChild(
+      el("div", { class: "excursion-card slide-up" }, [
+        el("h4", {}, [ex.title]),
+        el("p", { class: "muted" }, [`Duration: ${ex.duration}`]),
+        el("p", { class: "muted" }, [`Price: ${ex.price}`]),
+        el("p", {}, [ex.desc]),
+
+        el(
+          "button",
+          {
+            class: "primary-btn",
+            style: "margin-top: 10px; width: 100%;",
+            onclick: () => saveExcursionToTrips(port, ex)
+          },
+          ["Add to My Trips"]
+        )
+      ])
+    );
+  });
+
+  root.appendChild(exGrid);
+}
+
+// ===============================
+// SAVE EXCURSION TO TRIPS
+// ===============================
 function saveExcursionToTrips(port, ex) {
   const trip = {
     id: crypto.randomUUID(),
-    ship: port.name,              // Port becomes “ship” label
-    destination: ex.title,        // Excursion becomes destination
-    dates: ex.duration            // Duration becomes dates
+    ship: port.name,
+    destination: ex.title,
+    dates: ex.duration
   };
 
   store.addTrip(trip);
@@ -188,14 +260,8 @@ function saveExcursionToTrips(port, ex) {
   openModal(
     el("div", { class: "modal-content" }, [
       el("h3", {}, ["Excursion Saved!"]),
-      el("p", {}, [
-        `${ex.title} has been added to your Trips under ${port.name}.`
-      ]),
+      el("p", {}, [`${ex.title} has been added to your Trips under ${port.name}.`]),
       el("button", { class: "primary-btn", onclick: closeModal }, ["Close"])
     ])
   );
-}
-
-
-  root.appendChild(grid);
 }
