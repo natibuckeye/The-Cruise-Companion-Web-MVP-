@@ -11,15 +11,14 @@ export function loadLists() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  const state = store.state; // unified global state
+  // NEW: read current trip ID from localStorage
+  const tripId = store.read("currentTripId");
 
-  const tripId = state.ui.currentTripId;
+  // read all packing lists
   const listsAll = store.list(store.keys.packingLists);
   const lists = tripId ? listsAll.filter(l => l.tripId === tripId) : [];
 
-  // ===============================
   // HEADER
-  // ===============================
   const header = el("div", { class: "row" }, [
     el("div", { class: "spacer" }, [
       el("h2", {}, ["Lists"]),
@@ -32,7 +31,7 @@ export function loadLists() {
           alert("Pick a trip first (top right).");
           return;
         }
-        openTemplatePicker({ state });
+        openTemplatePicker({ tripId });
       }
     }, ["Use a template"]),
     el("button", {
@@ -42,16 +41,14 @@ export function loadLists() {
           alert("Pick a trip first (top right).");
           return;
         }
-        openListEditor({ state });
+        openListEditor({ tripId });
       }
     }, ["+ New list"])
   ]);
 
   root.appendChild(header);
 
-  // ===============================
   // LIST ITEMS
-  // ===============================
   const listContainer = el("div", { class: "list-container" });
 
   if (lists.length === 0) {
@@ -64,7 +61,7 @@ export function loadLists() {
         el("h3", {}, [list.name]),
         el("button", {
           class: "btn small",
-          onclick: () => openListEditor({ state, list })
+          onclick: () => openListEditor({ tripId, list })
         }, ["Edit"])
       ]);
       listContainer.appendChild(item);
@@ -73,3 +70,4 @@ export function loadLists() {
 
   root.appendChild(listContainer);
 }
+
