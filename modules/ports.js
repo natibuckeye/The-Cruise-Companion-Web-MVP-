@@ -5,11 +5,15 @@
 import { el, openModal, closeModal } from "./ui.js";
 import { store } from "./store.js";
 
+// ===============================
+// PORT DATA WITH CATEGORIES
+// ===============================
 const PORT_DATA = [
   {
     id: "cococay",
     name: "Perfect Day at CocoCay",
     country: "Bahamas",
+    categories: ["Beaches", "Adventure"],
     description:
       "Royal Caribbean’s private island paradise featuring beaches, waterparks, cabanas, and stunning views.",
     highlights: [
@@ -49,6 +53,7 @@ const PORT_DATA = [
     id: "cozumel",
     name: "Cozumel",
     country: "Mexico",
+    categories: ["Beaches", "Food", "Adventure", "Shopping"],
     description:
       "A vibrant island known for reefs, beaches, food, and some of the best snorkeling in the Caribbean.",
     highlights: [
@@ -88,6 +93,7 @@ const PORT_DATA = [
     id: "stthomas",
     name: "St. Thomas",
     country: "U.S. Virgin Islands",
+    categories: ["Beaches", "Shopping", "Adventure"],
     description:
       "A stunning island with beaches, shopping, scenic views, and some of the Caribbean’s best snorkeling.",
     highlights: [
@@ -125,6 +131,14 @@ const PORT_DATA = [
 ];
 
 // ===============================
+// SEARCH + FILTER STATE
+// ===============================
+let currentSearch = "";
+let currentFilter = "All";
+
+const FILTERS = ["All", "Beaches", "Adventure", "Food", "Shopping"];
+
+// ===============================
 // MAIN ENTRY
 // ===============================
 export function loadPorts() {
@@ -138,32 +152,83 @@ function renderPortList() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
+  // Title
   root.appendChild(el("h2", { class: "module-title fade-in" }, ["Port Explorer"]));
+
+  // Search Bar
   root.appendChild(
-    el("p", { class: "muted fade-in" }, [
-      "Browse ports, excursions, beaches, and insider tips."
-    ])
+    el("input", {
+      type: "text",
+      placeholder: "Search ports…",
+      class: "fade-in",
+      value: currentSearch,
+      oninput: (e) => {
+        currentSearch = e.target.value.toLowerCase();
+        renderPortList();
+      }
+    })
   );
 
+  // Filter Chips
+  const filterRow = el("div", { class: "filter-row fade-in" });
+
+  FILTERS.forEach((f) => {
+    filterRow.appendChild(
+      el(
+        "button",
+        {
+          class: `filter-chip ${currentFilter === f ? "active" : ""}`,
+          onclick: () => {
+            currentFilter = f;
+            renderPortList();
+          }
+        },
+        [f]
+      )
+    );
+  });
+
+  root.appendChild(filterRow);
+
+  // Filter Logic
+  const filtered = PORT_DATA.filter((port) => {
+    const matchesSearch =
+      port.name.toLowerCase().includes(currentSearch) ||
+      port.country.toLowerCase().includes(currentSearch);
+
+    const matchesFilter =
+      currentFilter === "All" ||
+      port.categories.includes(currentFilter);
+
+    return matchesSearch && matchesFilter;
+  });
+
+  // Port Grid
   const grid = el("div", { class: "port-grid fade-in" });
 
-  PORT_DATA.forEach((port) => {
-    const card = el(
-      "div",
-      {
-        class: "port-card slide-up",
-        onclick: () => renderPortDetail(port.id),
-        style: "cursor:pointer;"
-      },
-      [
-        el("h3", {}, [port.name]),
-        el("p", { class: "muted" }, [port.country]),
-        el("p", {}, [port.description])
-      ]
+  filtered.forEach((port) => {
+    grid.appendChild(
+      el(
+        "div",
+        {
+          class: "port-card slide-up",
+          onclick: () => renderPortDetail(port.id),
+          style: "cursor:pointer;"
+        },
+        [
+          el("h3", {}, [port.name]),
+          el("p", { class: "muted" }, [port.country]),
+          el("p", {}, [port.description])
+        ]
+      )
     );
-
-    grid.appendChild(card);
   });
+
+  if (filtered.length === 0) {
+    grid.appendChild(
+      el("p", { class: "muted" }, ["No ports match your search or filters."])
+    );
+  }
 
   root.appendChild(grid);
 }
