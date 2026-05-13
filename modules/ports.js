@@ -6,7 +6,7 @@ import { el, openModal, closeModal } from "./ui.js";
 import { store } from "./store.js";
 
 // ===============================
-// PORT DATA WITH CATEGORIES
+// PORT DATA WITH CATEGORIES + CRUISE LINES
 // ===============================
 const PORT_DATA = [
   {
@@ -14,6 +14,7 @@ const PORT_DATA = [
     name: "Perfect Day at CocoCay",
     country: "Bahamas",
     categories: ["Beaches", "Adventure"],
+    cruiseLines: ["Royal Caribbean"],
     description:
       "Royal Caribbean’s private island paradise featuring beaches, waterparks, cabanas, and stunning views.",
     highlights: [
@@ -54,6 +55,14 @@ const PORT_DATA = [
     name: "Cozumel",
     country: "Mexico",
     categories: ["Beaches", "Food", "Adventure", "Shopping"],
+    cruiseLines: [
+      "Royal Caribbean",
+      "Carnival",
+      "Norwegian (NCL)",
+      "MSC Cruises",
+      "Disney Cruise Line",
+      "Celebrity Cruises"
+    ],
     description:
       "A vibrant island known for reefs, beaches, food, and some of the best snorkeling in the Caribbean.",
     highlights: [
@@ -94,6 +103,14 @@ const PORT_DATA = [
     name: "St. Thomas",
     country: "U.S. Virgin Islands",
     categories: ["Beaches", "Shopping", "Adventure"],
+    cruiseLines: [
+      "Royal Caribbean",
+      "Norwegian (NCL)",
+      "Carnival",
+      "Disney Cruise Line",
+      "Celebrity Cruises",
+      "MSC Cruises"
+    ],
     description:
       "A stunning island with beaches, shopping, scenic views, and some of the Caribbean’s best snorkeling.",
     highlights: [
@@ -152,10 +169,9 @@ function renderPortList() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  // Title
   root.appendChild(el("h2", { class: "module-title fade-in" }, ["Port Explorer"]));
 
-  // Search Bar
+  // Search
   root.appendChild(
     el("input", {
       type: "text",
@@ -169,10 +185,9 @@ function renderPortList() {
     })
   );
 
-  // Filter Chips
+  // Filters
   const filterRow = el("div", { class: "filter-row fade-in" });
-
-  FILTERS.forEach((f) => {
+  FILTERS.forEach((f) =>
     filterRow.appendChild(
       el(
         "button",
@@ -185,25 +200,23 @@ function renderPortList() {
         },
         [f]
       )
-    );
-  });
-
+    )
+  );
   root.appendChild(filterRow);
 
-  // Filter Logic
+  // Filter logic
   const filtered = PORT_DATA.filter((port) => {
     const matchesSearch =
       port.name.toLowerCase().includes(currentSearch) ||
       port.country.toLowerCase().includes(currentSearch);
 
     const matchesFilter =
-      currentFilter === "All" ||
-      port.categories.includes(currentFilter);
+      currentFilter === "All" || port.categories.includes(currentFilter);
 
     return matchesSearch && matchesFilter;
   });
 
-  // Port Grid
+  // Grid
   const grid = el("div", { class: "port-grid fade-in" });
 
   filtered.forEach((port) => {
@@ -225,9 +238,7 @@ function renderPortList() {
   });
 
   if (filtered.length === 0) {
-    grid.appendChild(
-      el("p", { class: "muted" }, ["No ports match your search or filters."])
-    );
+    grid.appendChild(el("p", { class: "muted" }, ["No ports match your search or filters."]));
   }
 
   root.appendChild(grid);
@@ -243,22 +254,27 @@ function renderPortDetail(portId) {
 
   // Back button
   root.appendChild(
-    el(
-      "button",
-      { class: "secondary-btn fade-in", onclick: renderPortList },
-      ["← Back to Ports"]
-    )
+    el("button", { class: "secondary-btn fade-in", onclick: renderPortList }, ["← Back to Ports"])
   );
 
   // Header
   root.appendChild(
-    el("h2", { class: "module-title fade-in", style: "margin-top: 16px;" }, [
-      port.name
-    ])
+    el("h2", { class: "module-title fade-in", style: "margin-top: 16px;" }, [port.name])
   );
-
   root.appendChild(el("p", { class: "muted fade-in" }, [port.country]));
   root.appendChild(el("p", { class: "fade-in" }, [port.description]));
+
+  // Cruise Lines
+  root.appendChild(
+    el("h3", { class: "fade-in", style: "margin-top:20px;" }, ["Cruise Lines Visiting This Port"])
+  );
+  root.appendChild(
+    el(
+      "ul",
+      { class: "port-list fade-in" },
+      port.cruiseLines.map((line) => el("li", {}, [line]))
+    )
+  );
 
   // Highlights
   root.appendChild(el("h3", { class: "fade-in", style: "margin-top:20px;" }, ["Top Highlights"]));
