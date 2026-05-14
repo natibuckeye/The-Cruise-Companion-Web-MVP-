@@ -5,19 +5,10 @@
 // Namespace for localStorage keys
 const NS = "tcc:v1:";
 
-// Global application state
-export const state = {
-  ui: {
-    currentTripId: null
-  },
-  trips: [],
-  packingLists: []
-};
-
 // ===============================
 // LOCAL STORAGE HELPERS
 // ===============================
-function read(key, fallback) {
+function read(key, fallback = null) {
   try {
     const raw = localStorage.getItem(NS + key);
     if (raw === null) return fallback;
@@ -38,19 +29,18 @@ export const store = {
   // Key map for consistency
   keys: {
     trips: "trips",
-    packingLists: "packingLists"
+    packingLists: "packingLists",
+    packingItems: "packingItems",
+    currentTripId: "currentTripId"
   },
 
-  // Load all persisted data into memory
-  init() {
-    state.trips = read(this.keys.trips, []);
-    state.packingLists = read(this.keys.packingLists, []);
+  // Generic read/write
+  read(key, fallback = null) {
+    return read(key, fallback);
   },
 
-  // Save all state back to localStorage
-  save() {
-    write(this.keys.trips, state.trips);
-    write(this.keys.packingLists, state.packingLists);
+  save(key, value) {
+    write(key, value);
   },
 
   // Generic getter
@@ -63,30 +53,56 @@ export const store = {
     write(key, value);
   },
 
-  // Trip helpers
+  // ===============================
+  // TRIPS
+  // ===============================
   addTrip(trip) {
-    state.trips.push(trip);
-    this.save();
+    const trips = this.list(this.keys.trips);
+    trips.push(trip);
+    this.save(this.keys.trips, trips);
   },
 
   updateTrip(id, updates) {
-    const t = state.trips.find(t => t.id === id);
-    if (t) Object.assign(t, updates);
-    this.save();
+    const trips = this.list(this.keys.trips).map(t =>
+      t.id === id ? { ...t, ...updates } : t
+    );
+    this.save(this.keys.trips, trips);
   },
 
-  // Packing list helpers
+  // ===============================
+  // PACKING LISTS
+  // ===============================
   addPackingList(list) {
-    state.packingLists.push(list);
-    this.save();
+    const lists = this.list(this.keys.packingLists);
+    lists.push(list);
+    this.save(this.keys.packingLists, lists);
   },
 
   updatePackingList(id, updates) {
-    const l = state.packingLists.find(l => l.id === id);
-    if (l) Object.assign(l, updates);
-    this.save();
+    const lists = this.list(this.keys.packingLists).map(l =>
+      l.id === id ? { ...l, ...updates } : l
+    );
+    this.save(this.keys.packingLists, lists);
+  },
+
+  // ===============================
+  // PACKING ITEMS
+  // ===============================
+  addPackingItem(item) {
+    const items = this.list(this.keys.packingItems);
+    items.push(item);
+    this.save(this.keys.packingItems, items);
+  },
+
+  updatePackingItem(updated) {
+    const items = this.list(this.keys.packingItems).map(i =>
+      i.id === updated.id ? updated : i
+    );
+    this.save(this.keys.packingItems, items);
+  },
+
+  deletePackingItem(id) {
+    const items = this.list(this.keys.packingItems).filter(i => i.id !== id);
+    this.save(this.keys.packingItems, items);
   }
 };
-
-// Initialize store on module load
-store.init();
