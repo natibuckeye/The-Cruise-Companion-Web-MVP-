@@ -1,63 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Cruise Companion — Web MVP</title>
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/styles.css" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="topbar">
-    <div class="brand">
+  <!-- =============================== -->
+  <!-- TOP BAR -->
+  <!-- =============================== -->
+  <div class="topbar">
+    <div>
       <div class="brand__title">The Cruise Companion</div>
-      <div class="brand__sub">Offline Web MVP</div>
+      <div class="brand__sub">Your smarter cruise planner</div>
     </div>
+  </div>
 
-    <div class="trip">
-      <label for="tripSelect">Current trip</label>
-      <select id="tripSelect"></select>
-    </div>
-  </header>
-
+  <!-- =============================== -->
   <!-- NAVIGATION TABS -->
-  <nav class="tabs">
+  <!-- =============================== -->
+  <div class="tabs">
     <button class="tab" data-tab="trips">Trips</button>
-    <button class="tab" data-tab="matchmaker">Matchmaker</button>
-    <button class="tab" data-tab="ports">Ports</button>
     <button class="tab" data-tab="lists">Lists</button>
-    <button class="tab" data-tab="tips">Tips</button>
-    <button class="tab" data-tab="concierge">Concierge</button>
-  </nav>
+    <button class="tab" data-tab="ports">Ports</button>
+    <button class="tab" data-tab="matchmaker">Matchmaker</button>
+  </div>
 
-  <!-- MAIN CONTENT RENDER TARGET -->
-  <div id="content"></div>
+  <!-- =============================== -->
+  <!-- MAIN APP AREA -->
+  <!-- =============================== -->
+  <div id="content" class="app"></div>
 
-  <!-- MODAL -->
-  <dialog id="modal" class="modal">
-    <form method="dialog" class="modal__card">
-      <div class="modal__header">
-        <h3 id="modalTitle">Modal</h3>
-        <button value="cancel" class="icon-btn" aria-label="Close"></button>
-      </div>
+  <!-- =============================== -->
+  <!-- MODAL OVERLAY (injected by ui.js) -->
+  <!-- =============================== -->
+  <!-- ui.js will dynamically create:
+       <div class="modal-overlay">
+         <div class="modal"> ... </div>
+       </div>
+  -->
 
-      <div id="modalBody" class="modal__body"></div>
-      <div id="modalFooter" class="modal__footer"></div>
-    </form>
-  </dialog>
-
-    <script type="module" src="app.js"></script>
-</body>
-</html>
-
-
+  <!-- =============================== -->
+  <!-- SCRIPTS -->
+  <!-- =============================== -->
+  <script type="module" src="./app.js"></script>
 
 </body>
 </html>
