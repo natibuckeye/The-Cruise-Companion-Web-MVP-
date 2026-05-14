@@ -212,6 +212,22 @@ label {
   cursor: pointer;
   transition: var(--transition);
 }
+/* ================================
+   MATCHMAKER — COMPARISON VIEW
+==================================*/
+.compare-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.compare-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  text-align: center;
+}
 
 .quiz-btn:hover {
   background: #e7edf5;
