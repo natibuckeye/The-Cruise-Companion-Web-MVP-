@@ -1,40 +1,32 @@
 // ===============================
-// ROUTER — Modern ES Module
+// ROUTER — Modern ES Version
 // ===============================
 
-// Allowed tabs in your app
-const allowedTabs = new Set([
-  "trips",
-  "matchmaker",
-  "ports",
-  "lists",
-  "tips",
-  "concierge"
-]);
+import { loadTrips } from "./modules/trips.js";
+import { loadLists } from "./modules/lists.js";
+import { loadPorts } from "./modules/ports.js";
+import { loadMatchmaker } from "./modules/matchmaker.js";
 
-// ===============================
-// Get current tab from URL hash
-// ===============================
-export function getTabFromHash() {
-  const hash = location.hash.replace("#", "").trim();
-  return allowedTabs.has(hash) ? hash : "trips";
-}
+// Route → Module mapping
+const routes = {
+  trips: loadTrips,
+  lists: loadLists,
+  ports: loadPorts,
+  matchmaker: loadMatchmaker
+};
 
-// ===============================
-// Update URL hash when user clicks a tab
-// ===============================
-export function setHash(tab) {
-  if (allowedTabs.has(tab)) {
-    location.hash = tab;
+// Main router function
+export function navigate(routeName) {
+  const loader = routes[routeName];
+
+  if (loader) {
+    loader();
+  } else {
+    console.warn(`Router: No module found for route "${routeName}"`);
   }
 }
 
-// ===============================
-// Listen for browser back/forward navigation
-// ===============================
-export function onHashChange(callback) {
-  window.addEventListener("hashchange", () => {
-    const tab = getTabFromHash();
-    callback(tab);
-  });
+// Optional: expose route list (debugging / future use)
+export function getRoutes() {
+  return Object.keys(routes);
 }
