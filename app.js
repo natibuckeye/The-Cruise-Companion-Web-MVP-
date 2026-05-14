@@ -1,89 +1,56 @@
 // ===============================
-// IMPORT MODULES
+// APP CONTROLLER — Modern ES Version
 // ===============================
+
+// MODULE IMPORTS
 import { loadTrips } from "./modules/trips.js";
-import { loadMatchmaker } from "./modules/matchmaker.js";
-import { loadPorts } from "./modules/ports.js";
-import { loadPacking } from "./modules/packing.js";
-import { loadTips } from "./modules/tips.js";
-import { loadConcierge } from "./modules/concierge.js";
 import { loadLists } from "./modules/lists.js";
-
-import { getTabFromHash, setHash, onHashChange } from "./modules/router.js";
-
-// ===============================
-// TAB HANDLING
-// ===============================
-const tabs = document.querySelectorAll(".tab");
-
-function clearActiveTabs() {
-  tabs.forEach(tab => tab.classList.remove("active"));
-}
-
-function activateTab(tabName) {
-  const tab = document.querySelector(`[data-tab="${tabName}"]`);
-  if (tab) tab.classList.add("active");
-}
+import { loadPorts } from "./modules/ports.js";
+import { loadMatchmaker } from "./modules/matchmaker.js";
 
 // ===============================
-// MODULE LOADER
+// ROUTER
 // ===============================
-function loadModule(name) {
-  clearActiveTabs();
-  activateTab(name);
+const routes = {
+  trips: loadTrips,
+  lists: loadLists,
+  ports: loadPorts,
+  matchmaker: loadMatchmaker
+};
 
-  switch (name) {
-    case "trips":
-      loadTrips();
-      break;
-
-    case "matchmaker":
-      loadMatchmaker();
-      break;
-
-    case "ports":
-      loadPorts();
-      break;
-
-    case "lists":
-      loadLists();
-      break;
-
-    case "tips":
-      loadTips();
-      break;
-
-    case "concierge":
-      loadConcierge();
-      break;
-
-    default:
-      loadTrips();
-  }
+export function loadModule(name) {
+  const loader = routes[name];
+  if (loader) loader();
+  else console.warn(`No module found for: ${name}`);
 }
 
 // ===============================
-// TAB CLICK EVENTS
+// TAB NAVIGATION
 // ===============================
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    const moduleName = tab.dataset.tab;
-    setHash(moduleName);     // update URL
-    loadModule(moduleName);  // load page
+function setupTabs() {
+  const tabs = document.querySelectorAll(".tab");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.tab;
+
+      // Update active tab
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      // Load module
+      loadModule(target);
+    });
   });
-});
+}
 
 // ===============================
-// HASH CHANGE (Back/Forward Support)
+// INITIALIZE APP
 // ===============================
-onHashChange((tab) => {
-  loadModule(tab);
-});
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
 
-// ===============================
-// INITIAL LOAD
-// ===============================
-window.addEventListener("DOMContentLoaded", () => {
-  const initial = getTabFromHash();
-  loadModule(initial);
+  // Default tab on first load
+  const defaultTab = document.querySelector('.tab[data-tab="trips"]');
+  if (defaultTab) defaultTab.click();
 });
