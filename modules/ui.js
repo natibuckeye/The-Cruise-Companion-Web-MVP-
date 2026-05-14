@@ -2,7 +2,9 @@
 // UI MODULE — Modern ES Version
 // ===============================
 
-// Create an element with attributes + children
+// ===============================
+// ELEMENT CREATOR
+// ===============================
 export function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
 
@@ -32,24 +34,21 @@ export function el(tag, attrs = {}, children = []) {
 // ===============================
 // MODAL SYSTEM
 // ===============================
-
-// Opens a modal with provided content
 export function openModal(content) {
   closeModal(); // ensure only one modal exists
 
-  const overlay = el("div", { class: "modal-overlay" });
+  const overlay = el("div", { class: "modal-overlay fade-in" });
   const modal = el("div", { class: "modal" }, [content]);
 
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
-  // Close on overlay click
+  // Close when clicking outside modal
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeModal();
   });
 }
 
-// Close any open modal
 export function closeModal() {
   const existing = document.querySelector(".modal-overlay");
   if (existing) existing.remove();
@@ -58,13 +57,10 @@ export function closeModal() {
 // ===============================
 // SMALL UTILITY HELPERS
 // ===============================
-
-// Clear a DOM element
-export function clear(el) {
-  while (el.firstChild) el.removeChild(el.firstChild);
+export function clear(elm) {
+  while (elm.firstChild) elm.removeChild(elm.firstChild);
 }
 
-// Create a simple text node
 export function text(str) {
   return document.createTextNode(str);
 }
