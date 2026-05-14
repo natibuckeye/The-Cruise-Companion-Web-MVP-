@@ -101,6 +101,15 @@ export function loadMatchmaker() {
     ])
   );
 
+  // Compare button on home screen
+  root.appendChild(
+    el("button", {
+      class: "btn secondary-btn",
+      style: "margin-top: 20px;",
+      onclick: showComparison
+    }, ["Compare Cruise Lines"])
+  );
+
   startQuiz();
 }
 
@@ -167,6 +176,7 @@ function showResults() {
     el("h2", { class: "module-title" }, ["Your Perfect Match"])
   );
 
+  // Logo
   root.appendChild(
     el("img", {
       src: winner.logo,
@@ -174,6 +184,16 @@ function showResults() {
     })
   );
 
+  // Compare button
+  root.appendChild(
+    el("button", {
+      class: "btn secondary-btn",
+      style: "margin-top: 20px;",
+      onclick: showComparison
+    }, ["Compare Cruise Lines"])
+  );
+
+  // Name + description
   root.appendChild(
     el("h3", {}, [winner.name])
   );
@@ -227,4 +247,66 @@ function addItineraryToTrips(line, itinerary) {
   store.addTrip(trip);
 
   alert(`Added "${itinerary}" to your trips!`);
+}
+
+// ===============================
+// COMPARE CRUISE LINES SCREEN
+// ===============================
+function showComparison() {
+  const root = document.getElementById("content");
+  root.innerHTML = "";
+
+  root.appendChild(
+    el("button", { class: "secondary-btn", onclick: loadMatchmaker }, ["← Back"])
+  );
+
+  root.appendChild(
+    el("h2", { class: "module-title", style: "margin-top: 16px;" }, [
+      "Compare Cruise Lines"
+    ])
+  );
+
+  const grid = el("div", { class: "compare-grid" });
+
+  Object.values(CRUISE_LINES).forEach(line => {
+    grid.appendChild(
+      el("div", { class: "compare-card" }, [
+        el("img", {
+          src: line.logo,
+          class: "result-logo",
+          style: "width: 100px; height: 100px;"
+        }),
+
+        el("h3", {}, [line.name]),
+        el("p", { class: "muted" }, [line.description]),
+
+        el("h4", { style: "margin-top: 12px;" }, ["Top Itineraries"]),
+        el("ul", {},
+          line.itineraries.map(it => el("li", {}, [it]))
+        ),
+
+        el("button", {
+          class: "btn small",
+          onclick: () => addComparisonTrip(line)
+        }, ["Add Sample Trip"])
+      ])
+    );
+  });
+
+  root.appendChild(grid);
+}
+
+// ===============================
+// ADD SAMPLE TRIP FROM COMPARISON
+// ===============================
+function addComparisonTrip(line) {
+  const trip = {
+    id: crypto.randomUUID(),
+    destination: `${line.name} Sample Itinerary`,
+    ship: line.name,
+    dates: "TBD"
+  };
+
+  store.addTrip(trip);
+  alert(`Added a sample ${line.name} trip to your Trips`);
 }
