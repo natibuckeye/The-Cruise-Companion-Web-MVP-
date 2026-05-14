@@ -3,7 +3,7 @@
 // ===============================
 
 import { store } from "./store.js";
-import { el, openModal, closeModal } from "./ui.js";
+import { el } from "./ui.js";
 
 // ===============================
 // QUIZ QUESTIONS
@@ -39,7 +39,7 @@ const QUESTIONS = [
 ];
 
 // ===============================
-// CRUISE LINE PROFILES
+// CRUISE LINE PROFILES (UPGRADED)
 // ===============================
 const CRUISE_LINES = {
   royal: {
@@ -50,8 +50,20 @@ const CRUISE_LINES = {
       "7‑Night Western Caribbean",
       "Perfect Day at CocoCay",
       "Bahamas Weekend Getaway"
-    ]
+    ],
+    features: {
+      vibe: "High‑Tech Adventure",
+      price: "Mid‑Range",
+      amenities: [
+        "FlowRider Surf Simulator",
+        "Zip Line",
+        "Ice Skating",
+        "CocoCay Access",
+        "Rock Climbing Wall"
+      ]
+    }
   },
+
   carnival: {
     name: "Carnival Cruise Line",
     logo: "./assets/logos/carnival.png",
@@ -60,8 +72,20 @@ const CRUISE_LINES = {
       "5‑Night Cozumel + Costa Maya",
       "Bahamas Fun Cruise",
       "Eastern Caribbean Escape"
-    ]
+    ],
+    features: {
+      vibe: "Party & Social",
+      price: "Budget‑Friendly",
+      amenities: [
+        "Water Slides",
+        "Comedy Clubs",
+        "Nightlife",
+        "Guy’s Burger Joint",
+        "Poolside DJ Parties"
+      ]
+    }
   },
+
   princess: {
     name: "Princess Cruises",
     logo: "./assets/logos/princess.png",
@@ -70,8 +94,20 @@ const CRUISE_LINES = {
       "7‑Night Alaska Inside Passage",
       "Mexican Riviera",
       "Caribbean Explorer"
-    ]
+    ],
+    features: {
+      vibe: "Relaxed & Refined",
+      price: "Mid‑High",
+      amenities: [
+        "Movies Under the Stars",
+        "Sanctuary Adults‑Only Spa",
+        "Discovery‑Themed Excursions",
+        "Wine Tastings",
+        "Traditional Afternoon Tea"
+      ]
+    }
   },
+
   celebrity: {
     name: "Celebrity Cruises",
     logo: "./assets/logos/celebrity.png",
@@ -80,7 +116,18 @@ const CRUISE_LINES = {
       "7‑Night Southern Caribbean",
       "Bermuda Luxury Sailing",
       "Mediterranean Highlights"
-    ]
+    ],
+    features: {
+      vibe: "Modern Luxury",
+      price: "Premium",
+      amenities: [
+        "Rooftop Garden",
+        "Eden Lounge",
+        "Fine Dining",
+        "The Retreat Suites",
+        "Michelin‑Inspired Cuisine"
+      ]
+    }
   }
 };
 
@@ -91,9 +138,7 @@ export function loadMatchmaker() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  root.appendChild(
-    el("h2", { class: "module-title" }, ["Cruise Matchmaker"])
-  );
+  root.appendChild(el("h2", { class: "module-title" }, ["Cruise Matchmaker"]));
 
   root.appendChild(
     el("p", { class: "muted" }, [
@@ -139,12 +184,10 @@ function renderQuestion() {
       el("button", {
         class: "quiz-btn fade-in",
         onclick: () => {
-          // Apply scoring
           for (const line in opt.score) {
             scores[line] += opt.score[line];
           }
 
-          // Next question or finish
           currentIndex++;
           if (currentIndex < QUESTIONS.length) {
             loadMatchmaker();
@@ -165,18 +208,14 @@ function showResults() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  // Determine winner
   const winnerKey = Object.keys(scores).reduce((a, b) =>
     scores[a] > scores[b] ? a : b
   );
 
   const winner = CRUISE_LINES[winnerKey];
 
-  root.appendChild(
-    el("h2", { class: "module-title" }, ["Your Perfect Match"])
-  );
+  root.appendChild(el("h2", { class: "module-title" }, ["Your Perfect Match"]));
 
-  // Logo
   root.appendChild(
     el("img", {
       src: winner.logo,
@@ -184,7 +223,6 @@ function showResults() {
     })
   );
 
-  // Compare button
   root.appendChild(
     el("button", {
       class: "btn secondary-btn",
@@ -193,16 +231,9 @@ function showResults() {
     }, ["Compare Cruise Lines"])
   );
 
-  // Name + description
-  root.appendChild(
-    el("h3", {}, [winner.name])
-  );
+  root.appendChild(el("h3", {}, [winner.name]));
+  root.appendChild(el("p", { class: "muted" }, [winner.description]));
 
-  root.appendChild(
-    el("p", { class: "muted" }, [winner.description])
-  );
-
-  // Itineraries
   root.appendChild(
     el("h3", { style: "margin-top: 20px;" }, ["Recommended Itineraries"])
   );
@@ -223,7 +254,6 @@ function showResults() {
 
   root.appendChild(grid);
 
-  // Restart
   root.appendChild(
     el("button", {
       class: "btn secondary-btn",
@@ -245,7 +275,6 @@ function addItineraryToTrips(line, itinerary) {
   };
 
   store.addTrip(trip);
-
   alert(`Added "${itinerary}" to your trips!`);
 }
 
@@ -266,6 +295,7 @@ function showComparison() {
     ])
   );
 
+  // Cruise Line Cards
   const grid = el("div", { class: "compare-grid" });
 
   Object.values(CRUISE_LINES).forEach(line => {
@@ -276,15 +306,10 @@ function showComparison() {
           class: "result-logo",
           style: "width: 100px; height: 100px;"
         }),
-
         el("h3", {}, [line.name]),
         el("p", { class: "muted" }, [line.description]),
-
         el("h4", { style: "margin-top: 12px;" }, ["Top Itineraries"]),
-        el("ul", {},
-          line.itineraries.map(it => el("li", {}, [it]))
-        ),
-
+        el("ul", {}, line.itineraries.map(it => el("li", {}, [it]))),
         el("button", {
           class: "btn small",
           onclick: () => addComparisonTrip(line)
@@ -294,6 +319,39 @@ function showComparison() {
   });
 
   root.appendChild(grid);
+
+  // ===============================
+  // FEATURE COMPARISON TABLE
+  // ===============================
+  root.appendChild(
+    el("h2", { class: "module-title", style: "margin-top: 40px;" }, [
+      "Feature Comparison"
+    ])
+  );
+
+  const table = el("table", { class: "compare-table" });
+
+  table.appendChild(
+    el("tr", {}, [
+      el("th", {}, ["Cruise Line"]),
+      el("th", {}, ["Vibe"]),
+      el("th", {}, ["Price Level"]),
+      el("th", {}, ["Key Amenities"])
+    ])
+  );
+
+  Object.values(CRUISE_LINES).forEach(line => {
+    table.appendChild(
+      el("tr", {}, [
+        el("td", {}, [line.name]),
+        el("td", {}, [line.features.vibe]),
+        el("td", {}, [line.features.price]),
+        el("td", {}, [line.features.amenities.join(", ")])
+      ])
+    );
+  });
+
+  root.appendChild(table);
 }
 
 // ===============================
