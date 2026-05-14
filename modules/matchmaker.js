@@ -2,161 +2,229 @@
 // MATCHMAKER MODULE — Modern ES Version
 // ===============================
 
+import { store } from "./store.js";
 import { el, openModal, closeModal } from "./ui.js";
-import { store, state } from "./store.js";
 
 // ===============================
-// CRUISE LINE DATA
+// QUIZ QUESTIONS
 // ===============================
-const CRUISE_LINES = [
+const QUESTIONS = [
   {
-    id: "royal",
-    line: "Royal Caribbean",
-    logo: "assets/logos/royal.svg",
-    desc: "Perfect for adventure lovers, families, and big‑ship entertainment.",
-    itineraries: [
-      { title: "Perfect Day Bahamas", days: "3–4 nights", ship: "Utopia of the Seas" },
-      { title: "Western Caribbean", days: "7 nights", ship: "Wonder of the Seas" }
+    text: "What kind of cruise experience do you prefer?",
+    options: [
+      { label: "Relaxing & Quiet", score: { celebrity: 2, princess: 2 } },
+      { label: "Family Fun & Activities", score: { royal: 2, carnival: 2 } },
+      { label: "Luxury & Premium", score: { celebrity: 3 } },
+      { label: "Party & Nightlife", score: { carnival: 3 } }
     ]
   },
   {
-    id: "celebrity",
-    line: "Celebrity Cruises",
-    logo: "assets/logos/celebrity.svg",
-    desc: "Upscale, modern, and perfect for adults or couples.",
-    itineraries: [
-      { title: "Southern Caribbean", days: "7 nights", ship: "Celebrity Beyond" },
-      { title: "Alaska Dawes Glacier", days: "7 nights", ship: "Celebrity Edge" }
+    text: "What’s your ideal onboard vibe?",
+    options: [
+      { label: "Modern & High‑Tech", score: { royal: 3 } },
+      { label: "Classic Cruise Feel", score: { princess: 3 } },
+      { label: "Lively & Social", score: { carnival: 3 } },
+      { label: "Upscale & Stylish", score: { celebrity: 3 } }
     ]
   },
   {
-    id: "ncl",
-    line: "Norwegian Cruise Line",
-    logo: "assets/logos/ncl.svg",
-    desc: "Freestyle cruising with flexible dining and entertainment.",
-    itineraries: [
-      { title: "Greek Isles", days: "7 nights", ship: "Norwegian Viva" },
-      { title: "Caribbean Escape", days: "5 nights", ship: "Norwegian Escape" }
+    text: "What matters most to you?",
+    options: [
+      { label: "Entertainment & Shows", score: { royal: 2, carnival: 2 } },
+      { label: "Food & Dining", score: { celebrity: 3, princess: 2 } },
+      { label: "Relaxation & Spa", score: { princess: 3, celebrity: 2 } },
+      { label: "Adventure & Activities", score: { royal: 3 } }
     ]
   }
 ];
 
 // ===============================
-// MAIN LOADER
+// CRUISE LINE PROFILES
+// ===============================
+const CRUISE_LINES = {
+  royal: {
+    name: "Royal Caribbean",
+    logo: "./assets/logos/royal.png",
+    description: "Perfect for families, adventure lovers, and high‑tech ships.",
+    itineraries: [
+      "7‑Night Western Caribbean",
+      "Perfect Day at CocoCay",
+      "Bahamas Weekend Getaway"
+    ]
+  },
+  carnival: {
+    name: "Carnival Cruise Line",
+    logo: "./assets/logos/carnival.png",
+    description: "Fun, energetic, and budget‑friendly with great nightlife.",
+    itineraries: [
+      "5‑Night Cozumel + Costa Maya",
+      "Bahamas Fun Cruise",
+      "Eastern Caribbean Escape"
+    ]
+  },
+  princess: {
+    name: "Princess Cruises",
+    logo: "./assets/logos/princess.png",
+    description: "Relaxed, elegant, and perfect for couples and mature travelers.",
+    itineraries: [
+      "7‑Night Alaska Inside Passage",
+      "Mexican Riviera",
+      "Caribbean Explorer"
+    ]
+  },
+  celebrity: {
+    name: "Celebrity Cruises",
+    logo: "./assets/logos/celebrity.png",
+    description: "Premium, stylish, and food‑focused with a modern luxury feel.",
+    itineraries: [
+      "7‑Night Southern Caribbean",
+      "Bermuda Luxury Sailing",
+      "Mediterranean Highlights"
+    ]
+  }
+};
+
+// ===============================
+// MAIN ENTRY
 // ===============================
 export function loadMatchmaker() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
   root.appendChild(
-    el("h2", { class: "module-title fade-in" }, ["Cruise Matchmaker"])
+    el("h2", { class: "module-title" }, ["Cruise Matchmaker"])
   );
 
   root.appendChild(
-    el("p", { class: "muted fade-in" }, [
+    el("p", { class: "muted" }, [
       "Answer a few quick questions and we’ll match you with the perfect cruise line."
     ])
   );
 
-  const startBtn = el(
-    "button",
-    { class: "primary-btn fade-in", onclick: startQuiz },
-    ["Start Matchmaker"]
+  startQuiz();
+}
+
+// ===============================
+// QUIZ ENGINE
+// ===============================
+let currentIndex = 0;
+let scores = { royal: 0, carnival: 0, princess: 0, celebrity: 0 };
+
+function startQuiz() {
+  currentIndex = 0;
+  scores = { royal: 0, carnival: 0, princess: 0, celebrity: 0 };
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const root = document.getElementById("content");
+
+  const q = QUESTIONS[currentIndex];
+
+  root.appendChild(
+    el("h3", { class: "slide-up", style: "margin-top: 20px;" }, [q.text])
   );
 
-  root.appendChild(startBtn);
+  q.options.forEach(opt => {
+    root.appendChild(
+      el("button", {
+        class: "quiz-btn fade-in",
+        onclick: () => {
+          // Apply scoring
+          for (const line in opt.score) {
+            scores[line] += opt.score[line];
+          }
+
+          // Next question or finish
+          currentIndex++;
+          if (currentIndex < QUESTIONS.length) {
+            loadMatchmaker();
+            renderQuestion();
+          } else {
+            showResults();
+          }
+        }
+      }, [opt.label])
+    );
+  });
 }
 
 // ===============================
-// QUIZ FLOW
+// RESULTS
 // ===============================
-function startQuiz() {
+function showResults() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  const q = el("div", { class: "quiz-card slide-up" }, [
-    el("h3", {}, ["What’s your cruise vibe?"]),
-    el("button", { class: "quiz-btn", onclick: () => finishQuiz("adventure") }, [
-      "Adventure & Activities"
-    ]),
-    el("button", { class: "quiz-btn", onclick: () => finishQuiz("relax") }, [
-      "Relaxation & Luxury"
-    ]),
-    el("button", { class: "quiz-btn", onclick: () => finishQuiz("flexible") }, [
-      "Flexible & Freestyle"
-    ])
-  ]);
+  // Determine winner
+  const winnerKey = Object.keys(scores).reduce((a, b) =>
+    scores[a] > scores[b] ? a : b
+  );
 
-  root.appendChild(q);
+  const winner = CRUISE_LINES[winnerKey];
+
+  root.appendChild(
+    el("h2", { class: "module-title" }, ["Your Perfect Match"])
+  );
+
+  root.appendChild(
+    el("img", {
+      src: winner.logo,
+      class: "result-logo fade-in"
+    })
+  );
+
+  root.appendChild(
+    el("h3", {}, [winner.name])
+  );
+
+  root.appendChild(
+    el("p", { class: "muted" }, [winner.description])
+  );
+
+  // Itineraries
+  root.appendChild(
+    el("h3", { style: "margin-top: 20px;" }, ["Recommended Itineraries"])
+  );
+
+  const grid = el("div", { class: "itinerary-grid" });
+
+  winner.itineraries.forEach(it => {
+    grid.appendChild(
+      el("div", { class: "itinerary-card" }, [
+        el("h4", {}, [it]),
+        el("button", {
+          class: "btn small",
+          onclick: () => addItineraryToTrips(winner, it)
+        }, ["Add to My Trips"])
+      ])
+    );
+  });
+
+  root.appendChild(grid);
+
+  // Restart
+  root.appendChild(
+    el("button", {
+      class: "btn secondary-btn",
+      style: "margin-top: 20px;",
+      onclick: loadMatchmaker
+    }, ["Restart Quiz"])
+  );
 }
 
 // ===============================
-// RESULT LOGIC
+// ADD ITINERARY TO TRIPS
 // ===============================
-function finishQuiz(type) {
-  let match;
-
-  if (type === "adventure") match = CRUISE_LINES[0];
-  if (type === "relax") match = CRUISE_LINES[1];
-  if (type === "flexible") match = CRUISE_LINES[2];
-
-  showResult(match);
-}
-
-// ===============================
-// RESULT UI
-// ===============================
-function showResult(r) {
-  const root = document.getElementById("content");
-  root.innerHTML = "";
-
-  const card = el("div", { class: "result-card fade-in" }, [
-    el("h3", { class: "result-title" }, [`Your Perfect Match: ${r.line}`]),
-    el("img", { src: r.logo, class: "result-logo" }),
-    el("p", { class: "result-desc" }, [r.desc]),
-
-    el("h4", { class: "result-subtitle" }, ["Top Itineraries"]),
-
-    el(
-      "div",
-      { class: "itinerary-grid" },
-      r.itineraries.map((i) =>
-        el("div", { class: "itinerary-card slide-up" }, [
-          el("h4", {}, [i.title]),
-          el("p", {}, [`${i.days}`]),
-          el("p", { class: "muted" }, [`Ship: ${i.ship}`])
-        ])
-      )
-    ),
-
-    el(
-      "button",
-      { class: "primary-btn save-btn slide-up", onclick: () => saveToTrips(r) },
-      ["Save to My Trips"]
-    )
-  ]);
-
-  root.appendChild(card);
-}
-
-// ===============================
-// SAVE TO TRIPS
-// ===============================
-function saveToTrips(match) {
+function addItineraryToTrips(line, itinerary) {
   const trip = {
     id: crypto.randomUUID(),
-    ship: match.line,
-    destination: match.itineraries[0].title,
-    dates: match.itineraries[0].days
+    destination: itinerary,
+    ship: line.name,
+    dates: "TBD"
   };
 
   store.addTrip(trip);
 
-  openModal(
-    el("div", { class: "modal-content" }, [
-      el("h3", {}, ["Saved!"]),
-      el("p", {}, [`${match.line} has been added to your Trips.`]),
-      el("button", { class: "primary-btn", onclick: closeModal }, ["Close"])
-    ])
-  );
+  alert(`Added "${itinerary}" to your trips!`);
 }
