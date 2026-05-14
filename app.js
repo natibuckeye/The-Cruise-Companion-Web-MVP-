@@ -2,27 +2,8 @@
 // APP CONTROLLER — Modern ES Version
 // ===============================
 
-// MODULE IMPORTS
-import { loadTrips } from "./modules/trips.js";
-import { loadLists } from "./modules/lists.js";
-import { loadPorts } from "./modules/ports.js";
-import { loadMatchmaker } from "./modules/matchmaker.js";
-
-// ===============================
-// ROUTER
-// ===============================
-const routes = {
-  trips: loadTrips,
-  lists: loadLists,
-  ports: loadPorts,
-  matchmaker: loadMatchmaker
-};
-
-export function loadModule(name) {
-  const loader = routes[name];
-  if (loader) loader();
-  else console.warn(`No module found for: ${name}`);
-}
+// ROUTER IMPORT
+import { navigate } from "./router.js";
 
 // ===============================
 // TAB NAVIGATION
@@ -38,8 +19,8 @@ function setupTabs() {
       tabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
 
-      // Load module
-      loadModule(target);
+      // Route to module
+      navigate(target);
     });
   });
 }
