@@ -2,8 +2,7 @@
 // APP CONTROLLER — Modern ES Version
 // ===============================
 
-// ROUTER IMPORT
-import { navigate } from "./router.js";
+import { initRouter, navigate } from './router.js';
 
 // ===============================
 // TAB NAVIGATION
@@ -30,6 +29,9 @@ function setupTabs() {
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
   setupTabs();
+
+  // Start router (handles hash + initial load)
+  initRouter();
 
   // Default tab on first load
   const defaultTab = document.querySelector('.tab[data-tab="trips"]');
