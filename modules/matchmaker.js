@@ -1,9 +1,21 @@
 // ===============================
-// MATCHMAKER MODULE — Modern ES Version
+// MATCHMAKER MODULE
 // ===============================
 
-import { store } from "./store.js";
-import { el } from "./ui.js";
+export function loadMatchmaker() {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <h2 class="module-title">Cruise Matchmaker</h2>
+
+    <div class="card fade-in">
+      <p>Answer a few quick questions and we’ll match you with the perfect cruise line.</p>
+    </div>
+
+    <button class="quiz-btn fade-in">Start Matchmaker Quiz</button>
+  `;
+}
+
 
 // ===============================
 // QUIZ QUESTIONS
