@@ -16,7 +16,7 @@ export function loadLists() {
 
   // HEADER
   root.appendChild(
-    el("div", { class: "row" }, [
+    el("div", { class: "row fade-in" }, [
       el("div", { class: "spacer" }, [
         el("h2", {}, ["Packing Lists"]),
         el("div", { class: "muted" }, ["Organize everything for your cruise."])
@@ -32,32 +32,32 @@ export function loadLists() {
     ])
   );
 
-  // ===============================
-// LISTS MODULE
-// ===============================
+  // LIST CONTAINER
+  const container = el("div", { class: "list-container fade-in" });
 
-export function loadLists() {
-  const content = document.getElementById("content");
-
-  content.innerHTML = `
-    <h2 class="module-title">Packing & Prep Lists</h2>
-
-    <div class="card fade-in">
-      <p>Create packing lists, pre‑cruise checklists, and reminders to stay fully prepared.</p>
-    </div>
-
-    <div class="card fade-in">
-      <h3>Example List</h3>
-      <ul>
-        <li>Passport</li>
-        <li>Boarding Documents</li>
-        <li>Swimwear</li>
-        <li>Formal Night Outfit</li>
-      </ul>
-    </div>
-  `;
-}
-
+  if (lists.length === 0) {
+    container.appendChild(
+      el("p", { class: "muted" }, ["No lists yet. Create one to get started."])
+    );
+  } else {
+    lists.forEach(list => {
+      container.appendChild(
+        el("div", { class: "list-item" }, [
+          el("h3", {}, [list.name]),
+          el("div", { class: "list-actions" }, [
+            el("button", {
+              class: "btn small",
+              onclick: () => openListDetail(list)
+            }, ["Open"]),
+            el("button", {
+              class: "btn small danger",
+              onclick: () => deleteList(list.id)
+            }, ["Delete"])
+          ])
+        ])
+      );
+    });
+  }
 
   root.appendChild(container);
 }
@@ -71,16 +71,17 @@ function openListDetail(list) {
 
   const items = store.list(store.keys.packingItems).filter(i => i.listId === list.id);
 
-  // HEADER
+  // BACK BUTTON
   root.appendChild(
     el("button", { class: "secondary-btn", onclick: loadLists }, ["← Back"])
   );
 
+  // TITLE
   root.appendChild(
     el("h2", { class: "module-title", style: "margin-top: 16px;" }, [list.name])
   );
 
-  // ADD ITEM
+  // ADD ITEM BUTTON
   root.appendChild(
     el("button", {
       class: "btn primary",
@@ -89,7 +90,7 @@ function openListDetail(list) {
   );
 
   // ITEMS
-  const container = el("div", { class: "item-container" });
+  const container = el("div", { class: "item-container fade-in" });
 
   if (items.length === 0) {
     container.appendChild(
@@ -110,7 +111,7 @@ function openListDetail(list) {
           }),
           el("span", { class: item.checked ? "checked" : "" }, [item.name]),
           el("button", {
-            class: "btn small",
+            class: "btn small danger",
             onclick: () => deleteItem(item.id, list)
           }, ["Delete"])
         ])
@@ -156,6 +157,14 @@ function openItemEditor(listId) {
 function deleteItem(id, list) {
   store.deletePackingItem(id);
   openListDetail(list);
+}
+
+// ===============================
+// DELETE LIST
+// ===============================
+function deleteList(id) {
+  store.deletePackingList(id);
+  loadLists();
 }
 
 // ===============================
