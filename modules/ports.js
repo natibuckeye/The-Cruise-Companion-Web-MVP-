@@ -1,9 +1,23 @@
 // ===============================
-// PORTS MODULE — Modern ES Version
+// PORTS MODULE
 // ===============================
 
-import { store } from "./store.js";
-import { el, openModal, closeModal } from "./ui.js";
+export function loadPorts() {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <h2 class="module-title">Ports & Destinations</h2>
+
+    <div class="card fade-in">
+      <p>Explore port guides, tips, and must‑see attractions for your upcoming cruise stops.</p>
+    </div>
+
+    <div class="card fade-in">
+      <h3>Nassau, Bahamas</h3>
+      <p>Beaches, Atlantis Resort, shopping, and excursions.</p>
+    </div>
+  `;
+}
 
 // ===============================
 // PORT DATA (static for MVP)
