@@ -1,9 +1,24 @@
 // ===============================
-// TRIPS MODULE — Modern ES Version
+// TRIPS MODULE
 // ===============================
 
-import { store } from "./store.js";
-import { el, openModal, closeModal } from "./ui.js";
+export function loadTrips() {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <h2 class="module-title">Trips</h2>
+
+    <div class="card fade-in">
+      <p>Start planning your cruise adventures. Add upcoming trips, track dates, and stay organized.</p>
+    </div>
+
+    <div class="trip-item fade-in">
+      <h3>Sample Trip</h3>
+      <p>Miami → Bahamas (3 Nights)</p>
+    </div>
+  `;
+}
+
 
 // ===============================
 // MAIN ENTRY
