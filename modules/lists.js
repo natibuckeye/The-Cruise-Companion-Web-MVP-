@@ -32,26 +32,32 @@ export function loadLists() {
     ])
   );
 
-  // LISTS
-  const container = el("div", { class: "list-container" });
+  // ===============================
+// LISTS MODULE
+// ===============================
 
-  if (lists.length === 0) {
-    container.appendChild(
-      el("p", { class: "muted" }, ["No lists yet. Create one to get started."])
-    );
-  } else {
-    lists.forEach(list => {
-      container.appendChild(
-        el("div", { class: "list-item" }, [
-          el("h3", {}, [list.name]),
-          el("button", {
-            class: "btn small",
-            onclick: () => openListDetail(list)
-          }, ["Open"])
-        ])
-      );
-    });
-  }
+export function loadLists() {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <h2 class="module-title">Packing & Prep Lists</h2>
+
+    <div class="card fade-in">
+      <p>Create packing lists, pre‑cruise checklists, and reminders to stay fully prepared.</p>
+    </div>
+
+    <div class="card fade-in">
+      <h3>Example List</h3>
+      <ul>
+        <li>Passport</li>
+        <li>Boarding Documents</li>
+        <li>Swimwear</li>
+        <li>Formal Night Outfit</li>
+      </ul>
+    </div>
+  `;
+}
+
 
   root.appendChild(container);
 }
