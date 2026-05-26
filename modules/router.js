@@ -26,10 +26,8 @@ export function navigate(routeName) {
   }
 }
 
-// Initialize router (optional hash support)
+// Add this so app.js stops breaking
 export function initRouter() {
-  // If you want hash routing later, add it here.
-  // For now, this just exists so app.js doesn't break.
   console.log("Router initialized");
 }
 
