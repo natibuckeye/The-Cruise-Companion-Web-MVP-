@@ -35,121 +35,143 @@ export function loadPorts() {
   `;
 
   // ===============================
-  // PORT DATA (Synced to your GitHub filenames)
+  // PORT DATA (Matches your GitHub EXACTLY)
   // ===============================
   const ports = [
     // --- Bahamas ---
     { 
-      name: "Nassau, Bahamas", 
+      name: "Nassau, Bahamas",
       category: "bahamas",
       desc: "Atlantis, beaches, and shopping.",
       img: "./assets/ports/nassau.jpg",
-      excursions: ["Atlantis Aquaventure", "Blue Lagoon Dolphin Encounter", "Nassau Food Tasting Tour"]
+      excursions: ["Atlantis Aquaventure", "Blue Lagoon Dolphin Encounter", "Nassau Food Tasting Tour"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "Disney", "MSC", "Norwegian", "Celebrity"]
     },
     { 
-      name: "CocoCay (Royal Caribbean)", 
+      name: "CocoCay (Royal Caribbean)",
       category: "bahamas",
       desc: "Perfect Day private island.",
       img: "./assets/ports/cococay.jpg",
-      excursions: ["Thrill Waterpark", "Up, Up & Away Balloon", "Coco Beach Club"]
+      excursions: ["Thrill Waterpark", "Up, Up & Away Balloon", "Coco Beach Club"],
+      cruiseLines: ["Royal Caribbean"]
     },
     { 
-      name: "Freeport, Bahamas", 
+      name: "Freeport, Bahamas",
       category: "bahamas",
       desc: "Laid‑back beaches and markets.",
       img: "./assets/ports/freeport.jpg",
-      excursions: ["Garden of the Groves", "Beach Break", "Snorkel Adventure"]
+      excursions: ["Garden of the Groves", "Beach Break", "Snorkel Adventure"],
+      cruiseLines: ["Carnival", "Royal Caribbean", "MSC"]
     },
 
     // --- Caribbean ---
     { 
-      name: "Amber Cove, Dominican Republic", 
+      name: "Amber Cove, Dominican Republic",
       category: "caribbean",
       desc: "Pools, zipline, and mountain views.",
       img: "./assets/ports/amber_cove.jpg",
-      excursions: ["Damajagua Waterfalls", "Catamaran Sail", "Zipline Adventure"]
+      excursions: ["Damajagua Waterfalls", "Catamaran Sail", "Zipline Adventure"],
+      cruiseLines: ["Carnival", "Princess", "Holland America"]
     },
     { 
-      name: "Labadee, Haiti", 
+      name: "Labadee, Haiti",
       category: "caribbean",
       desc: "Private beaches and the Dragon's Breath zipline.",
       img: "./assets/ports/labadee.jpg",
-      excursions: ["Dragon's Breath Zipline", "Labadee Beach Escape", "Kayak Adventure"]
+      excursions: ["Dragon's Breath Zipline", "Labadee Beach Escape", "Kayak Adventure"],
+      cruiseLines: ["Royal Caribbean"]
     },
     { 
-      name: "Ocho Rios, Jamaica", 
+      name: "Ocho Rios, Jamaica",
       category: "caribbean",
       desc: "Dunn’s River Falls and Blue Hole.",
       img: "./assets/ports/ochorios.jpg",
-      excursions: ["Dunn’s River Falls", "Blue Hole Adventure", "River Tubing"]
+      excursions: ["Dunn’s River Falls", "Blue Hole Adventure", "River Tubing"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian"]
     },
     { 
-      name: "Falmouth, Jamaica", 
+      name: "Falmouth, Jamaica",
       category: "caribbean",
       desc: "Historic port and Montego Bay access.",
       img: "./assets/ports/falmouth.jpg",
-      excursions: ["Luminous Lagoon", "Beach Resort Day Pass", "Martha Brae Rafting"]
+      excursions: ["Luminous Lagoon", "Beach Resort Day Pass", "Martha Brae Rafting"],
+      cruiseLines: ["Royal Caribbean", "Carnival"]
     },
     { 
-      name: "Roatán, Honduras", 
+      name: "Roatán, Honduras",
       category: "caribbean",
       desc: "Snorkeling and sloths.",
       img: "./assets/ports/roatan.jpg",
-      excursions: ["Sloth & Monkey Encounter", "Snorkel Tour", "West Bay Beach"]
+      excursions: ["Sloth & Monkey Encounter", "Snorkel Tour", "West Bay Beach"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "Norwegian", "MSC"]
+    },
+    { 
+      name: "St. Thomas, USVI",
+      category: "caribbean",
+      desc: "Magens Bay and island tours.",
+      img: "./assets/ports/st_thomas.jpg",
+      excursions: ["Magens Bay Beach", "Skyride to Paradise Point", "Snorkel at Coki Beach"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "Norwegian", "Celebrity", "Disney"]
+    },
+    { 
+      name: "San Juan, Puerto Rico",
+      category: "caribbean",
+      desc: "Old San Juan and historic forts.",
+      img: "./assets/ports/sanjuan.jpg",
+      excursions: ["Old San Juan Walking Tour", "El Yunque Rainforest", "Bacardi Distillery"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian"]
     },
 
     // --- Mexico ---
     { 
-      name: "Cozumel, Mexico", 
+      name: "Cozumel, Mexico",
       category: "mexico",
       desc: "Snorkeling, ruins, and beach clubs.",
       img: "./assets/ports/cozumel.jpg",
-      excursions: ["Mr. Sanchos Beach Club", "Mayan Ruins", "Snorkel at Palancar Reef"]
+      excursions: ["Mr. Sanchos Beach Club", "Mayan Ruins", "Snorkel at Palancar Reef"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian", "Disney", "Celebrity"]
     },
     { 
-      name: "Costa Maya, Mexico", 
+      name: "Costa Maya, Mexico",
       category: "mexico",
       desc: "Mayan ruins and beach escapes.",
       img: "./assets/ports/costa_maya.jpg",
-      excursions: ["Chacchoben Ruins", "Mahahual Beach Break", "ATV Jungle Ride"]
+      excursions: ["Chacchoben Ruins", "Mahahual Beach Break", "ATV Jungle Ride"],
+      cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian"]
     },
     { 
-      name: "Cabo San Lucas", 
+      name: "Cabo San Lucas",
       category: "mexico",
       desc: "The Arch and whale watching.",
       img: "./assets/ports/cabo.jpg",
-      excursions: ["Land’s End Boat Tour", "Whale Watching", "Beach Resort Day Pass"]
+      excursions: ["Land’s End Boat Tour", "Whale Watching", "Beach Resort Day Pass"],
+      cruiseLines: ["Princess", "Carnival", "Royal Caribbean", "Norwegian"]
     },
     { 
-      name: "Puerto Vallarta", 
+      name: "Puerto Vallarta",
       category: "mexico",
       desc: "Beaches, Malecon, and jungle tours.",
       img: "./assets/ports/puerto_vallarta.jpg",
-      excursions: ["Rhythms of the Night", "Zipline Adventure", "City & Tequila Tour"]
+      excursions: ["Rhythms of the Night", "Zipline Adventure", "City & Tequila Tour"],
+      cruiseLines: ["Princess", "Carnival", "Royal Caribbean", "Norwegian"]
     },
 
     // --- U.S. Ports ---
-    { name: "Miami, Florida", category: "us", desc: "World’s busiest cruise port.", img: "./assets/ports/miami.jpg", excursions: [] },
-    { name: "Port Canaveral, Florida", category: "us", desc: "Disney, NASA, and beaches.", img: "./assets/ports/port_canaveral.jpg", excursions: [] },
-    { name: "Fort Lauderdale", category: "us", desc: "Port Everglades and beaches.", img: "./assets/ports/fort_lauderdale.jpg", excursions: [] },
-    { name: "Tampa, Florida", category: "us", desc: "Easy access and great views.", img: "./assets/ports/tampa.jpg", excursions: [] },
-    { name: "Galveston, Texas", category: "us", desc: "Western Caribbean gateway.", img: "./assets/ports/galveston.jpg", excursions: [] },
+    { name: "Miami, Florida", category: "us", desc: "World’s busiest cruise port.", img: "./assets/ports/miami.jpg", excursions: [], cruiseLines: [] },
+    { name: "Port Canaveral, Florida", category: "us", desc: "Disney, NASA, and beaches.", img: "./assets/ports/port_canaveral.jpg", excursions: [], cruiseLines: [] },
+    { name: "Fort Lauderdale", category: "us", desc: "Port Everglades and beaches.", img: "./assets/ports/fort_lauderdale.jpg", excursions: [], cruiseLines: [] },
+    { name: "Tampa, Florida", category: "us", desc: "Easy access and great views.", img: "./assets/ports/tampa.jpg", excursions: [], cruiseLines: [] },
+    { name: "Galveston, Texas", category: "us", desc: "Western Caribbean gateway.", img: "./assets/ports/galveston.jpg", excursions: [], cruiseLines: [] },
 
     // --- Canada ---
-    { name: "Halifax, Nova Scotia", category: "canada", desc: "Lighthouses and seafood.", img: "./assets/ports/halifax.jpg", excursions: [] },
-    { name: "Bar Harbor, Maine", category: "canada", desc: "Acadia National Park.", img: "./assets/ports/bar_harbor.jpg", excursions: [] },
-    { name: "Québec City, Québec", category: "canada", desc: "Old‑world charm and culture.", img: "./assets/ports/quebec_city.jpg", excursions: [] },
+    { name: "Halifax, Nova Scotia", category: "canada", desc: "Lighthouses and seafood.", img: "./assets/ports/halifax.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian", "Princess"] },
+    { name: "Bar Harbor, Maine", category: "canada", desc: "Acadia National Park.", img: "./assets/ports/bar_harbor.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian"] },
+    { name: "Québec City, Québec", category: "canada", desc: "Old‑world charm and culture.", img: "./assets/ports/quebec_city.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Princess"] },
 
     // --- Europe ---
-    { name: "Barcelona, Spain", category: "europe", desc: "Gaudí architecture and beaches.", img: "./assets/ports/barcelona.jpg", excursions: [] },
-    { name: "Civitavecchia (Rome), Italy", category: "europe", desc: "Gateway to Rome.", img: "./assets/ports/rome.jpg", excursions: [] },
-    { name: "Santorini, Greece", category: "europe", desc: "Blue domes and sunsets.", img: "./assets/ports/santorini.jpg", excursions: [] },
-
-    // --- Puerto Rico ---
-    { name: "San Juan, Puerto Rico", category: "caribbean", desc: "Old San Juan and forts.", img: "./assets/ports/sanjuan.jpg", excursions: [] },
-
-    // --- USVI ---
-    { name: "St. Thomas, USVI", category: "caribbean", desc: "Magens Bay and island tours.", img: "./assets/ports/st_thomas.jpg", excursions: [] }
+    { name: "Barcelona, Spain", category: "europe", desc: "Gaudí architecture and beaches.", img: "./assets/ports/barcelona.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"] },
+    { name: "Civitavecchia (Rome), Italy", category: "europe", desc: "Gateway to Rome.", img: "./assets/ports/rome.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"] },
+    { name: "Santorini, Greece", category: "europe", desc: "Blue domes and sunsets.", img: "./assets/ports/santorini.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity"] }
   ];
 
   // ===============================
@@ -169,10 +191,16 @@ export function loadPorts() {
         <h3>${port.name}</h3>
         <p>${port.desc}</p>
         <button class="details-btn">View Details</button>
+
         <div class="details hidden">
           <h4>Excursions</h4>
           <ul>
             ${port.excursions.map(ex => `<li>${ex}</li>`).join("")}
+          </ul>
+
+          <h4>Cruise Lines That Visit</h4>
+          <ul>
+            ${port.cruiseLines.map(cl => `<li>${cl}</li>`).join("")}
           </ul>
         </div>
       `;
