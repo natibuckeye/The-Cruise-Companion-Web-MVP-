@@ -54,3 +54,43 @@ const cruiseLines = {
     ports: ["Barcelona", "Rome", "Santorini"]
   }
 };
+
+function getBestCruiseLine(answers) {
+  let scores = {};
+
+  Object.keys(cruiseLines).forEach(line => {
+    scores[line] = 0;
+
+    // Match based on vibe
+    if (answers.vibe && cruiseLines[line].vibe.toLowerCase().includes(answers.vibe)) {
+      scores[line] += 2;
+    }
+
+    // Match based on style
+    if (answers.style && cruiseLines[line].style.toLowerCase().includes(answers.style)) {
+      scores[line] += 2;
+    }
+
+    // Match based on preferred ports
+    if (answers.favoritePort) {
+      if (cruiseLines[line].ports.some(p => p.toLowerCase().includes(answers.favoritePort.toLowerCase()))) {
+        scores[line] += 3;
+      }
+    }
+
+    // Match based on budget
+    if (answers.budget === "budget" && ["Carnival", "MSC", "Costa"].includes(line)) {
+      scores[line] += 2;
+    }
+    if (answers.budget === "premium" && ["Celebrity", "Princess", "Holland America"].includes(line)) {
+      scores[line] += 2;
+    }
+    if (answers.budget === "family" && ["Royal Caribbean", "Disney"].includes(line)) {
+      scores[line] += 2;
+    }
+  });
+
+  // Return the highest scoring cruise line
+  return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+}
+
