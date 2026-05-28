@@ -1,69 +1,56 @@
-// ===============================
-// MATCHMAKER MODULE (Clean + Modern)
-// ===============================
-
-export function loadMatchmaker() {
-  const content = document.getElementById("content");
-  content.innerHTML = "";
-
-  // Header
-  content.innerHTML = `
-    <h2 class="module-title fade-in">Cruise Matchmaker</h2>
-
-    <div class="card fade-in">
-      <p>Explore cruise lines and discover which one fits your travel style.</p>
-    </div>
-
-    <div id="matchGrid" class="compare-grid fade-in"></div>
-  `;
-
-  // Cruise line data
-  const cruiseLines = [
-    {
-      name: "Royal Caribbean",
-      desc: "Adventure‑focused ships, perfect for families and thrill‑seekers.",
-      logo: "./assets/logos/royal_caribbean.svg"
-    },
-    {
-      name: "Celebrity Cruises",
-      desc: "Modern luxury with elevated dining and premium experiences.",
-      logo: "./assets/logos/celebrity.svg"
-    },
-    {
-      name: "Virgin Voyages",
-      desc: "Adults‑only, modern, bold, and nightlife‑focused.",
-      logo: "./assets/logos/virgin_voyages.svg"
-    },
-    {
-      name: "Disney Cruise Line",
-      desc: "Family‑focused magic with unmatched entertainment.",
-      logo: "./assets/logos/disney.svg"
-    },
-    {
-      name: "Norwegian (NCL)",
-      desc: "Freestyle cruising with flexible dining and entertainment.",
-      logo: "./assets/logos/ncl.svg"
-    },
-    {
-      name: "MSC Cruises",
-      desc: "European‑style cruising with beautiful ships and great value.",
-      logo: "./assets/logos/msc.svg"
-    }
-  ];
-
-  // Render cards
-  const grid = document.getElementById("matchGrid");
-
-  cruiseLines.forEach(line => {
-    const card = document.createElement("div");
-    card.className = "compare-card fade-in";
-
-    card.innerHTML = `
-      <img src="${line.logo}" alt="${line.name} Logo" class="result-logo" />
-      <h3>${line.name}</h3>
-      <p>${line.desc}</p>
-    `;
-
-    grid.appendChild(card);
-  });
-}
+const cruiseLines = {
+  "Royal Caribbean": {
+    style: "Adventure + Family Fun",
+    vibe: "Perfect for families, couples, and thrill‑seekers.",
+    strengths: ["Private islands (CocoCay, Labadee)", "Huge ships", "Great entertainment"],
+    ports: ["Nassau", "CocoCay", "Labadee", "San Juan", "St. Thomas", "Roatán", "Cozumel", "Costa Maya"]
+  },
+  "Carnival": {
+    style: "Fun + Budget Friendly",
+    vibe: "Laid‑back, energetic, and great for groups.",
+    strengths: ["Affordable", "Party atmosphere", "Short sailings"],
+    ports: ["Freeport", "Amber Cove", "Ocho Rios", "Cozumel", "Costa Maya", "Roatán"]
+  },
+  "Norwegian": {
+    style: "Freestyle Cruising",
+    vibe: "Flexible dining and entertainment.",
+    strengths: ["No dress codes", "Great nightlife", "New ships"],
+    ports: ["Cozumel", "Roatán", "St. Thomas", "San Juan"]
+  },
+  "Disney": {
+    style: "Family Magic",
+    vibe: "Premium family experience with Disney characters.",
+    strengths: ["Castaway Cay", "Broadway shows", "Top‑tier service"],
+    ports: ["Nassau", "Cozumel", "St. Thomas"]
+  },
+  "MSC": {
+    style: "European Style + Value",
+    vibe: "Modern ships with a European flair.",
+    strengths: ["Great pricing", "New ships", "Private island (Ocean Cay)"],
+    ports: ["Nassau", "Freeport", "Cozumel", "Costa Maya"]
+  },
+  "Celebrity": {
+    style: "Premium Modern Luxury",
+    vibe: "Upscale, quiet, and refined.",
+    strengths: ["Food quality", "Service", "Adult‑friendly"],
+    ports: ["St. Thomas", "San Juan", "Halifax", "Québec City", "Barcelona"]
+  },
+  "Princess": {
+    style: "Relaxed + Destination Focused",
+    vibe: "Great for couples and mature travelers.",
+    strengths: ["Itineraries", "Service", "Alaska + Europe"],
+    ports: ["Amber Cove", "Cabo", "Puerto Vallarta", "Halifax", "Québec City"]
+  },
+  "Holland America": {
+    style: "Classic + Elegant",
+    vibe: "Calm, traditional, and destination‑rich.",
+    strengths: ["Longer itineraries", "Service", "Music Walk"],
+    ports: ["Amber Cove", "Halifax", "Québec City"]
+  },
+  "Costa": {
+    style: "European Budget",
+    vibe: "Italian‑inspired cruising.",
+    strengths: ["European itineraries", "Affordable"],
+    ports: ["Barcelona", "Rome", "Santorini"]
+  }
+};
