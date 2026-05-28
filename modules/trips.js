@@ -190,6 +190,83 @@ function deleteTrip(id) {
   if (getCurrentTrip() === id) {
     localStorage.removeItem(CURRENT_TRIP_KEY);
   }
+import { supabase } from "./supabase.js";
 
+export async function getTrips(userId) {
+  const { data, error } = await supabase
+    .from("trips")
+    .select("*")
+    .eq("created_by", userId)
+    .order("sail_date", { ascending: true });
+
+  if (error) console.error(error);
+  return data || [];
+}
+
+export async function createTrip(trip) {
+  const { data, error } = await supabase
+    .from("trips")
+    .insert(trip)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
+}
+
+export async function updateTrip(id, updates) {
+  const { data, error } = await supabase
+    .from("trips")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
+}
+
+export async function deleteTrip(id) {
+  return supabase.from("trips").delete().eq("id", id);
+}
   loadTrips();
+}
+import { supabase } from "./supabase.js";
+
+export async function getTrips(userId) {
+  const { data, error } = await supabase
+    .from("trips")
+    .select("*")
+    .eq("created_by", userId)
+    .order("sail_date", { ascending: true });
+
+  if (error) console.error(error);
+  return data || [];
+}
+
+export async function createTrip(trip) {
+  const { data, error } = await supabase
+    .from("trips")
+    .insert(trip)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
+}
+
+export async function updateTrip(id, updates) {
+  const { data, error } = await supabase
+    .from("trips")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
+}
+
+export async function deleteTrip(id) {
+  return supabase.from("trips").delete().eq("id", id);
 }
