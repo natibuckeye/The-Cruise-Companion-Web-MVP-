@@ -1,16 +1,31 @@
+// ===============================
+// AUTH MODULE — Supabase Wrapper
+// ===============================
+
 import { supabase } from "./supabase.js";
 
-export async function login(email) {
-  const { error } = await supabase.auth.signInWithOtp({ email });
-  return error;
+// Get the currently logged‑in user
+export async function getUser() {
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  return user;
 }
 
-export async function logout() {
-  await supabase.auth.signOut();
-}
-
-export async function onAuthChange(callback) {
-  supabase.auth.onAuthStateChange((_event, session) => {
-    callback(session?.user || null);
+// Sign in with email + password
+export async function signIn(email, password) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
   });
+
+  if (error) console.error(error);
+  return data?.user || null;
+}
+
+// Sign out
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) console.error(error);
 }
