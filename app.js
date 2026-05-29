@@ -1,5 +1,5 @@
 // ===============================
-// IMPORT MODULES
+// MODULE IMPORTS
 // ===============================
 import { loadTrips } from "./modules/trips.js";
 import { loadLists } from "./modules/lists.js";
@@ -17,7 +17,20 @@ const routes = {
 };
 
 // ===============================
-// INIT TABS
+// NAVIGATION
+// ===============================
+export function navigate(page) {
+  const loader = routes[page];
+
+  if (loader) {
+    loader();
+  } else {
+    console.error(`Unknown page: ${page}`);
+  }
+}
+
+// ===============================
+// TAB INITIALIZATION
 // ===============================
 function initTabs() {
   const tabs = document.querySelectorAll(".tab");
@@ -26,27 +39,14 @@ function initTabs() {
     tab.addEventListener("click", () => {
       const target = tab.dataset.tab;
 
-      // Update active tab styling
+      // Update active tab
       tabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
 
-      // Load module
+      // Navigate to module
       navigate(target);
     });
   });
-}
-
-// ===============================
-// NAVIGATION
-// ===============================
-export function navigate(page) {
-  const loader = routes[page];
-
-  if (loader) {
-    loader(); // Load the correct module
-  } else {
-    console.error("Unknown page:", page);
-  }
 }
 
 // ===============================
@@ -55,8 +55,9 @@ export function navigate(page) {
 document.addEventListener("DOMContentLoaded", () => {
   initTabs();
 
-  // Load default tab (Trips)
+  // Load default tab
   const defaultTab = document.querySelector('.tab[data-tab="trips"]');
+
   if (defaultTab) {
     defaultTab.classList.add("active");
     navigate("trips");
