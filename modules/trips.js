@@ -1,55 +1,86 @@
 // ===============================
-// TRIPS MODULE (Advanced Version)
+// TRIPS MODULE — Supabase Version
 // ===============================
 
-// LocalStorage Keys
-const TRIPS_KEY = "cruise_trips";
-const CURRENT_TRIP_KEY = "current_trip_id";
+import { supabase } from "./supabase.js";
+import { getUser } from "./auth.js";
 
-// Utility: Load trips from localStorage
-function getTrips() {
-  return JSON.parse(localStorage.getItem(TRIPS_KEY)) || [];
+// ===============================
+// SUPABASE HELPERS
+// ===============================
+async function fetchTrips(userId) {
+  const { data, error } = await supabase
+    .from("trips")
+    .select("*")
+    .eq("created_by", userId)
+    .order("sail_date", { ascending: true });
+
+  if (error) console.error(error);
+  return data || [];
 }
 
-// Utility: Save trips to localStorage
-function saveTrips(trips) {
-  localStorage.setItem(TRIPS_KEY, JSON.stringify(trips));
+async function createTrip(trip) {
+  const { data, error } = await supabase
+    .from("trips")
+    .insert(trip)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
 }
 
-// Utility: Set active trip
-function setCurrentTrip(id) {
-  localStorage.setItem(CURRENT_TRIP_KEY, id);
+async function updateTrip(id, updates) {
+  const { data, error } = await supabase
+    .from("trips")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) console.error(error);
+  return data;
 }
 
-// Utility: Get active trip
-function getCurrentTrip() {
-  return localStorage.getItem(CURRENT_TRIP_KEY);
+async function removeTrip(id) {
+  const { error } = await supabase.from("trips").delete().eq("id", id);
+  if (error) console.error(error);
 }
 
-// Utility: Create DOM element
+// ===============================
+// DOM UTILITY
+// ===============================
 function el(tag, attrs = {}, children = []) {
   const element = document.createElement(tag);
+
   Object.entries(attrs).forEach(([key, value]) => {
     if (key === "class") element.className = value;
     else if (key.startsWith("on")) element.addEventListener(key.substring(2), value);
     else element.setAttribute(key, value);
   });
+
   children.forEach(child => {
     if (typeof child === "string") element.appendChild(document.createTextNode(child));
     else element.appendChild(child);
   });
+
   return element;
 }
 
 // ===============================
 // MAIN ENTRY
 // ===============================
-export function loadTrips() {
+export async function loadTrips() {
   const root = document.getElementById("content");
   root.innerHTML = "";
 
-  const trips = getTrips();
-  const currentTripId = getCurrentTrip();
+  const user = await getUser();
+  if (!user) {
+    root.innerHTML = `<p>Please log in to view your trips.</p>`;
+    return;
+  }
+
+  const trips = await fetchTrips(user.id);
 
   // HEADER
   root.appendChild(
@@ -58,10 +89,14 @@ export function loadTrips() {
         el("h2", {}, ["My Trips"]),
         el("div", { class: "muted" }, ["Your saved cruises and adventures."])
       ]),
-      el("button", {
-        class: "btn primary",
-        onclick: () => openTripEditor()
-      }, ["+ New Trip"])
+      el(
+        "button",
+        {
+          class: "primary-btn",
+          onclick: () => openTripEditor()
+        },
+        ["+ New Trip"]
+      )
     ])
   );
 
@@ -74,48 +109,46 @@ export function loadTrips() {
     );
   } else {
     trips.forEach(trip => {
-      const isActive = trip.id === currentTripId;
-
       container.appendChild(
-        el("div", {
-          class: `trip-item ${isActive ? "active" : ""}`,
-          onclick: () => selectTrip(trip.id)
-        }, [
-          el("h3", {}, [trip.destination]),
-          el("p", { class: "muted" }, [`Ship: ${trip.ship}`]),
-          el("p", { class: "muted" }, [`Dates: ${trip.dates}`]),
+        el(
+          "div",
+          { class: "trip-item" },
+          [
+            el("h3", {}, [trip.title || trip.destination]),
+            el("p", { class: "muted" }, [`Ship: ${trip.ship || "—"}`]),
+            el("p", { class: "muted" }, [`Dates: ${trip.sail_date} → ${trip.return_date}`]),
 
-          el("div", { class: "trip-actions" }, [
-            el("button", {
-              class: "btn small",
-              onclick: (e) => {
-                e.stopPropagation();
-                openTripEditor(trip);
-              }
-            }, ["Edit"]),
-
-            el("button", {
-              class: "btn small danger",
-              onclick: (e) => {
-                e.stopPropagation();
-                deleteTrip(trip.id);
-              }
-            }, ["Delete"])
-          ])
-        ])
+            el("div", { class: "trip-actions" }, [
+              el(
+                "button",
+                {
+                  class: "btn small",
+                  onclick: e => {
+                    e.stopPropagation();
+                    openTripEditor(trip);
+                  }
+                },
+                ["Edit"]
+              ),
+              el(
+                "button",
+                {
+                  class: "btn small danger",
+                  onclick: e => {
+                    e.stopPropagation();
+                    confirmDeleteTrip(trip.id);
+                  }
+                },
+                ["Delete"]
+              )
+            ])
+          ]
+        )
       );
     });
   }
 
   root.appendChild(container);
-}
-
-// ===============================
-// SELECT TRIP
-// ===============================
-function selectTrip(id) {
-  setCurrentTrip(id);
-  loadTrips();
 }
 
 // ===============================
@@ -131,9 +164,10 @@ function openTripEditor(existing = null) {
     <div class="modal fade-in">
       <h3>${isEdit ? "Edit Trip" : "New Trip"}</h3>
 
-      <input id="tripDestination" placeholder="Destination" value="${existing?.destination || ""}">
+      <input id="tripTitle" placeholder="Trip Title" value="${existing?.title || ""}">
       <input id="tripShip" placeholder="Ship" value="${existing?.ship || ""}">
-      <input id="tripDates" placeholder="Dates (e.g., June 12–18)" value="${existing?.dates || ""}">
+      <input id="tripSail" type="date" value="${existing?.sail_date || ""}">
+      <input id="tripReturn" type="date" value="${existing?.return_date || ""}">
 
       <button class="primary-btn" id="saveTripBtn">
         ${isEdit ? "Save Changes" : "Create Trip"}
@@ -152,30 +186,29 @@ function openTripEditor(existing = null) {
 // ===============================
 // SAVE TRIP
 // ===============================
-function saveTrip(existing, modal) {
-  const destination = document.getElementById("tripDestination").value.trim();
+async function saveTrip(existing, modal) {
+  const title = document.getElementById("tripTitle").value.trim();
   const ship = document.getElementById("tripShip").value.trim();
-  const dates = document.getElementById("tripDates").value.trim();
+  const sail_date = document.getElementById("tripSail").value;
+  const return_date = document.getElementById("tripReturn").value;
 
-  if (!destination || !ship || !dates) return;
+  if (!title || !sail_date || !return_date) return;
 
-  const trips = getTrips();
+  const user = await getUser();
 
   if (existing) {
-    // Update existing trip
-    const index = trips.findIndex(t => t.id === existing.id);
-    trips[index] = { ...existing, destination, ship, dates };
+    await updateTrip(existing.id, { title, ship, sail_date, return_date });
   } else {
-    // Create new trip
-    trips.push({
+    await createTrip({
       id: crypto.randomUUID(),
-      destination,
+      title,
       ship,
-      dates
+      sail_date,
+      return_date,
+      created_by: user.id
     });
   }
 
-  saveTrips(trips);
   modal.remove();
   loadTrips();
 }
@@ -183,90 +216,7 @@ function saveTrip(existing, modal) {
 // ===============================
 // DELETE TRIP
 // ===============================
-function deleteTrip(id) {
-  const trips = getTrips().filter(t => t.id !== id);
-  saveTrips(trips);
-
-  if (getCurrentTrip() === id) {
-    localStorage.removeItem(CURRENT_TRIP_KEY);
-  }
-import { supabase } from "./supabase.js";
-
-export async function getTrips(userId) {
-  const { data, error } = await supabase
-    .from("trips")
-    .select("*")
-    .eq("created_by", userId)
-    .order("sail_date", { ascending: true });
-
-  if (error) console.error(error);
-  return data || [];
-}
-
-export async function createTrip(trip) {
-  const { data, error } = await supabase
-    .from("trips")
-    .insert(trip)
-    .select()
-    .single();
-
-  if (error) console.error(error);
-  return data;
-}
-
-export async function updateTrip(id, updates) {
-  const { data, error } = await supabase
-    .from("trips")
-    .update(updates)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) console.error(error);
-  return data;
-}
-
-export async function deleteTrip(id) {
-  return supabase.from("trips").delete().eq("id", id);
-}
-  loadTrips();
-}
-import { supabase } from "./supabase.js";
-
-export async function getTrips(userId) {
-  const { data, error } = await supabase
-    .from("trips")
-    .select("*")
-    .eq("created_by", userId)
-    .order("sail_date", { ascending: true });
-
-  if (error) console.error(error);
-  return data || [];
-}
-
-export async function createTrip(trip) {
-  const { data, error } = await supabase
-    .from("trips")
-    .insert(trip)
-    .select()
-    .single();
-
-  if (error) console.error(error);
-  return data;
-}
-
-export async function updateTrip(id, updates) {
-  const { data, error } = await supabase
-    .from("trips")
-    .update(updates)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) console.error(error);
-  return data;
-}
-
-export async function deleteTrip(id) {
-  return supabase.from("trips").delete().eq("id", id);
+function confirmDeleteTrip(id) {
+  if (!confirm("Delete this trip?")) return;
+  removeTrip(id).then(() => loadTrips());
 }
