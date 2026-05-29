@@ -1,12 +1,9 @@
 // ===============================
-// PORTS MODULE (Advanced Version)
+// PORTS MODULE
 // ===============================
 
 export function loadPorts() {
   const content = document.getElementById("content");
-  content.innerHTML = "";
-
-  // Header + Search + Filters
   content.innerHTML = `
     <h2 class="module-title fade-in">Ports & Destinations</h2>
 
@@ -35,19 +32,23 @@ export function loadPorts() {
   `;
 
   // ===============================
-  // PORT DATA (Matches your GitHub EXACTLY)
+  // PORT DATA
   // ===============================
   const ports = [
     // --- Bahamas ---
-    { 
+    {
       name: "Nassau, Bahamas",
       category: "bahamas",
       desc: "Atlantis, beaches, and shopping.",
       img: "./assets/ports/nassau.jpg",
-      excursions: ["Atlantis Aquaventure", "Blue Lagoon Dolphin Encounter", "Nassau Food Tasting Tour"],
+      excursions: [
+        "Atlantis Aquaventure",
+        "Blue Lagoon Dolphin Encounter",
+        "Nassau Food Tasting Tour"
+      ],
       cruiseLines: ["Royal Caribbean", "Carnival", "Disney", "MSC", "Norwegian", "Celebrity"]
     },
-    { 
+    {
       name: "CocoCay (Royal Caribbean)",
       category: "bahamas",
       desc: "Perfect Day private island.",
@@ -55,7 +56,7 @@ export function loadPorts() {
       excursions: ["Thrill Waterpark", "Up, Up & Away Balloon", "Coco Beach Club"],
       cruiseLines: ["Royal Caribbean"]
     },
-    { 
+    {
       name: "Freeport, Bahamas",
       category: "bahamas",
       desc: "Laid‑back beaches and markets.",
@@ -65,7 +66,7 @@ export function loadPorts() {
     },
 
     // --- Caribbean ---
-    { 
+    {
       name: "Amber Cove, Dominican Republic",
       category: "caribbean",
       desc: "Pools, zipline, and mountain views.",
@@ -73,7 +74,7 @@ export function loadPorts() {
       excursions: ["Damajagua Waterfalls", "Catamaran Sail", "Zipline Adventure"],
       cruiseLines: ["Carnival", "Princess", "Holland America"]
     },
-    { 
+    {
       name: "Labadee, Haiti",
       category: "caribbean",
       desc: "Private beaches and the Dragon's Breath zipline.",
@@ -81,7 +82,7 @@ export function loadPorts() {
       excursions: ["Dragon's Breath Zipline", "Labadee Beach Escape", "Kayak Adventure"],
       cruiseLines: ["Royal Caribbean"]
     },
-    { 
+    {
       name: "Ocho Rios, Jamaica",
       category: "caribbean",
       desc: "Dunn’s River Falls and Blue Hole.",
@@ -89,7 +90,7 @@ export function loadPorts() {
       excursions: ["Dunn’s River Falls", "Blue Hole Adventure", "River Tubing"],
       cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian"]
     },
-    { 
+    {
       name: "Falmouth, Jamaica",
       category: "caribbean",
       desc: "Historic port and Montego Bay access.",
@@ -97,7 +98,7 @@ export function loadPorts() {
       excursions: ["Luminous Lagoon", "Beach Resort Day Pass", "Martha Brae Rafting"],
       cruiseLines: ["Royal Caribbean", "Carnival"]
     },
-    { 
+    {
       name: "Roatán, Honduras",
       category: "caribbean",
       desc: "Snorkeling and sloths.",
@@ -105,7 +106,7 @@ export function loadPorts() {
       excursions: ["Sloth & Monkey Encounter", "Snorkel Tour", "West Bay Beach"],
       cruiseLines: ["Royal Caribbean", "Carnival", "Norwegian", "MSC"]
     },
-    { 
+    {
       name: "St. Thomas, USVI",
       category: "caribbean",
       desc: "Magens Bay and island tours.",
@@ -113,7 +114,7 @@ export function loadPorts() {
       excursions: ["Magens Bay Beach", "Skyride to Paradise Point", "Snorkel at Coki Beach"],
       cruiseLines: ["Royal Caribbean", "Carnival", "Norwegian", "Celebrity", "Disney"]
     },
-    { 
+    {
       name: "San Juan, Puerto Rico",
       category: "caribbean",
       desc: "Old San Juan and historic forts.",
@@ -123,7 +124,7 @@ export function loadPorts() {
     },
 
     // --- Mexico ---
-    { 
+    {
       name: "Cozumel, Mexico",
       category: "mexico",
       desc: "Snorkeling, ruins, and beach clubs.",
@@ -131,7 +132,7 @@ export function loadPorts() {
       excursions: ["Mr. Sanchos Beach Club", "Mayan Ruins", "Snorkel at Palancar Reef"],
       cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian", "Disney", "Celebrity"]
     },
-    { 
+    {
       name: "Costa Maya, Mexico",
       category: "mexico",
       desc: "Mayan ruins and beach escapes.",
@@ -139,7 +140,7 @@ export function loadPorts() {
       excursions: ["Chacchoben Ruins", "Mahahual Beach Break", "ATV Jungle Ride"],
       cruiseLines: ["Royal Caribbean", "Carnival", "MSC", "Norwegian"]
     },
-    { 
+    {
       name: "Cabo San Lucas",
       category: "mexico",
       desc: "The Arch and whale watching.",
@@ -147,7 +148,7 @@ export function loadPorts() {
       excursions: ["Land’s End Boat Tour", "Whale Watching", "Beach Resort Day Pass"],
       cruiseLines: ["Princess", "Carnival", "Royal Caribbean", "Norwegian"]
     },
-    { 
+    {
       name: "Puerto Vallarta",
       category: "mexico",
       desc: "Beaches, Malecon, and jungle tours.",
@@ -164,18 +165,60 @@ export function loadPorts() {
     { name: "Galveston, Texas", category: "us", desc: "Western Caribbean gateway.", img: "./assets/ports/galveston.jpg", excursions: [], cruiseLines: [] },
 
     // --- Canada ---
-    { name: "Halifax, Nova Scotia", category: "canada", desc: "Lighthouses and seafood.", img: "./assets/ports/halifax.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian", "Princess"] },
-    { name: "Bar Harbor, Maine", category: "canada", desc: "Acadia National Park.", img: "./assets/ports/bar_harbor.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian"] },
-    { name: "Québec City, Québec", category: "canada", desc: "Old‑world charm and culture.", img: "./assets/ports/quebec_city.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "Celebrity", "Princess"] },
+    {
+      name: "Halifax, Nova Scotia",
+      category: "canada",
+      desc: "Lighthouses and seafood.",
+      img: "./assets/ports/halifax.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian", "Princess"]
+    },
+    {
+      name: "Bar Harbor, Maine",
+      category: "canada",
+      desc: "Acadia National Park.",
+      img: "./assets/ports/bar_harbor.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "Celebrity", "Norwegian"]
+    },
+    {
+      name: "Québec City, Québec",
+      category: "canada",
+      desc: "Old‑world charm and culture.",
+      img: "./assets/ports/quebec_city.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "Celebrity", "Princess"]
+    },
 
     // --- Europe ---
-    { name: "Barcelona, Spain", category: "europe", desc: "Gaudí architecture and beaches.", img: "./assets/ports/barcelona.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"] },
-    { name: "Civitavecchia (Rome), Italy", category: "europe", desc: "Gateway to Rome.", img: "./assets/ports/rome.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"] },
-    { name: "Santorini, Greece", category: "europe", desc: "Blue domes and sunsets.", img: "./assets/ports/santorini.jpg", excursions: [], cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity"] }
+    {
+      name: "Barcelona, Spain",
+      category: "europe",
+      desc: "Gaudí architecture and beaches.",
+      img: "./assets/ports/barcelona.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"]
+    },
+    {
+      name: "Civitavecchia (Rome), Italy",
+      category: "europe",
+      desc: "Gateway to Rome.",
+      img: "./assets/ports/rome.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity", "Costa"]
+    },
+    {
+      name: "Santorini, Greece",
+      category: "europe",
+      desc: "Blue domes and sunsets.",
+      img: "./assets/ports/santorini.jpg",
+      excursions: [],
+      cruiseLines: ["Royal Caribbean", "MSC", "Norwegian", "Celebrity"]
+    }
   ];
 
   // ===============================
-  // RENDER FUNCTION
+  // RENDER PORT CARDS
   // ===============================
   const grid = document.getElementById("portGrid");
 
@@ -190,6 +233,7 @@ export function loadPorts() {
         <img src="${port.img}" alt="${port.name}" class="port-image" />
         <h3>${port.name}</h3>
         <p>${port.desc}</p>
+
         <button class="details-btn">View Details</button>
 
         <div class="details hidden">
@@ -205,7 +249,7 @@ export function loadPorts() {
         </div>
       `;
 
-      // Expand/Collapse
+      // Expand / Collapse
       card.querySelector(".details-btn").addEventListener("click", () => {
         const details = card.querySelector(".details");
         details.classList.toggle("hidden");
