@@ -2,38 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Cruise Companion — Web MVP</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" 
+    rel="stylesheet"
+  />
 
   <!-- Styles -->
   <link rel="stylesheet" href="./assets/styles.css" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./favicon.png" />
+
+  <!-- App Manifest (future‑ready) -->
+  <meta name="theme-color" content="#0a1a2f" />
 </head>
+
 <body>
 
   <!-- TOP BAR -->
-  <div class="topbar">
+  <header class="topbar">
     <div>
       <div class="brand__title">The Cruise Companion</div>
       <div class="brand__sub">Your smarter cruise planner</div>
     </div>
-  </div>
+  </header>
 
   <!-- NAVIGATION TABS -->
-  <div class="tabs">
-    <button class="tab" data-tab="trips">Trips</button>
-    <button class="tab" data-tab="lists">Lists</button>
-    <button class="tab" data-tab="ports">Ports</button>
-    <button class="tab" data-tab="matchmaker">Matchmaker</button>
-  </div>
+  <nav class="tabs" aria-label="Main Navigation">
+    <button class="tab" data-tab="trips" role="tab">Trips</button>
+    <button class="tab" data-tab="lists" role="tab">Lists</button>
+    <button class="tab" data-tab="ports" role="tab">Ports</button>
+    <button class="tab" data-tab="matchmaker" role="tab">Matchmaker</button>
+  </nav>
 
   <!-- MAIN APP AREA -->
-  <div id="content" class="app"></div>
+  <main id="content" class="app"></main>
 
   <!-- SCRIPTS -->
   <script type="module" src="./app.js"></script>
