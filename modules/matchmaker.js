@@ -80,7 +80,7 @@ export const cruiseLines = {
 };
 
 // ===============================
-// SCORING WEIGHTS (easy to tune)
+// SCORING WEIGHTS
 // ===============================
 const WEIGHTS = {
   vibe: 2,
@@ -108,41 +108,26 @@ export function getBestCruiseLine(answers = {}) {
     const data = cruiseLines[line];
     let score = 0;
 
-    // --- Vibe match ---
-    if (answers.vibe) {
-      const vibe = answers.vibe.toLowerCase();
-      if (data.vibe.toLowerCase().includes(vibe)) {
-        score += WEIGHTS.vibe;
-      }
+    if (answers.vibe && data.vibe.toLowerCase().includes(answers.vibe.toLowerCase())) {
+      score += WEIGHTS.vibe;
     }
 
-    // --- Style match ---
-    if (answers.style) {
-      const style = answers.style.toLowerCase();
-      if (data.style.toLowerCase().includes(style)) {
-        score += WEIGHTS.style;
-      }
+    if (answers.style && data.style.toLowerCase().includes(answers.style.toLowerCase())) {
+      score += WEIGHTS.style;
     }
 
-    // --- Port preference ---
-    if (answers.favoritePort) {
-      const port = answers.favoritePort.toLowerCase();
-      if (data.ports.some(p => p.toLowerCase().includes(port))) {
-        score += WEIGHTS.portMatch;
-      }
+    if (answers.favoritePort &&
+      data.ports.some(p => p.toLowerCase().includes(answers.favoritePort.toLowerCase()))) {
+      score += WEIGHTS.portMatch;
     }
 
-    // --- Budget match ---
-    if (answers.budget && BUDGET_GROUPS[answers.budget]) {
-      if (BUDGET_GROUPS[answers.budget].includes(line)) {
-        score += WEIGHTS.budget;
-      }
+    if (answers.budget && BUDGET_GROUPS[answers.budget]?.includes(line)) {
+      score += WEIGHTS.budget;
     }
 
     scores[line] = score;
   }
 
-  // Return highest scoring line
   return Object.keys(scores).reduce((a, b) =>
     scores[a] > scores[b] ? a : b
   );
@@ -179,4 +164,109 @@ export function getAllScores(answers = {}) {
   }
 
   return scores;
+}
+
+// ===============================
+// RESULT RENDERING UI
+// ===============================
+export function renderMatchmakerResult(bestLine, answers) {
+  const content = document.getElementById("content");
+  content.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.className = "result-card fade-in";
+
+  // Build dynamic booking URL
+  const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
+  bookingUrl.searchParams.set("line", bestLine);
+  bookingUrl.searchParams.set("vibe", answers.vibe || "");
+  bookingUrl.searchParams.set("port", answers.favoritePort || "");
+  bookingUrl.searchParams.set("budget", answers.budget || "");
+
+  card.innerHTML = `
+    <h2>Your Perfect Cruise Match</h2>
+
+    <div class="result-line">${bestLine}</div>
+
+    <p class="muted">
+      Based on your preferences, this cruise line best fits your style, vibe, and favorite destinations.
+    </p>
+
+    <h3>Why This Match?</h3>
+    <ul class="result-list">
+      <li><strong>Vibe:</strong> ${answers.vibe || "—"}</li>
+      <li><strong>Style:</strong> ${answers.style || "—"}</li>
+      <li><strong>Favorite Port:</strong> ${answers.favoritePort || "—"}</li>
+      <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
+    </ul>
+
+    <a 
+      href="${bookingUrl.toString()}"
+      target="_blank"
+      class="primary-btn"
+      style="margin-top: 20px; display: block; text-align: center;"
+    >
+      Book This Cruise With Ray
+    </a>
+
+    <button 
+      class="secondary-btn"
+      style="margin-top: 12px;"
+      onclick="openBookingForm('${bestLine}', ${JSON.stringify(answers)})"
+    >
+      Talk to Ray (Concierge Service)
+    </button>
+  `;
+
+  content.appendChild(card);
+}
+
+// ===============================
+// CONCIERGE BOOKING FORM
+// ===============================
+import { openModal, closeModal } from "./ui.js";
+import { createBookingRequest } from "./booking.js";
+import { getUser } from "./auth.js";
+
+export function openBookingForm(bestLine, answers) {
+  openModal(`
+    <div class="modal-content fade-in">
+      <h3>Book With Ray</h3>
+
+      <p>You’re requesting help booking a <strong>${bestLine}</strong> cruise.</p>
+
+      <input id="bookName" placeholder="Your Name" />
+      <input id="bookEmail" placeholder="Your Email" />
+      <textarea id="bookNotes" placeholder="Notes (optional)"></textarea>
+
+      <button class="primary-btn" id="submitBookingBtn">Submit Request</button>
+      <button class="btn small" onclick="closeModal()">Cancel</button>
+    </div>
+  `);
+
+  document.getElementById("submitBookingBtn").onclick = async () => {
+    const name = document.getElementById("bookName").value.trim();
+    const email = document.getElementById("bookEmail").value.trim();
+    const notes = document.getElementById("bookNotes").value.trim();
+
+    if (!name || !email) return;
+
+    const user = await getUser();
+
+    await createBookingRequest({
+      id: crypto.randomUUID(),
+      user_id: user?.id || null,
+      cruise_line: bestLine,
+      vibe: answers.vibe,
+      port: answers.favoritePort,
+      budget: answers.budget,
+      name,
+      email,
+      notes,
+      created_at: new Date().toISOString()
+    });
+
+    closeModal();
+    alert("Your request has been sent! Ray will contact you shortly.");
+  };
 }
