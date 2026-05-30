@@ -285,3 +285,27 @@ label {
 /* ================================
    RESPONSIVE
 ==================================*/
+
+.login-container {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-card {
+  padding: 24px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.login-status {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--gold);
+}
