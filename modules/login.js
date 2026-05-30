@@ -1,18 +1,27 @@
 // ===============================
-// LOGIN SCREEN (Supabase Magic Link)
+// LOGIN MODULE — Supabase Auth
 // ===============================
 
-import { login, logout, onAuthChange, getUser } from "./auth.js";
-import { ensureUserProfile } from "./users.js";
+import { signIn, signOut, getUser } from "./auth.js";
 
-export function loadLogin() {
+export async function loadLogin() {
   const content = document.getElementById("content");
+  content.innerHTML = "";
+
+  const user = await getUser();
+
+  // If logged in → show welcome screen
+  if (user) {
+    return loadLoggedInScreen(user);
+  }
+
+  // LOGIN FORM
   content.innerHTML = `
     <div class="login-container fade-in">
       <h2 class="module-title">Sign In</h2>
 
       <div class="card login-card">
-        <p>Enter your email to receive a secure login link.</p>
+        <p>Enter your email and password to continue.</p>
 
         <input 
           id="loginEmail" 
@@ -21,44 +30,47 @@ export function loadLogin() {
           placeholder="you@example.com"
         />
 
-        <button id="loginBtn" class="primary-btn">Send Login Link</button>
+        <input 
+          id="loginPassword" 
+          type="password" 
+          class="login-input" 
+          placeholder="Password"
+        />
+
+        <button id="loginBtn" class="primary-btn">Sign In</button>
 
         <p id="loginStatus" class="login-status"></p>
       </div>
     </div>
   `;
 
-  document.getElementById("loginBtn").addEventListener("click", async () => {
+  document.getElementById("loginBtn").onclick = async () => {
     const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
     const status = document.getElementById("loginStatus");
 
-    if (!email) {
-      status.textContent = "Please enter a valid email.";
+    if (!email || !password) {
+      status.textContent = "Please enter both email and password.";
       return;
     }
 
-    status.textContent = "Sending magic link…";
+    status.textContent = "Signing in…";
 
-    const error = await login(email);
+    const user = await signIn(email, password);
 
-    if (error) {
-      status.textContent = "Error sending login link.";
-      console.error(error);
-    } else {
-      status.textContent = "Check your email for the login link!";
+    if (!user) {
+      status.textContent = "Invalid login. Please try again.";
+      return;
     }
-  });
 
-  // Listen for login state changes
-  onAuthChange(async user => {
-    if (user) {
-      await ensureUserProfile();
-      loadLoggedInScreen(user);
-    }
-  });
+    loadLoggedInScreen(user);
+  };
 }
 
-export async function loadLoggedInScreen(user) {
+// ===============================
+// LOGGED-IN SCREEN
+// ===============================
+export function loadLoggedInScreen(user) {
   const content = document.getElementById("content");
 
   content.innerHTML = `
@@ -74,8 +86,8 @@ export async function loadLoggedInScreen(user) {
     </div>
   `;
 
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await logout();
+  document.getElementById("logoutBtn").onclick = async () => {
+    await signOut();
     loadLogin();
-  });
+  };
 }
