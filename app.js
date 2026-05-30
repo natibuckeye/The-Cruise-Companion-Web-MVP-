@@ -16,6 +16,16 @@ const routes = {
   matchmaker: loadMatchmaker
 };
 
+import { loadLogin } from "./modules/login.js";
+
+const routes = {
+  trips: loadTrips,
+  lists: loadLists,
+  ports: loadPorts,
+  matchmaker: loadMatchmaker,
+  login: loadLogin
+};
+
 // ===============================
 // NAVIGATION
 // ===============================
