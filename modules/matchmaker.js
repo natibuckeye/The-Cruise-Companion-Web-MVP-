@@ -176,7 +176,6 @@ export function renderMatchmakerResult(bestLine, answers) {
   const card = document.createElement("div");
   card.className = "result-card fade-in";
 
-  // Build dynamic booking URL
   const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
   bookingUrl.searchParams.set("line", bestLine);
   bookingUrl.searchParams.set("vibe", answers.vibe || "");
@@ -269,4 +268,24 @@ export function openBookingForm(bestLine, answers) {
     closeModal();
     alert("Your request has been sent! Ray will contact you shortly.");
   };
+}
+
+// ===============================
+// PAGE LOADER (THIS WAS MISSING)
+// ===============================
+export function loadMatchmaker() {
+  const content = document.getElementById("content");
+
+  content.innerHTML = `
+    <div class="matchmaker-container fade-in">
+      <h2>Cruise Matchmaker</h2>
+
+      <p class="muted">Answer a few quick questions and find your perfect cruise line.</p>
+
+      <div id="matchmakerForm"></div>
+    </div>
+  `;
+
+  // Load your form builder or quiz UI here
+  // (You can expand this later)
 }
