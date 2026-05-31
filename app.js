@@ -5,19 +5,11 @@ import { loadTrips } from "./modules/trips.js";
 import { loadLists } from "./modules/lists.js";
 import { loadPorts } from "./modules/ports.js";
 import { loadMatchmaker } from "./modules/matchmaker.js";
-
-// ===============================
-// ROUTER MAP
-// ===============================
-const routes = {
-  trips: loadTrips,
-  lists: loadLists,
-  ports: loadPorts,
-  matchmaker: loadMatchmaker
-};
-
 import { loadLogin } from "./modules/login.js";
 
+// ===============================
+// ROUTER MAP (single clean version)
+// ===============================
 const routes = {
   trips: loadTrips,
   lists: loadLists,
