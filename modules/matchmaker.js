@@ -286,6 +286,80 @@ export function loadMatchmaker() {
     </div>
   `;
 
-  // Load your form builder or quiz UI here
-  // (You can expand this later)
+ // ===============================
+// FULL MATCHMAKER QUIZ UI
+// ===============================
+export function loadMatchmaker() {
+  const content = document.getElementById("content");
+
+  // Collect all ports from cruiseLines
+  const allPorts = [
+    ...new Set(
+      Object.values(cruiseLines)
+        .flatMap(line => line.ports)
+        .sort()
+    )
+  ];
+
+  content.innerHTML = `
+    <div class="matchmaker-container fade-in">
+      <h2>Cruise Matchmaker</h2>
+      <p class="muted">Answer a few quick questions to find your perfect cruise line.</p>
+
+      <div class="quiz-card">
+
+        <label class="quiz-label">1. What vibe are you looking for?</label>
+        <select id="mmVibe">
+          <option value="">Select vibe...</option>
+          <option value="family">Family Fun</option>
+          <option value="adventure">Adventure</option>
+          <option value="relaxation">Relaxation</option>
+          <option value="party">Party / Nightlife</option>
+          <option value="luxury">Luxury</option>
+        </select>
+
+        <label class="quiz-label">2. What style fits you best?</label>
+        <select id="mmStyle">
+          <option value="">Select style...</option>
+          <option value="modern">Modern & New</option>
+          <option value="classic">Classic & Elegant</option>
+          <option value="budget">Budget Friendly</option>
+          <option value="premium">Premium Experience</option>
+          <option value="flexible">Flexible / Freestyle</option>
+        </select>
+
+        <label class="quiz-label">3. Which port excites you the most?</label>
+        <select id="mmPort">
+          <option value="">Select a port...</option>
+          ${allPorts.map(p => `<option value="${p}">${p}</option>`).join("")}
+        </select>
+
+        <label class="quiz-label">4. What is your budget level?</label>
+        <select id="mmBudget">
+          <option value="">Select budget...</option>
+          <option value="budget">Budget</option>
+          <option value="family">Family</option>
+          <option value="premium">Premium</option>
+        </select>
+
+        <button id="mmSubmit" class="primary-btn" style="margin-top: 20px;">
+          Find My Cruise Match
+        </button>
+      </div>
+    </div>
+  `;
+
+  // Handle quiz submission
+  document.getElementById("mmSubmit").onclick = () => {
+    const answers = {
+      vibe: document.getElementById("mmVibe").value,
+      style: document.getElementById("mmStyle").value,
+      favoritePort: document.getElementById("mmPort").value,
+      budget: document.getElementById("mmBudget").value
+    };
+
+    const bestLine = getBestCruiseLine(answers);
+    renderMatchmakerResult(bestLine, answers);
+  };
 }
+
