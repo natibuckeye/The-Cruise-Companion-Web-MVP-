@@ -2,7 +2,7 @@
 // BOOKING MODULE
 // ===============================
 
-// Placeholder booking request creator
+// Creates a placeholder booking request
 export function createBookingRequest(cruise) {
   console.log("Booking request created:", cruise);
 
@@ -15,7 +15,7 @@ export function createBookingRequest(cruise) {
   );
 }
 
-// Opens the booking form (or placeholder)
+// Opens the booking form (currently just calls the request)
 export function openBookingForm(cruise) {
   createBookingRequest(cruise);
 }
