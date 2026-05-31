@@ -271,28 +271,11 @@ export function openBookingForm(bestLine, answers) {
 }
 
 // ===============================
-// PAGE LOADER (THIS WAS MISSING)
-// ===============================
-export function loadMatchmaker() {
-  const content = document.getElementById("content");
-
-  content.innerHTML = `
-    <div class="matchmaker-container fade-in">
-      <h2>Cruise Matchmaker</h2>
-
-      <p class="muted">Answer a few quick questions and find your perfect cruise line.</p>
-
-      <div id="matchmakerForm"></div>
-    </div>
-  `;
-
- // ===============================
 // FULL MATCHMAKER QUIZ UI
 // ===============================
 export function loadMatchmaker() {
   const content = document.getElementById("content");
 
-  // Collect all ports from cruiseLines
   const allPorts = [
     ...new Set(
       Object.values(cruiseLines)
@@ -349,7 +332,6 @@ export function loadMatchmaker() {
     </div>
   `;
 
-  // Handle quiz submission
   document.getElementById("mmSubmit").onclick = () => {
     const answers = {
       vibe: document.getElementById("mmVibe").value,
@@ -362,4 +344,3 @@ export function loadMatchmaker() {
     renderMatchmakerResult(bestLine, answers);
   };
 }
-
