@@ -176,6 +176,7 @@ export function renderMatchmakerResult(bestLine, answers) {
   const card = document.createElement("div");
   card.className = "result-card fade-in";
 
+  // Build booking URL
   const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
   bookingUrl.searchParams.set("line", bestLine);
   bookingUrl.searchParams.set("vibe", answers.vibe || "");
@@ -185,7 +186,18 @@ export function renderMatchmakerResult(bestLine, answers) {
   card.innerHTML = `
     <h2>Your Perfect Cruise Match</h2>
 
-    <div class="result-line">${bestLine}</div>
+    <!-- Cruise Line Name -->
+    <h2 class="result-cruise-line">${bestLine}</h2>
+
+    <!-- Booking Button Under Cruise Line -->
+    <a 
+      href="${bookingUrl.toString()}" 
+      target="_blank" 
+      class="primary-btn" 
+      style="margin: 15px 0; display: block; text-align: center;"
+    >
+      Book This Cruise with Ray
+    </a>
 
     <p class="muted">
       Based on your preferences, this cruise line best fits your style, vibe, and favorite destinations.
@@ -199,26 +211,20 @@ export function renderMatchmakerResult(bestLine, answers) {
       <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
     </ul>
 
+    <!-- Booking Button at Bottom -->
     <a 
-      href="${bookingUrl.toString()}"
-      target="_blank"
-      class="primary-btn"
+      href="${bookingUrl.toString()}" 
+      target="_blank" 
+      class="primary-btn" 
       style="margin-top: 20px; display: block; text-align: center;"
     >
-      Book This Cruise With Ray
+      Book Now with Ray Davis Jr
     </a>
-
-    <button 
-      class="secondary-btn"
-      style="margin-top: 12px;"
-      onclick="openBookingForm('${bestLine}', ${JSON.stringify(answers)})"
-    >
-      Talk to Ray (Concierge Service)
-    </button>
   `;
 
   content.appendChild(card);
 }
+
 
 // ===============================
 // CONCIERGE BOOKING FORM
