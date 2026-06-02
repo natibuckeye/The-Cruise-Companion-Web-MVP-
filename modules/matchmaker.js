@@ -1,4 +1,19 @@
 // ===============================
+// CRUISE LINE LOGO MAP
+// ===============================
+export const logoMap = {
+  "Royal Caribbean": "assets/logos/royal.png",
+  "Carnival": "assets/logos/carnival.png",
+  "Norwegian": "assets/logos/norwegian.png",
+  "Disney": "assets/logos/disney.png",
+  "MSC": "assets/logos/msc.png",
+  "Celebrity": "assets/logos/celebrity.png",
+  "Princess": "assets/logos/princess.png",
+  "Holland America": "assets/logos/holland.png",
+  "Costa": "assets/logos/costa.png"
+};
+
+// ===============================
 // CRUISE LINE DATA
 // ===============================
 export const cruiseLines = {
@@ -167,7 +182,7 @@ export function getAllScores(answers = {}) {
 }
 
 // ===============================
-// RESULT RENDERING UI
+// RESULT RENDERING UI (WITH LOGOS)
 // ===============================
 export function renderMatchmakerResult(bestLine, answers) {
   const content = document.getElementById("content");
@@ -175,6 +190,66 @@ export function renderMatchmakerResult(bestLine, answers) {
 
   const card = document.createElement("div");
   card.className = "result-card fade-in";
+
+  // Build booking URL
+  const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
+  bookingUrl.searchParams.set("line", bestLine);
+  bookingUrl.searchParams.set("vibe", answers.vibe || "");
+  bookingUrl.searchParams.set("port", answers.favoritePort || "");
+  bookingUrl.searchParams.set("budget", answers.budget || "");
+
+  // Get logo path
+  const logoSrc = logoMap[bestLine] || "assets/logos/default.png";
+
+  card.innerHTML = `
+    <h2>Your Perfect Cruise Match</h2>
+
+    <!-- Cruise Line Name -->
+    <h2 class="result-cruise-line">${bestLine}</h2>
+
+    <!-- Cruise Line Logo -->
+    <img 
+      src="${logoSrc}" 
+      alt="${bestLine} logo" 
+      class="result-logo"
+    />
+
+    <!-- Booking Button Under Logo -->
+    <a 
+      href="${bookingUrl.toString()}" 
+      target="_blank" 
+      class="primary-btn" 
+      style="margin: 15px 0; display: block; text-align: center;"
+    >
+      Book This Cruise with Ray
+    </a>
+
+    <p class="muted">
+      Based on your preferences, this cruise line best fits your style, vibe, and favorite destinations.
+    </p>
+
+    <h3>Why This Match?</h3>
+    <ul class="result-list">
+      <li><strong>Vibe:</strong> ${answers.vibe || "—"}</li>
+      <li><strong>Style:</strong> ${answers.style || "—"}</li>
+      <li><strong>Favorite Port:</strong> ${answers.favoritePort || "—"}</li>
+      <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
+    </ul>
+
+    <!-- Booking Button at Bottom -->
+    <a 
+      href="${bookingUrl.toString()}" 
+      target="_blank" 
+      class="primary-btn" 
+      style="margin-top: 20px; display: block; text-align: center;"
+    >
+      Book Now with Ray Davis Jr
+    </a>
+  `;
+
+  content.appendChild(card);
+}
+
 
   // Build booking URL
   const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
