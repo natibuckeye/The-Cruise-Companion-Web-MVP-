@@ -1,17 +1,56 @@
 // ===============================
-// CRUISE LINE LOGO MAP
+// CRUISE LINE LOGO MAP (FULL + SAFE)
 // ===============================
 export const logoMap = {
+  // Royal Caribbean
   "Royal Caribbean": "assets/logos/royal.png",
+  "royal caribbean": "assets/logos/royal.png",
+  "royal": "assets/logos/royal.png",
+
+  // Carnival
   "Carnival": "assets/logos/carnival.png",
+  "carnival": "assets/logos/carnival.png",
+  "carnival cruise line": "assets/logos/carnival.png",
+  "carnival cruises": "assets/logos/carnival.png",
+
+  // Norwegian
   "Norwegian": "assets/logos/norwegian.png",
+  "norwegian": "assets/logos/norwegian.png",
+  "norwegian cruise line": "assets/logos/norwegian.png",
+  "ncl": "assets/logos/norwegian.png",
+
+  // Disney
   "Disney": "assets/logos/disney.png",
+  "disney": "assets/logos/disney.png",
+  "disney cruise line": "assets/logos/disney.png",
+
+  // MSC
   "MSC": "assets/logos/msc.png",
+  "msc": "assets/logos/msc.png",
+  "msc cruises": "assets/logos/msc.png",
+
+  // Celebrity
   "Celebrity": "assets/logos/celebrity.png",
+  "celebrity": "assets/logos/celebrity.png",
+  "celebrity cruises": "assets/logos/celebrity.png",
+  "celebrity cruise line": "assets/logos/celebrity.png",
+
+  // Princess
   "Princess": "assets/logos/princess.png",
+  "princess": "assets/logos/princess.png",
+  "princess cruises": "assets/logos/princess.png",
+
+  // Holland America
   "Holland America": "assets/logos/holland.png",
-  "Costa": "assets/logos/costa.png"
+  "holland america": "assets/logos/holland.png",
+  "holland america line": "assets/logos/holland.png",
+
+  // Costa
+  "Costa": "assets/logos/costa.png",
+  "costa": "assets/logos/costa.png",
+  "costa cruises": "assets/logos/costa.png"
 };
+
 
 // ===============================
 // CRUISE LINE DATA
@@ -285,6 +324,18 @@ export function renderMatchmakerResult(bestLine, answers) {
       <li><strong>Favorite Port:</strong> ${answers.favoritePort || "—"}</li>
       <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
     </ul>
+
+    // Normalize the cruise line name for safe lookup
+const normalized = bestLine.trim().toLowerCase();
+
+// Try multiple lookup strategies to guarantee a match
+const logoSrc =
+  logoMap[bestLine] ||
+  logoMap[normalized] ||
+  logoMap[bestLine.replace(/cruises?/i, "").trim()] ||
+  logoMap[normalized.replace(/cruises?/i, "").trim()] ||
+  "assets/logos/default.png";
+
 
     <!-- Booking Button at Bottom -->
     <a 
