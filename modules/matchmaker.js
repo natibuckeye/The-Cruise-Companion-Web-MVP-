@@ -51,7 +51,6 @@ export const logoMap = {
   "costa cruises": "assets/logos/costa.png"
 };
 
-
 // ===============================
 // CRUISE LINE DATA
 // ===============================
@@ -237,23 +236,26 @@ export function renderMatchmakerResult(bestLine, answers) {
   bookingUrl.searchParams.set("port", answers.favoritePort || "");
   bookingUrl.searchParams.set("budget", answers.budget || "");
 
-  // Get logo path
-  const logoSrc = logoMap[bestLine] || "assets/logos/default.png";
+  // Normalize for logo lookup
+  const normalized = bestLine.trim().toLowerCase();
+  const logoSrc =
+    logoMap[bestLine] ||
+    logoMap[normalized] ||
+    logoMap[bestLine.replace(/cruises?/i, "").trim()] ||
+    logoMap[normalized.replace(/cruises?/i, "").trim()] ||
+    "assets/logos/default.png";
 
   card.innerHTML = `
     <h2>Your Perfect Cruise Match</h2>
 
-    <!-- Cruise Line Name -->
     <h2 class="result-cruise-line">${bestLine}</h2>
 
-    <!-- Cruise Line Logo -->
     <img 
       src="${logoSrc}" 
       alt="${bestLine} logo" 
       class="result-logo"
     />
 
-    <!-- Booking Button Under Logo -->
     <a 
       href="${bookingUrl.toString()}" 
       target="_blank" 
@@ -275,7 +277,6 @@ export function renderMatchmakerResult(bestLine, answers) {
       <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
     </ul>
 
-    <!-- Booking Button at Bottom -->
     <a 
       href="${bookingUrl.toString()}" 
       target="_blank" 
@@ -288,69 +289,6 @@ export function renderMatchmakerResult(bestLine, answers) {
 
   content.appendChild(card);
 }
-
-
-  // Build booking URL
-  const bookingUrl = new URL("https://www.foratravel.com/advisor/ray-davis-jr");
-  bookingUrl.searchParams.set("line", bestLine);
-  bookingUrl.searchParams.set("vibe", answers.vibe || "");
-  bookingUrl.searchParams.set("port", answers.favoritePort || "");
-  bookingUrl.searchParams.set("budget", answers.budget || "");
-
-  card.innerHTML = `
-    <h2>Your Perfect Cruise Match</h2>
-
-    <!-- Cruise Line Name -->
-    <h2 class="result-cruise-line">${bestLine}</h2>
-
-    <!-- Booking Button Under Cruise Line -->
-    <a 
-      href="${bookingUrl.toString()}" 
-      target="_blank" 
-      class="primary-btn" 
-      style="margin: 15px 0; display: block; text-align: center;"
-    >
-      Book This Cruise with Ray
-    </a>
-
-    <p class="muted">
-      Based on your preferences, this cruise line best fits your style, vibe, and favorite destinations.
-    </p>
-
-    <h3>Why This Match?</h3>
-    <ul class="result-list">
-      <li><strong>Vibe:</strong> ${answers.vibe || "—"}</li>
-      <li><strong>Style:</strong> ${answers.style || "—"}</li>
-      <li><strong>Favorite Port:</strong> ${answers.favoritePort || "—"}</li>
-      <li><strong>Budget:</strong> ${answers.budget || "—"}</li>
-    </ul>
-
-    // Normalize the cruise line name for safe lookup
-const normalized = bestLine.trim().toLowerCase();
-
-// Try multiple lookup strategies to guarantee a match
-const logoSrc =
-  logoMap[bestLine] ||
-  logoMap[normalized] ||
-  logoMap[bestLine.replace(/cruises?/i, "").trim()] ||
-  logoMap[normalized.replace(/cruises?/i, "").trim()] ||
-  "assets/logos/default.png";
-
-
-    <!-- Booking Button at Bottom -->
-    <a 
-      href="${bookingUrl.toString()}" 
-      target="_blank" 
-      class="primary-btn" 
-      style="margin-top: 20px; display: block; text-align: center;"
-    >
-      Book Now with Ray Davis Jr
-    </a>
-  `;
-
-  content.appendChild(card);
-}
-
 
 // ===============================
 // CONCIERGE BOOKING FORM
